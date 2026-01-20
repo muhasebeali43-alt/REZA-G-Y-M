@@ -3,188 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RE-ZA GİYİM | Premium Store</title>
+    <title>RE-ZA GİYİM | Mağaza</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #fdfbf7; --primary: #1a1a1a; --accent: #a68b6d; --border: #e8e2d9; }
-        body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--bg); color: var(--primary); overflow-x: hidden; }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--bg); color: var(--primary); }
 
-        /* HEADER */
-        .header { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--primary); text-decoration: none; letter-spacing: 2px; }
+        /* HEADER & LOGO */
+        .header { background: #fff; padding: 20px 5%; text-align: center; border-bottom: 1px solid var(--border); position: relative; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 32px; letter-spacing: 4px; cursor: pointer; text-decoration: none; color: #000; }
+        
+        .cart-icon { position: absolute; right: 5%; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 22px; }
+        .badge { position: absolute; top: -10px; right: -12px; background: var(--accent); color: white; font-size: 10px; padding: 2px 7px; border-radius: 50%; }
 
-        /* FİLTRE VE SEPET BUTONLARI */
-        .action-bar { display: flex; gap: 20px; align-items: center; }
-        .filter-trigger { cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 13px; text-transform: uppercase; }
+        /* ÜST KATEGORİ MENÜSÜ */
+        .top-nav { background: #fff; display: flex; justify-content: center; gap: 30px; padding: 15px 0; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .nav-link { text-decoration: none; color: var(--primary); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s; }
+        .nav-link:hover, .nav-link.active { color: var(--accent); border-bottom: 2px solid var(--accent); }
 
-        /* SÜRGÜLÜ FİLTRE PANELİ (SOL) */
-        #filter-panel { position: fixed; left: -400px; top: 0; width: 320px; height: 100%; background: #fff; z-index: 2001; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 40px 30px; box-shadow: 10px 0 30px rgba(0,0,0,0.05); }
-        #filter-panel.active { left: 0; }
-        .filter-section { margin-bottom: 35px; }
-        .filter-section h4 { font-family: 'Playfair Display'; font-size: 18px; border-bottom: 1px solid var(--accent); padding-bottom: 10px; margin-bottom: 15px; }
+        /* ANA İÇERİK DÜZENİ */
+        .main-container { display: flex; padding: 40px 5%; gap: 40px; }
 
-        /* SEPET PANELİ (SAĞ) */
-        #cart-panel { position: fixed; right: -400px; top: 0; width: 320px; height: 100%; background: #fff; z-index: 2001; transition: 0.4s; padding: 40px 30px; box-shadow: -10px 0 30px rgba(0,0,0,0.05); }
-        #cart-panel.active { right: 0; }
-
+        /* SOL SABİT FİLTRE (MASAÜSTÜ) */
+        .sidebar-filter { width: 220px; flex-shrink: 0; position: sticky; top: 80px; height: fit-content; }
+        .filter-group { margin-bottom: 30px; }
+        .filter-group h4 { font-family: 'Playfair Display'; font-size: 18px; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+        
         /* ÜRÜN GRID */
-        .container { padding: 40px 5%; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 30px; }
-        .p-card { background: #fff; border: 1px solid var(--border); padding: 10px; transition: 0.3s; position: relative; }
-        .img-box { width: 100%; height: 320px; overflow: hidden; background: #f9f9f9; }
+        .product-grid { flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; }
+        .p-card { background: #fff; border: 1px solid var(--border); padding: 10px; transition: 0.3s; }
+        .p-card:hover { border-color: var(--accent); }
+        .img-box { width: 100%; height: 280px; overflow: hidden; background: #eee; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* STİL ELEMENTLERİ */
-        .size-btn { border: 1px solid var(--border); background: none; padding: 8px; width: 45px; margin: 3px; cursor: pointer; font-size: 11px; }
-        .size-btn.active { background: var(--primary); color: #fff; }
-        .btn-black { background: var(--primary); color: #fff; border: none; padding: 15px; width: 100%; cursor: pointer; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 2000; display: none; }
-        .overlay.active { display: block; }
+        /* MOBİL FİLTRE BUTONU */
+        .mobile-filter-btn { display: none; background: #000; color: #fff; text-align: center; padding: 10px; margin: 10px 5%; cursor: pointer; }
 
-        @media (max-width: 768px) { 
-            .product-grid { grid-template-columns: 1fr 1fr; gap: 15px; } 
-            #filter-panel, #cart-panel { width: 85%; }
+        /* SEPET PANELİ */
+        #cart-panel { position: fixed; right: -400px; top: 0; width: 350px; height: 100%; background: #fff; z-index: 1001; transition: 0.4s; padding: 30px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        #cart-panel.active { right: 0; }
+
+        @media (max-width: 768px) {
+            .main-container { flex-direction: column; padding: 20px 5%; }
+            .sidebar-filter { display: none; } /* Mobilde gizle */
+            .sidebar-filter.mobile-active { display: block; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: #fff; z-index: 1000; padding: 40px; box-sizing: border-box; }
+            .mobile-filter-btn { display: block; }
+            .product-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            #cart-panel { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-<div id="overlay" class="overlay" onclick="closeAll()"></div>
-
 <header class="header">
-    <div class="filter-trigger" onclick="toggleFilter()">
-        <span>☰ FİLTRELE</span>
-    </div>
-    <a href="#" class="logo">RE-ZA</a>
-    <div class="action-bar">
-        <div onclick="toggleCart()" style="cursor:pointer; position:relative; font-size:22px;">
-            🛒 <span id="badge" style="position:absolute; top:-10px; right:-12px; background:var(--accent); color:white; font-size:10px; padding:2px 7px; border-radius:50%;">0</span>
-        </div>
+    <div class="logo" onclick="changeCategory('Tümü')">RE-ZA</div>
+    <div class="cart-icon" onclick="toggleCart()">
+        🛒 <span id="badge" class="badge">0</span>
     </div>
 </header>
 
-<aside id="filter-panel">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;">
-        <h2 style="font-family:'Playfair Display'; margin:0;">Filtreler</h2>
-        <span onclick="toggleFilter()" style="cursor:pointer; font-size:24px;">✕</span>
-    </div>
+<nav class="top-nav">
+    <span class="nav-link active" onclick="changeCategory('Tümü')">Tümü</span>
+    <span class="nav-link" onclick="changeCategory('Kadın')">Kadın</span>
+    <span class="nav-link" onclick="changeCategory('Erkek')">Erkek</span>
+    <span class="nav-link" onclick="changeCategory('Çocuk')">Çocuk</span>
+</nav>
 
-    <div class="filter-section">
-        <h4>Kategori</h4>
-        <div style="font-size:14px; line-height:2;">
-            <div onclick="setCat('Erkek')">Erkek Koleksiyonu</div>
-            <div onclick="setCat('Kadın')">Kadın Koleksiyonu</div>
-            <div onclick="setCat('Tümü')" style="font-weight:bold; color:var(--accent);">Tüm Ürünler</div>
+<div class="mobile-filter-btn" onclick="toggleMobileFilter()">FİLTRELE</div>
+
+<div class="main-container">
+    <aside class="sidebar-filter" id="sidebar">
+        <div style="display:flex; justify-content:space-between; align-items:center;" class="mobile-only">
+            <h2 style="font-family:'Playfair Display'">Filtreler</h2>
+            <span onclick="toggleMobileFilter()" style="cursor:pointer; font-size:24px;">✕</span>
         </div>
-    </div>
 
-    <div class="filter-section">
-        <h4>Fiyat Aralığı</h4>
-        <input type="range" min="0" max="5000" step="100" value="5000" style="width:100%; accent-color:var(--primary);" oninput="updatePrice(this.value)">
-        <div style="display:flex; justify-content:space-between; margin-top:10px; font-weight:bold;">
-            <span>0 TL</span>
-            <span id="price-val">5000 TL</span>
+        <div class="filter-group">
+            <h4>Fiyat Aralığı</h4>
+            <input type="range" min="0" max="5000" step="100" value="5000" style="width:100%; accent-color:#000;" oninput="updatePrice(this.value)">
+            <div style="display:flex; justify-content:space-between; font-weight:600; margin-top:5px; font-size:13px;">
+                <span>0 TL</span>
+                <span id="price-val">5000 TL</span>
+            </div>
         </div>
-    </div>
 
-    <div class="filter-section">
-        <h4>Beden</h4>
-        <button class="size-btn">XS</button><button class="size-btn active">S</button>
-        <button class="size-btn">M</button><button class="size-btn">L</button>
-        <button class="size-btn">XL</button>
-    </div>
+        <div class="filter-group">
+            <h4>Beden</h4>
+            <div style="display:flex; gap:5px; flex-wrap:wrap;">
+                <button style="padding:5px 10px; border:1px solid #ddd; background:#fff; cursor:pointer;">S</button>
+                <button style="padding:5px 10px; border:1px solid #ddd; background:#fff; cursor:pointer;">M</button>
+                <button style="padding:5px 10px; border:1px solid #ddd; background:#fff; cursor:pointer;">L</button>
+            </div>
+        </div>
+        
+        <button onclick="toggleMobileFilter()" class="mobile-only" style="width:100%; background:#000; color:#fff; padding:15px; border:none; margin-top:20px;">UYGULA</button>
+    </aside>
 
-    <button class="btn-black" onclick="applyAndClose()">UYGULA</button>
-</aside>
+    <main class="product-grid" id="grid"></main>
+</div>
 
-<aside id="cart-panel">
+<div id="cart-panel">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
         <h2 style="font-family:'Playfair Display'; margin:0;">Sepetim</h2>
         <span onclick="toggleCart()" style="cursor:pointer; font-size:24px;">✕</span>
     </div>
     <div id="cart-items" style="flex:1; overflow-y:auto;"></div>
-    <div style="margin-top:20px;">
-        <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:20px; font-size:18px;">
+    <div style="border-top:1px solid #eee; padding-top:20px;">
+        <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:20px;">
             <span>Toplam:</span><span id="total-val">0 TL</span>
         </div>
-        <button class="btn-black" style="background:#25d366;" onclick="whatsapp()">SİPARİŞİ TAMAMLA</button>
+        <button onclick="whatsapp()" style="background:#25d366; color:#fff; width:100%; border:none; padding:15px; font-weight:bold; cursor:pointer; border-radius:4px;">WHATSAPP İLE SİPARİŞ</button>
     </div>
-</aside>
-
-<div class="container">
-    <div class="product-grid" id="grid"></div>
 </div>
 
 <script>
     let products = [];
     let cart = [];
-    let curPrice = 5000;
-    let curCat = 'Tümü';
+    let currentCategory = 'Tümü';
+    let currentMaxPrice = 5000;
 
-    // Ürünleri Başlat
     function init() {
-        const types = ["Tişört", "Kazak", "Gömlek", "Pantolon"];
-        for(let i=1; i<=30; i++) {
-            const gender = i % 2 === 0 ? "Erkek" : "Kadın";
+        const types = ["Tişört", "Kazak", "Pantolon", "Gömlek"];
+        const categories = ["Erkek", "Kadın", "Çocuk"];
+        const images = ["1523381262644-370737955613", "1591195853828-11db59a44f6b", "1598033129183-c4f50c7176c8", "1617137934033-5b1ff2276330"];
+
+        for(let i=0; i<36; i++) {
+            const cat = categories[i % 3];
             products.push({
                 id: i,
-                gender: gender,
-                name: `RE-ZA ${gender} ${types[i%4]}`,
-                price: (Math.floor(Math.random() * 30) + 5) * 100,
-                img: `https://images.unsplash.com/photo-${[
-                    "1523381262644-370737955613", "1591195853828-11db59a44f6b", "1598033129183-c4f50c7176c8", "1617137934033-5b1ff2276330"
-                ][i%4]}?auto=format&fit=crop&w=500&q=80`
+                category: cat,
+                name: `RE-ZA ${cat} ${types[i%4]}`,
+                price: (Math.floor(Math.random() * 30) + 10) * 100,
+                img: `https://images.unsplash.com/photo-${images[i%4]}?auto=format&fit=crop&w=400&q=80`
             });
         }
         render();
     }
 
-    function render(data = products) {
-        let filtered = data.filter(p => p.price <= curPrice);
-        if(curCat !== 'Tümü') filtered = filtered.filter(p => p.gender === curCat);
+    function changeCategory(cat) {
+        currentCategory = cat;
+        // Nav link aktiflik durumu
+        document.querySelectorAll('.nav-link').forEach(el => {
+            el.classList.remove('active');
+            if(el.innerText.toLowerCase() === cat.toLowerCase()) el.classList.add('active');
+        });
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-        document.getElementById('grid').innerHTML = filtered.map(p => `
+    function updatePrice(val) {
+        currentMaxPrice = val;
+        document.getElementById('price-val').innerText = val + " TL";
+        render();
+    }
+
+    function render() {
+        let filtered = products.filter(p => p.price <= currentMaxPrice);
+        if(currentCategory !== 'Tümü') {
+            filtered = filtered.filter(p => p.category === currentCategory);
+        }
+
+        const grid = document.getElementById('grid');
+        grid.innerHTML = filtered.map(p => `
             <div class="p-card">
                 <div class="img-box"><img src="${p.img}"></div>
-                <div style="font-size:13px; font-weight:600; margin-top:12px;">${p.name}</div>
-                <div style="font-weight:700; color:var(--accent); margin:5px 0 10px 0;">${p.price} TL</div>
-                <button onclick="add(${p.id})" style="width:100%; border:1px solid #000; background:none; padding:10px; cursor:pointer; font-weight:bold; font-size:11px;">SEPETE EKLE</button>
+                <div style="font-size:12px; font-weight:600; margin-top:12px;">${p.name}</div>
+                <div style="font-weight:700; color:var(--accent); margin-top:5px;">${p.price} TL</div>
+                <button onclick="addToCart(${p.id})" style="width:100%; border:1px solid #000; background:none; padding:8px; margin-top:10px; cursor:pointer; font-weight:bold; font-size:11px;">SEPETE EKLE</button>
             </div>
         `).join('');
     }
 
-    // PANEL KONTROLLERİ
-    function toggleFilter() { 
-        document.getElementById('filter-panel').classList.toggle('active');
-        document.getElementById('overlay').classList.toggle('active');
-    }
-    function toggleCart() { 
-        document.getElementById('cart-panel').classList.toggle('active');
-        document.getElementById('overlay').classList.toggle('active');
-    }
-    function closeAll() {
-        document.getElementById('filter-panel').classList.remove('active');
-        document.getElementById('cart-panel').classList.remove('active');
-        document.getElementById('overlay').classList.remove('active');
+    function toggleMobileFilter() {
+        document.getElementById('sidebar').classList.toggle('mobile-active');
     }
 
-    function updatePrice(v) {
-        curPrice = v;
-        document.getElementById('price-val').innerText = v + " TL";
-        render();
-    }
-
-    function setCat(c) {
-        curCat = c;
-        render();
-    }
-
-    function applyAndClose() {
-        closeAll();
-    }
-
-    function add(id) {
+    function addToCart(id) {
         cart.push(products.find(p => p.id === id));
         document.getElementById('badge').innerText = cart.length;
         updateCartUI();
@@ -195,18 +189,27 @@
         document.getElementById('cart-items').innerHTML = cart.map((item, idx) => {
             total += item.price;
             return `<div style="display:flex; gap:10px; margin-bottom:15px; align-items:center;">
-                <img src="${item.img}" style="width:50px; height:60px; object-fit:cover;">
+                <img src="${item.item_img || item.img}" style="width:40px; height:50px; object-fit:cover;">
                 <div style="flex:1; font-size:12px;"><b>${item.name}</b><br>${item.price} TL</div>
-                <span onclick="remove(${idx})" style="color:red; cursor:pointer; font-size:11px;">SİL</span>
+                <span onclick="removeFromCart(${idx})" style="color:red; cursor:pointer; font-size:11px;">SİL</span>
             </div>`;
         }).join('');
         document.getElementById('total-val').innerText = total + " TL";
     }
 
-    function remove(idx) { cart.splice(idx, 1); document.getElementById('badge').innerText = cart.length; updateCartUI(); }
+    function removeFromCart(idx) {
+        cart.splice(idx, 1);
+        document.getElementById('badge').innerText = cart.length;
+        updateCartUI();
+    }
+
+    function toggleCart() {
+        document.getElementById('cart-panel').classList.toggle('active');
+    }
 
     function whatsapp() {
-        let msg = "Yeni Sipariş:%0A";
+        if(cart.length === 0) return alert("Sepetiniz boş.");
+        let msg = "*YENİ SİPARİŞ*%0A";
         cart.forEach(i => msg += `- ${i.name} (${i.price} TL)%0A`);
         window.location.href = `https://wa.me/905331709622?text=${msg}`;
     }
