@@ -3,136 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RE-ZA Giyim | Exclusive Store</title>
+    <title>RE-ZA Giyim | Profesyonel Mağaza</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --ana-renk: #2c3e50; --vurgu: #c0392b; --arka-plan: #fdfdfd; --yazi: #333; }
-        body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--arka-plan); color: var(--yazi); }
+        :root { 
+            --ana-renk: #2c3e50; 
+            --vurgu: #c0392b; 
+            --arka-plan: #fdfdfd; 
+            --yazi: #333; 
+            --yesil: #27ae60;
+        }
         
-        /* Navigasyon */
-        .header { background: white; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 26px; font-weight: 700; color: var(--ana-renk); text-decoration: none; letter-spacing: 3px; }
-        .cart-btn { position: relative; cursor: pointer; font-size: 28px; background: none; border: none; transition: 0.3s; }
-        .cart-btn:hover { transform: scale(1.1); }
-        .badge { position: absolute; top: -5px; right: -8px; background: var(--vurgu); color: white; border-radius: 50%; padding: 2px 8px; font-size: 12px; font-weight: bold; }
-
-        /* Kategori Menüsü (Üstte) */
-        .category-bar { background: #fff; padding: 20px 0; display: flex; justify-content: center; gap: 20px; border-bottom: 1px solid #eee; }
-        .cat-btn { padding: 10px 30px; border: 2px solid var(--ana-renk); background: transparent; color: var(--ana-renk); border-radius: 30px; cursor: pointer; font-weight: 600; transition: 0.3s; }
-        .cat-btn.active, .cat-btn:hover { background: var(--ana-renk); color: white; }
-
-        /* Ürün Listesi */
-        .container { padding: 40px 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 35px; }
-        .product-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: 0.4s; position: relative; }
-        .product-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        .img-box { width: 100%; height: 380px; overflow: hidden; background: #eee; }
-        .product-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .product-card:hover .product-img { transform: scale(1.08); }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            margin: 0; 
+            background: var(--arka-plan); 
+            color: var(--yazi); 
+            scroll-behavior: smooth;
+        }
         
-        .details { padding: 20px; text-align: center; }
-        .details h3 { margin: 10px 0; font-size: 18px; font-weight: 600; }
-        .gender-tag { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
-        .price { font-size: 20px; font-weight: 700; color: var(--ana-renk); margin-bottom: 20px; }
+        /* Navigasyon & Logo */
+        .header { 
+            background: white; 
+            padding: 15px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05); 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+        }
         
-        .add-btn { background: var(--ana-renk); color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; transition: 0.3s; }
-        .add-btn:hover { background: #1a252f; }
-
-        /* Sepet Paneli */
-        #cart-panel { position: fixed; right: -400px; top: 0; width: 350px; height: 100%; background: white; z-index: 2000; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); padding: 30px; box-shadow: -10px 0 30px rgba(0,0,0,0.1); }
-        #cart-panel.active { right: 0; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
-        .cart-item { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 14px; }
-        .checkout-btn { background: #27ae60; color: white; border: none; width: 100%; padding: 18px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 20px; font-size: 16px; }
-
-        @media (max-width: 600px) { .container { grid-template-columns: 1fr; } .category-bar { flex-wrap: wrap; } }
-    </style>
-</head>
-<body>
-
-<header class="header">
-    <a href="#" class="logo">RE-ZA GİYİM</a>
-    <button class="cart-btn" onclick="toggleCart()">
-        🛒 <span class="badge" id="cart-count">0</span>
-    </button>
-</header>
-
-<div class="category-bar">
-    <button class="cat-btn active" onclick="filterProducts('Tümü', this)">TÜM ÜRÜNLER</button>
-    <button class="cat-btn" onclick="filterProducts('Erkek', this)">ERKEK</button>
-    <button class="cat-btn" onclick="filterProducts('Kadın', this)">KADIN</button>
-</div>
-
-<div id="cart-panel">
-    <div class="cart-header">
-        <h2>Sepetiniz</h2>
-        <span onclick="toggleCart()" style="cursor:pointer; font-size:24px;">✕</span>
-    </div>
-    <div id="cart-items"></div>
-    <div style="margin-top:20px; padding-top:20px; border-top:2px solid #eee;">
-        <div style="display:flex; justify-content:space-between; font-weight:700; font-size:20px;">
-            <span>Toplam:</span>
-            <span><span id="total-price">0</span> TL</span>
-        </div>
-        <button class="checkout-btn" onclick="sendWhatsApp()">SİPARİŞİ WHATSAPP'TAN GÖNDER</button>
-    </div>
-</div>
-
-<div class="container" id="product-list"></div>
-
-<script>
-    let cart = [];
-    const products = [
-        { id: 1, name: "Premium Slim Fit Tişört", price: 350, gender: "Erkek", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80" },
-        { id: 2, name: "V-Yaka Bohem Elbise", price: 750, gender: "Kadın", img: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=800&q=80" },
-        { id: 3, name: "Chino Kanvas Pantolon", price: 500, gender: "Erkek", img: "https://images.unsplash.com/photo-1473966968600-fa804b86d30b?auto=format&fit=crop&w=800&q=80" },
-        { id: 4, name: "Oversize Klasik Ceket", price: 1200, gender: "Kadın", img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=800&q=80" },
-        { id: 5, name: "Deri Detaylı Mont", price: 1500, gender: "Erkek", img: "https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&fit=crop&w=800&q=80" },
-        { id: 6, name: "İpek Saten Gömlek", price: 650, gender: "Kadın", img: "https://images.unsplash.com/photo-1603189343302-e603f7add05a?auto=format&fit=crop&w=800&q=80" }
-    ];
-
-    function render(data) {
-        const list = document.getElementById('product-list');
-        list.innerHTML = data.map(u => `
-            <div class="product-card">
-                <div class="img-box">
-                    <img src="${u.img}" class="product-img" alt="${u.name}">
-                </div>
-                <div class="details">
-                    <div class="gender-tag">${u.gender}</div>
-                    <h3>${u.name}</h3>
-                    <div class="price">${u.price} TL</div>
-                    <button class="add-btn" onclick="addToCart(${u.id})">SEPETE EKLE</button>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    function filterProducts(gender, btn) {
-        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filtered = gender === 'Tümü' ? products : products.filter(p => p.gender === gender);
-        render(filtered);
-    }
-
-    function addToCart(id) {
-        const p = products.find(x => x.id === id);
-        cart.push(p);
-        updateCart();
-        toggleCart(true);
-    }
-
-    function updateCart() {
-        const itemsDiv = document.getElementById('cart-items');
-        let total = 0;
-        itemsDiv.innerHTML = cart.map(i => {
-            total += i.price;
-            return `<div class="cart-item"><span>${i.name}</span><span>${i.price} TL</span></div>`;
-        }).join('');
-        document.getElementById('cart-count').innerText = cart.length;
-        document.getElementById('total-price').innerText = total;
-    }
-
-    function toggleCart(open) {
-        const p = document.getElementById('cart-panel');
-        if(open === true) p.classList.add('active');
-        else p.classList.toggle
+        .logo { 
+            font-size: 24px; 
+            font-weight: 700; 
+            color: var(--ana-renk); 
+            text-decoration: none; 
+            letter-spacing: 2px; 
+        }
+        
+        .cart-btn { 
+            position: relative; 
+            cursor: pointer; 
+            font-size: 28px; 
+            background: none; 
+            border: none; 
+        }
