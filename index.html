@@ -3,131 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RE-ZA Giyim | Mağaza</title>
+    <title>RE-ZA Giyim | Sepetli Mağaza</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --ana-yesil: #4a5d4e; 
-            --vurgu-turuncu: #e67e22; 
-            --arka-plan: #f4f4f4;
-            --koyu-gri: #2d3436;
-        }
-        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: var(--arka-plan); color: #333; line-height: 1.6; }
+        :root { --ana-yesil: #4a5d4e; --vurgu-turuncu: #e67e22; --arka-plan: #f4f4f4; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; background: var(--arka-plan); }
         
-        /* Üst Menü */
+        /* Navbar ve Sepet Sayacı */
         .navbar { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 26px; font-weight: bold; color: var(--ana-yesil); letter-spacing: 3px; }
-        
-        /* Kahraman Bölümü (Banner) */
-        .hero { background: var(--ana-yesil); color: white; padding: 60px 20px; text-align: center; }
-        .hero h1 { margin: 0; font-size: 2.5em; }
+        .logo { font-size: 24px; font-weight: bold; color: var(--ana-yesil); text-decoration: none; }
+        .cart-icon { position: relative; cursor: pointer; font-size: 24px; }
+        .cart-count { position: absolute; top: -10px; right: -10px; background: var(--vurgu-turuncu); color: white; border-radius: 50%; padding: 2px 7px; font-size: 12px; font-weight: bold; }
 
-        /* Ürün Alanı */
-        .container { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 25px; 
-            padding: 40px 5%; 
-        }
+        .hero { background: var(--ana-yesil); color: white; padding: 40px 20px; text-align: center; }
+        
+        /* Ürünler */
+        .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; padding: 30px 5%; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; padding-bottom: 15px; }
+        .product-img { width: 100%; height: 300px; object-fit: cover; }
+        .price { font-size: 20px; font-weight: bold; color: var(--ana-yesil); margin: 10px 0; }
+        
+        .add-to-cart { background: var(--ana-yesil); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .add-to-cart:hover { opacity: 0.8; }
 
-        .card { background: white; border-radius: 15px; overflow: hidden; transition: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 12px 20px rgba(0,0,0,0.15); }
+        /* Sepet Paneli */
+        #cart-panel { position: fixed; right: -350px; top: 0; width: 300px; height: 100%; background: white; shadow: -2px 0 10px rgba(0,0,0,0.2); z-index: 2000; transition: 0.3s; padding: 25px; box-shadow: -5px 0 15px rgba(0,0,0,0.1); }
+        #cart-panel.active { right: 0; }
+        .cart-item { border-bottom: 1px solid #eee; padding: 10px 0; display: flex; justify-content: space-between; }
+        .checkout-btn { background: #25d366; color: white; border: none; width: 100%; padding: 15px; margin-top: 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
         
-        .product-img { width: 100%; height: 380px; object-fit: cover; background: #ddd; }
-        
-        .info { padding: 20px; text-align: center; }
-        .product-name { font-size: 18px; font-weight: 600; margin-bottom: 10px; color: #2d3436; }
-        .price { font-size: 24px; font-weight: bold; color: var(--ana-yesil); margin-bottom: 15px; }
-        
-        .buy-btn { 
-            background: var(--vurgu-turuncu); 
-            color: white; 
-            border: none; 
-            padding: 12px; 
-            width: 100%; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-weight: bold;
-            font-size: 14px;
-            transition: 0.3s;
-            text-transform: uppercase;
-        }
-        .buy-btn:hover { background: #d35400; }
-
-        /* İletişim & Footer */
-        .footer { background: var(--koyu-gri); color: white; padding: 50px 5%; margin-top: 50px; }
-        .footer-content { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
-        .footer-section { flex: 1; min-width: 280px; }
-        .footer-section h3 { color: var(--vurgu-turuncu); margin-bottom: 20px; border-bottom: 1px solid #444; padding-bottom: 10px; }
-        .contact-link { color: white; text-decoration: none; font-weight: bold; }
-        .contact-link:hover { color: var(--vurgu-turuncu); }
-        
-        .copyright { text-align: center; padding-top: 30px; border-top: 1px solid #444; margin-top: 30px; font-size: 14px; opacity: 0.7; }
-
-        /* Mobil Ayarlar */
-        @media (max-width: 600px) {
-            .hero h1 { font-size: 1.8em; }
-            .container { padding: 20px 3%; }
-        }
+        footer { background: #2d3436; color: white; text-align: center; padding: 20px; margin-top: 40px; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">RE-ZA GİYİM</div>
-        <div style="font-size: 20px;">🛒</div>
-    </nav>
+<nav class="navbar">
+    <a href="#" class="logo">RE-ZA GİYİM</a>
+    <div class="cart-icon" onclick="toggleCart()">
+        🛒 <span class="cart-count" id="cart-count">0</span>
+    </div>
+</nav>
 
-    <header class="hero">
-        <h1>Yeni Sezon Koleksiyonu</h1>
-        <p>Tarzınızı RE-ZA kalitesi ve şıklığıyla tamamlayın.</p>
-    </header>
+<div id="cart-panel">
+    <h3>Sepetiniz</h3>
+    <div id="cart-items"></div>
+    <hr>
+    <div style="font-weight: bold; font-size: 18px;">Toplam: <span id="total-price">0</span> TL</div>
+    <button class="checkout-btn" onclick="sendWhatsApp()">WHATSAPP İLE SİPARİŞİ TAMAMLA</button>
+    <button onclick="toggleCart()" style="margin-top:10px; border:none; background:none; cursor:pointer; color:red;">Kapat</button>
+</div>
 
-    <div class="container" id="urun-listesi">
-        </div>
+<header class="hero">
+    <h1>RE-ZA Mağazasına Hoş Geldiniz</h1>
+</header>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>RE-ZA GİYİM</h3>
-                <p>Modern tasarımlar ve kaliteli kumaşlarla giyim dünyasında fark yaratıyoruz.</p>
+<div class="container" id="urun-listesi"></div>
+
+<footer>
+    <p>İzzet Reha Gül - 0 533 170 96 22</p>
+    <p>&copy; 2026 RE-ZA Giyim</p>
+</footer>
+
+<script>
+    let cart = [];
+    const whatsappNo = "905331709622";
+    const urunler = [];
+
+    // 20 Örnek ürün oluştur
+    for(let i=1; i<=20; i++) {
+        urunler.push({ id: i, name: `RE-ZA Ürün #${i}`, price: 1.00 });
+    }
+
+    // Ürünleri Listele
+    const liste = document.getElementById('urun-listesi');
+    urunler.forEach(urun => {
+        liste.innerHTML += `
+            <div class="card">
+                <img src="https://picsum.photos/400/500?random=${urun.id}" class="product-img">
+                <h3>${urun.name}</h3>
+                <div class="price">${urun.price.toFixed(2)} TL</div>
+                <button class="add-to-cart" onclick="addToCart(${urun.id})">SEPETE EKLE</button>
             </div>
-            
-            <div class="footer-section">
-                <h3>İletişim Bilgileri</h3>
-                <p><strong>Yetkili:</strong> İzzet Reha Gül</p>
-                <p><strong>Telefon:</strong> <a href="tel:+905331709622" class="contact-link">0 533 170 96 22</a></p>
-            </div>
+        `;
+    });
 
-            <div class="footer-section">
-                <h3>Mağaza Adresi</h3>
-                <p style="font-style: italic; color: #bdc3c7;">Adres bilgisi yakında buraya eklenecektir.</p>
-            </div>
-        </div>
+    function addToCart(id) {
+        const urun = urunler.find(u => u.id === id);
+        cart.push(urun);
+        updateCart();
+        if(!document.getElementById('cart-panel').classList.contains('active')) toggleCart();
+    }
+
+    function updateCart() {
+        const cartItems = document.getElementById('cart-items');
+        const cartCount = document.getElementById('cart-count');
+        const totalPrice = document.getElementById('total-price');
         
-        <div class="copyright">
-            &copy; 2026 RE-ZA Giyim. Tüm Hakları Saklıdır.
-        </div>
-    </footer>
-
-    <script>
-        const liste = document.getElementById('urun-listesi');
-        const whatsappNo = "905331709622"; 
-
-        for (let i = 1; i <= 20; i++) {
-            liste.innerHTML += `
-                <div class="card">
-                    <img src="https://picsum.photos/500/700?random=${i}" class="product-img" alt="RE-ZA Ürün">
-                    <div class="info">
-                        <div class="product-name">RE-ZA Özel Tasarım Ürün #${i}</div>
-                        <div class="price">1.00 TL</div>
-                        <button class="buy-btn" onclick="window.location.href='https://wa.me/${whatsappNo}?text=Merhaba, RE-ZA Özel Tasarım Ürün #${i} hakkında bilgi almak istiyorum.'">
-                            WHATSAPP İLE SİPARİŞ VER
-                        </button>
-                    </div>
+        cartItems.innerHTML = '';
+        let total = 0;
+        
+        cart.forEach((item, index) => {
+            total += item.price;
+            cartItems.innerHTML += `
+                <div class="cart-item">
+                    <span>${item.name}</span>
+                    <span>${item.price.toFixed(2)} TL</span>
                 </div>
             `;
-        }
-    </script>
+        });
+        
+        cartCount.innerText = cart.length;
+        totalPrice.innerText = total.toFixed(2);
+    }
+
+    function toggleCart() {
+        document.getElementById('cart-panel').classList.toggle('active');
+    }
+
+    function sendWhatsApp() {
+        if(cart.length === 0) return alert("Sepetiniz boş!");
+        
+        let mesaj = "Merhaba RE-ZA Giyim, şu ürünleri sipariş vermek istiyorum:%0A%0A";
+        cart.forEach(item => {
+            mesaj += `- ${item.name} (${item.price.toFixed(2)} TL)%0A`;
+        });
+        mesaj += `%0A*Toplam Tutar: ${document.getElementById('total-price').innerText} TL*`;
+        
+        window.location.href = `https://wa.me/${whatsappNo}?text=${mesaj}`;
+    }
+</script>
 
 </body>
 </html>
