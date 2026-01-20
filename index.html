@@ -3,74 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RE-ZA | Professional Store</title>
+    <title>RE-ZA | Premium Shopping</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #fdfbf7; --primary: #1a1a1a; --accent: #a68b6d; --border: #e8e2d9; }
-        body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--bg); color: var(--primary); }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--bg); color: var(--primary); overflow-x: hidden; }
 
         /* HEADER & NAV */
         .header { background: #fff; padding: 20px 5%; text-align: center; border-bottom: 1px solid var(--border); position: relative; }
         .logo { font-family: 'Playfair Display', serif; font-size: 32px; letter-spacing: 4px; cursor: pointer; color: #000; text-decoration: none; }
-        
-        .top-nav { background: #fff; display: flex; justify-content: center; gap: 40px; padding: 0; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+        .top-nav { background: #fff; display: flex; justify-content: center; gap: 40px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
         .nav-item { position: relative; padding: 20px 0; cursor: pointer; }
-        .nav-link { font-size: 12px; font-weight: 600; text-transform: uppercase; }
+        .nav-link { font-size: 11px; font-weight: 600; text-transform: uppercase; }
 
         /* DROPDOWN */
         .dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: #fff; min-width: 160px; border: 1px solid var(--border); display: none; padding: 10px 0; z-index: 1100; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
         .nav-item:hover .dropdown { display: block; }
         .dropdown a { display: block; padding: 10px 20px; font-size: 11px; text-decoration: none; color: #666; text-transform: uppercase; }
-        .dropdown a:hover { background: var(--bg); color: var(--accent); }
 
-        /* MAIN CONTAINER */
+        /* SEPET PANELİ (DÜZELTİLEN KISIM) */
+        #cart-drawer { position: fixed; right: -400px; top: 0; width: 350px; height: 100%; background: #fff; z-index: 4000; transition: 0.4s; box-shadow: -10px 0 30px rgba(0,0,0,0.1); padding: 30px; display: flex; flex-direction: column; }
+        #cart-drawer.active { right: 0; }
+        .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3500; display: none; }
+        .cart-overlay.active { display: block; }
+        .cart-item { display: flex; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        
+        /* GRID & CARDS */
         .main-container { display: flex; padding: 40px 5%; gap: 40px; }
-        .sidebar { width: 220px; flex-shrink: 0; position: sticky; top: 100px; height: fit-content; }
-        .product-grid { flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 30px; }
-
-        /* PRODUCT CARDS */
-        .p-card { background: #fff; border: 1px solid var(--border); padding: 10px; cursor: pointer; position: relative; transition: 0.3s; }
-        .img-box { width: 100%; height: 320px; overflow: hidden; position: relative; }
+        .sidebar { width: 200px; flex-shrink: 0; position: sticky; top: 100px; height: fit-content; }
+        .product-grid { flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; }
+        .p-card { background: #fff; border: 1px solid var(--border); padding: 10px; cursor: pointer; position: relative; }
+        .img-box { width: 100%; height: 280px; overflow: hidden; position: relative; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        .quick-add-btn { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.8); color: #fff; text-align: center; padding: 12px 0; font-size: 10px; font-weight: 700; transform: translateY(100%); transition: 0.3s; }
+        .quick-add-btn { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.8); color: #fff; text-align: center; padding: 10px 0; font-size: 10px; transform: translateY(100%); transition: 0.3s; }
         .p-card:hover .quick-add-btn { transform: translateY(0); }
 
-        /* SIZE OVERLAY (Ana sayfa hızlı seçim) */
         .size-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 20; }
         .size-overlay.active { display: flex; }
-        .size-options { display: flex; gap: 8px; margin-top: 10px; }
-        .size-dot { width: 35px; height: 35px; border: 1px solid #000; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 11px; }
-        .size-dot:hover { background: #000; color: #fff; }
-
-        /* MODAL (DETAY SAYFASI) */
-        .modal { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:3000; display:none; justify-content:center; align-items:center; }
-        .modal-content { background:#fff; width:95%; max-width:1000px; height:85vh; display:flex; position:relative; overflow:hidden; }
-        .modal-left { flex: 1.2; overflow-y: auto; background: #fff; }
-        .modal-right { flex: 1; padding: 40px; overflow-y: auto; display: flex; flex-direction: column; border-left: 1px solid var(--border); }
         
-        .tab-btn { padding: 10px 0; font-size: 11px; font-weight: 600; cursor: pointer; opacity: 0.5; margin-right: 20px; border-bottom: 2px solid transparent; }
-        .tab-btn.active { opacity: 1; border-bottom-color: #000; }
-        .tab-content { display: none; font-size: 13px; line-height: 1.6; padding-top: 15px; }
-        .tab-content.active { display: block; }
-
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 11px; }
-        table th, table td { border: 1px solid #eee; padding: 8px; text-align: center; }
+        /* MODAL */
+        .modal { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:3000; display:none; justify-content:center; align-items:center; }
+        .modal-content { background:#fff; width:90%; max-width:900px; height:80vh; display:flex; position:relative; overflow:hidden; }
 
         @media (max-width: 768px) {
             .main-container { flex-direction: column; }
             .sidebar { display: none; }
-            .modal-content { flex-direction: column; height: 95vh; }
-            .modal-left { height: 350px; flex: none; }
-            .product-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            #cart-drawer { width: 100%; right: -100%; }
         }
     </style>
 </head>
 <body>
 
+<div id="cart-overlay" class="cart-overlay" onclick="toggleCart()"></div>
+<div id="cart-drawer">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+        <h2 style="font-family:'Playfair Display'; margin:0;">Sepetim</h2>
+        <span onclick="toggleCart()" style="cursor:pointer; font-size:24px;">✕</span>
+    </div>
+    <div id="cart-list" style="flex:1; overflow-y:auto;">
+        </div>
+    <div style="border-top: 1px solid #eee; padding-top: 20px;">
+        <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:20px;">
+            <span>TOPLAM:</span><span id="cart-total">0 TL</span>
+        </div>
+        <button onclick="sendToWhatsapp()" style="width:100%; background:#25d366; color:#fff; border:none; padding:15px; font-weight:700; cursor:pointer; border-radius:4px;">SİPARİŞİ TAMAMLA (WhatsApp)</button>
+    </div>
+</div>
+
 <header class="header">
     <div class="logo" onclick="resetPage()">RE-ZA</div>
-    <div style="position:absolute; right:5%; top:50%; transform:translateY(-50%); cursor:pointer; font-size:22px;" onclick="whatsapp()">
+    <div style="position:absolute; right:5%; top:50%; transform:translateY(-50%); cursor:pointer; font-size:22px;" onclick="toggleCart()">
         🛒 <span id="badge" style="position:absolute; top:-10px; right:-12px; background:var(--accent); color:white; font-size:10px; padding:2px 7px; border-radius:50%;">0</span>
     </div>
 </header>
@@ -83,7 +86,6 @@
             <a onclick="filter('Kadın', 'Hepsi')">Tüm Kadın</a>
             <a onclick="filter('Kadın', 'Elbise')">Elbiseler</a>
             <a onclick="filter('Kadın', 'Kazak')">Kazaklar</a>
-            <a onclick="filter('Kadın', 'Pantolon')">Pantolonlar</a>
         </div>
     </div>
     <div class="nav-item">
@@ -91,7 +93,6 @@
         <div class="dropdown">
             <a onclick="filter('Erkek', 'Hepsi')">Tüm Erkek</a>
             <a onclick="filter('Erkek', 'Gömlek')">Gömlekler</a>
-            <a onclick="filter('Erkek', 'Kazak')">Kazaklar</a>
             <a onclick="filter('Erkek', 'Pantolon')">Pantolonlar</a>
         </div>
     </div>
@@ -99,61 +100,32 @@
 
 <div class="main-container">
     <aside class="sidebar">
-        <h4 style="border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 20px;">FİLTRELER</h4>
-        <p style="font-size: 12px; font-weight: 600;">MAKSİMUM FİYAT</p>
+        <h4 style="border-bottom:2px solid #000; padding-bottom:5px;">FİLTRELER</h4>
+        <p style="font-size:11px; font-weight:700; margin-top:20px;">FİYAT</p>
         <input type="range" min="0" max="5000" value="5000" style="width:100%; accent-color:#000;" oninput="updatePrice(this.value)">
-        <div id="price-val" style="font-weight:700; font-size:14px; margin: 10px 0 30px 0;">5000 TL</div>
-        
-        <div style="font-size: 13px; line-height: 2.2;">
-            <div onclick="filter('Kadın','Hepsi')" style="cursor:pointer">Kadın Koleksiyonu</div>
-            <div onclick="filter('Erkek','Hepsi')" style="cursor:pointer">Erkek Koleksiyonu</div>
-            <div onclick="resetPage()" style="cursor:pointer; color:var(--accent); font-weight:bold;">Tümünü Temizle</div>
-        </div>
+        <div id="price-val" style="font-weight:700; margin-top:5px;">5000 TL</div>
     </aside>
 
     <main style="flex:1;">
-        <h2 id="display-title" style="font-family:'Playfair Display'; text-transform:uppercase; margin-bottom:30px;">Tüm Koleksiyon</h2>
+        <h2 id="display-title" style="font-family:'Playfair Display'; margin-bottom:30px;">KOLEKSİYON</h2>
         <div class="product-grid" id="grid"></div>
     </main>
 </div>
 
-<div id="product-modal" class="modal" onclick="closeByOverlay(event)">
+<div id="product-modal" class="modal" onclick="this.style.display='none'">
     <div class="modal-content" onclick="event.stopPropagation()">
-        <span onclick="closeModal()" style="position:absolute; right:20px; top:15px; font-size:24px; cursor:pointer; z-index:100;">✕</span>
-        <div class="modal-left">
-            <img id="m-img" src="" style="width:100%; height:100%; object-fit:cover;">
-        </div>
-        <div class="modal-right">
-            <h2 id="m-title" style="font-family:'Playfair Display'; margin:0;"></h2>
-            <h3 id="m-price" style="color:var(--accent); margin:10px 0 20px 0;"></h3>
-            
-            <div style="display:flex; border-bottom:1px solid #eee;">
-                <span class="tab-btn active" onclick="openTab(event, 'tab-info')">ÖZELLİKLER</span>
-                <span class="tab-btn" onclick="openTab(event, 'tab-size')">BEDEN TABLOSU</span>
-            </div>
-
-            <div id="tab-info" class="tab-content active">
-                <p><b>Malzeme:</b> %100 Premium Pamuk doku. Cilt dostu ve nefes alan yapı.</p>
-                <p><b>Yıkama:</b> 30°C hassas yıkama önerilir. Tersinden ütüleyiniz.</p>
-            </div>
-
-            <div id="tab-size" class="tab-content">
-                <table>
-                    <tr><th>Beden</th><th>En</th><th>Boy</th></tr>
-                    <tr><td>S</td><td>50cm</td><td>70cm</td></tr>
-                    <tr><td>M</td><td>53cm</td><td>72cm</td></tr>
-                    <tr><td>L</td><td>56cm</td><td>74cm</td></tr>
-                </table>
-            </div>
-
-            <div style="margin-top:auto;">
-                <p style="font-size:11px; font-weight:700; margin-bottom:10px;">BEDEN SEÇİNİZ</p>
-                <div style="display:flex; gap:10px; margin-bottom:20px;">
-                    <div class="size-dot" onclick="addWithSize(event, -1, 'S')">S</div>
-                    <div class="size-dot" onclick="addWithSize(event, -1, 'M')">M</div>
-                    <div class="size-dot" onclick="addWithSize(event, -1, 'L')">L</div>
+        <div style="flex:1;"><img id="m-img" src="" style="width:100%; height:100%; object-fit:cover;"></div>
+        <div style="flex:1; padding:40px; display:flex; flex-direction:column;">
+            <h2 id="m-title" style="font-family:'Playfair Display';"></h2>
+            <h3 id="m-price" style="color:var(--accent);"></h3>
+            <p style="font-size:13px; color:#666;">%100 Pamuk, Premium Seri. Beden tablosuna bakarak seçiminizi yapabilirsiniz.</p>
+            <div style="margin-top:20px; border-top:1px solid #eee; padding-top:20px;">
+                <p style="font-size:11px; font-weight:700;">BEDEN SEÇ:</p>
+                <div style="display:flex; gap:10px;">
+                    <button onclick="addFromModal('S')" style="padding:10px 15px; border:1px solid #000; background:none; cursor:pointer;">S</button>
+                    <button onclick="addFromModal('M')" style="padding:10px 15px; border:1px solid #000; background:none; cursor:pointer;">M</button>
+                    <button onclick="addFromModal('L')" style="padding:10px 15px; border:1px solid #000; background:none; cursor:pointer;">L</button>
                 </div>
-                <button id="modal-add-btn" style="width:100%; background:#000; color:#fff; border:none; padding:18px; font-weight:700; cursor:pointer;">SEPETE EKLE</button>
             </div>
         </div>
     </div>
@@ -162,60 +134,35 @@
 <script>
     let products = [];
     let cart = [];
-    let curMax = 5000;
-    let curMain = 'Tümü';
-    let curSub = 'Hepsi';
-    let currentProductInModal = null;
+    let currentModalProduct = null;
 
     function init() {
-        const cats = ["Kadın", "Erkek"];
-        const types = ["Kazak", "Pantolon", "Elbise", "Gömlek"];
-        for(let i=0; i<36; i++) {
-            const m = cats[i%2];
+        const types = ["Kazak", "Gömlek", "Pantolon", "Elbise"];
+        for(let i=0; i<24; i++) {
             products.push({
-                id: i, main: m, sub: types[i%4],
-                name: `RE-ZA ${m} ${types[i%4]}`,
+                id: i, main: i%2==0 ? "Erkek" : "Kadın", sub: types[i%4],
+                name: `RE-ZA ${i%2==0 ? "Erkek" : "Kadın"} ${types[i%4]}`,
                 price: (Math.floor(Math.random() * 20) + 10) * 100,
-                img: `https://images.unsplash.com/photo-${["1523381262644-370737955613", "1591195853828-11db59a44f6b", "1598033129183-c4f50c7176c8", "1617137934033-5b1ff2276330"][i%4]}?auto=format&fit=crop&w=600&q=80`
+                img: `https://images.unsplash.com/photo-${["1523381262644-370737955613", "1591195853828-11db59a44f6b", "1598033129183-c4f50c7176c8", "1617137934033-5b1ff2276330"][i%4]}?auto=format&fit=crop&w=500&q=80`
             });
         }
         render();
     }
 
-    function filter(main, sub) {
-        if(event) event.stopPropagation();
-        curMain = main;
-        curSub = sub;
-        document.getElementById('display-title').innerText = (main === 'Tümü' ? 'Tüm Koleksiyon' : (main + " " + (sub === 'Hepsi' ? '' : sub)));
-        render();
-    }
-
-    function updatePrice(v) {
-        curMax = v;
-        document.getElementById('price-val').innerText = v + " TL";
-        render();
-    }
-
     function render() {
-        let f = products.filter(p => p.price <= curMax);
-        if(curMain !== 'Tümü') f = f.filter(p => p.main === curMain);
-        if(curSub !== 'Hepsi') f = f.filter(p => p.sub === curSub);
-
-        const grid = document.getElementById('grid');
-        grid.innerHTML = f.map(p => `
+        document.getElementById('grid').innerHTML = products.map(p => `
             <div class="p-card" onclick="openModal(${p.id})">
                 <div class="img-box">
                     <img src="${p.img}">
                     <div class="size-overlay" id="so-${p.id}">
                         <span style="font-size:10px; font-weight:700;">BEDEN SEÇ</span>
-                        <div class="size-options">
-                            <div class="size-dot" onclick="addWithSize(event, ${p.id}, 'S')">S</div>
-                            <div class="size-dot" onclick="addWithSize(event, ${p.id}, 'M')">M</div>
-                            <div class="size-dot" onclick="addWithSize(event, ${p.id}, 'L')">L</div>
+                        <div style="display:flex; gap:5px; margin-top:10px;">
+                            <div style="border:1px solid #000; padding:5px 8px; font-size:10px;" onclick="addQuick(event, ${p.id}, 'S')">S</div>
+                            <div style="border:1px solid #000; padding:5px 8px; font-size:10px;" onclick="addQuick(event, ${p.id}, 'M')">M</div>
+                            <div style="border:1px solid #000; padding:5px 8px; font-size:10px;" onclick="addQuick(event, ${p.id}, 'L')">L</div>
                         </div>
-                        <p onclick="toggleQuickSize(event, ${p.id}, false)" style="font-size:9px; text-decoration:underline; margin-top:10px;">Kapat</p>
                     </div>
-                    <div class="quick-add-btn" onclick="toggleQuickSize(event, ${p.id}, true)">HIZLI EKLE +</div>
+                    <div class="quick-add-btn" onclick="toggleSO(event, ${p.id}, true)">HIZLI EKLE +</div>
                 </div>
                 <div style="font-size:12px; font-weight:600; margin-top:12px;">${p.name}</div>
                 <div style="font-weight:700; color:var(--accent); margin-top:5px;">${p.price} TL</div>
@@ -223,66 +170,77 @@
         `).join('');
     }
 
-    // MODAL FONKSİYONLARI
-    function openModal(id) {
+    // SEPET YÖNETİMİ
+    function toggleCart() {
+        document.getElementById('cart-drawer').classList.toggle('active');
+        document.getElementById('cart-overlay').classList.toggle('active');
+    }
+
+    function addQuick(e, id, size) {
+        e.stopPropagation();
         const p = products.find(x => x.id === id);
-        currentProductInModal = p;
-        document.getElementById('m-img').src = p.img;
-        document.getElementById('m-title').innerText = p.name;
-        document.getElementById('m-price').innerText = p.price + " TL";
-        document.getElementById('product-modal').style.display = 'flex';
-        document.body.style.overflow = 'hidden';
+        addToCart(p, size);
+        toggleSO(e, id, false);
     }
 
-    function closeModal() {
-        document.getElementById('product-modal').style.display = 'none';
-        document.body.style.overflow = 'auto';
+    function addToCart(p, size) {
+        cart.push({...p, size: size, cartId: Date.now()});
+        updateCartUI();
+        toggleCart(); // Sepet eklendiğinde paneli aç
     }
 
-    function openTab(evt, tabId) {
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
-        evt.currentTarget.classList.add('active');
+    function updateCartUI() {
+        document.getElementById('badge').innerText = cart.length;
+        let total = 0;
+        document.getElementById('cart-list').innerHTML = cart.map(item => {
+            total += item.price;
+            return `
+                <div class="cart-item">
+                    <img src="${item.img}" style="width:60px; height:70px; object-fit:cover;">
+                    <div style="flex:1;">
+                        <div style="font-size:12px; font-weight:600;">${item.name}</div>
+                        <div style="font-size:11px; color:#666;">Beden: ${item.size}</div>
+                        <div style="font-weight:700; font-size:13px; margin-top:5px;">${item.price} TL</div>
+                    </div>
+                    <span onclick="removeFromCart(${item.cartId})" style="color:red; font-size:10px; cursor:pointer; font-weight:700;">SİL</span>
+                </div>
+            `;
+        }).join('');
+        document.getElementById('cart-total').innerText = total + " TL";
     }
 
-    // EKLEME İŞLEMLERİ
-    function toggleQuickSize(e, id, show) {
+    function removeFromCart(cartId) {
+        cart = cart.filter(i => i.cartId !== cartId);
+        updateCartUI();
+    }
+
+    function sendToWhatsapp() {
+        if(cart.length === 0) return alert("Sepetiniz boş!");
+        let msg = "*YENİ SİPARİŞ - RE-ZA GİYİM*%0A%0A";
+        cart.forEach(i => msg += `- ${i.name} (${i.size}) - ${i.price} TL%0A`);
+        window.location.href = `https://wa.me/905331709622?text=${msg}`;
+    }
+
+    // DİĞER FONKSİYONLAR
+    function toggleSO(e, id, show) {
         e.stopPropagation();
         document.getElementById(`so-${id}`).classList.toggle('active', show);
     }
 
-    function addWithSize(e, id, size) {
-        e.stopPropagation();
-        const p = id === -1 ? currentProductInModal : products.find(x => x.id === id);
-        cart.push({...p, size: size});
-        document.getElementById('badge').innerText = cart.length;
-        
-        if(id !== -1) {
-            const el = document.getElementById(`so-${id}`);
-            el.innerHTML = "<b style='color:#25d366'>EKLENDİ!</b>";
-            setTimeout(() => { el.classList.remove('active'); render(); }, 800);
-        } else {
-            closeModal();
-        }
+    function openModal(id) {
+        currentModalProduct = products.find(x => x.id === id);
+        document.getElementById('m-img').src = currentModalProduct.img;
+        document.getElementById('m-title').innerText = currentModalProduct.name;
+        document.getElementById('m-price').innerText = currentModalProduct.price + " TL";
+        document.getElementById('product-modal').style.display = 'flex';
     }
 
-    function resetPage() {
-        curMax = 5000;
-        curMain = 'Tümü';
-        curSub = 'Hepsi';
-        document.getElementById('display-title').innerText = 'Tüm Koleksiyon';
-        render();
+    function addFromModal(size) {
+        addToCart(currentModalProduct, size);
+        document.getElementById('product-modal').style.display = 'none';
     }
 
-    function closeByOverlay(e) { if(e.target.className === 'modal') closeModal(); }
-
-    function whatsapp() {
-        if(cart.length === 0) return alert("Sepetiniz boş.");
-        let msg = "*RE-ZA SİPARİŞ*%0A";
-        cart.forEach(i => msg += `- ${i.name} [${i.size}] (${i.price} TL)%0A`);
-        window.location.href = `https://wa.me/905331709622?text=${msg}`;
-    }
+    function resetPage() { location.reload(); }
 
     init();
 </script>
