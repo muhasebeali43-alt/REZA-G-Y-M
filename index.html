@@ -3,65 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RE-ZA | Premium Fashion Boutique</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>RE-ZA | Haute Couture & Boutique</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #fdfbf7; --primary: #1a1a1a; --accent: #a68b6d; --border: #e8e2d9; }
+        :root { --bg: #fdfbf7; --primary: #1a1a1a; --accent: #a68b6d; --border: #e8e2d9; --white: #ffffff; }
         body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--bg); color: var(--primary); overflow-x: hidden; }
 
         /* HEADER & LOGO */
-        .header { background: #fff; padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2000; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 30px; letter-spacing: 6px; cursor: pointer; position: absolute; left: 50%; transform: translateX(-50%); text-decoration: none; color: #000; font-weight: 700; }
-        
+        .header { background: var(--white); padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2000; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 32px; letter-spacing: 8px; cursor: pointer; position: absolute; left: 50%; transform: translateX(-50%); text-decoration: none; color: #000; font-weight: 700; }
         .header-icons { display: flex; gap: 20px; align-items: center; margin-left: auto; }
         .auth-btn { display: flex; align-items: center; gap: 8px; padding: 10px 22px; border: 1.5px solid #000; border-radius: 50px; cursor: pointer; font-size: 11px; font-weight: 700; text-transform: uppercase; background: #fff; transition: 0.3s; }
         .auth-btn:hover { background: #000; color: #fff; }
-        
         .cart-trigger { cursor: pointer; font-size: 22px; position: relative; }
         #badge { position: absolute; top: -8px; right: -10px; background: var(--accent); color: #fff; font-size: 10px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 700; }
 
-        /* NAV & DROPDOWN */
-        .top-nav { background: #fff; display: flex; justify-content: center; gap: 40px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+        /* NAV & CATEGORY FUNCTION */
+        .top-nav { background: var(--white); display: flex; justify-content: center; gap: 40px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
         .nav-item { position: relative; padding: 20px 0; cursor: pointer; }
         .nav-link { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; }
-        .dropdown { position: absolute; top: 100%; left: 0; background: #fff; min-width: 220px; border: 1px solid var(--border); display: none; padding: 15px 0; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .dropdown { position: absolute; top: 100%; left: 0; background: var(--white); min-width: 220px; border: 1px solid var(--border); display: none; padding: 15px 0; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
         .nav-item:hover .dropdown { display: block; }
-        .dropdown a { display: block; padding: 12px 25px; font-size: 12px; text-decoration: none; color: #555; }
+        .dropdown a { display: block; padding: 12px 25px; font-size: 12px; text-decoration: none; color: #555; cursor: pointer; }
         .dropdown a:hover { background: var(--bg); color: var(--accent); }
 
-        /* MAIN LAYOUT */
+        /* GRID & CARDS */
         .main-container { display: flex; padding: 40px 5%; gap: 50px; }
         .sidebar { width: 240px; flex-shrink: 0; position: sticky; top: 120px; height: fit-content; }
-        .filter-group { margin-bottom: 35px; }
-        .filter-title { font-size: 12px; font-weight: 700; margin-bottom: 15px; display: block; text-transform: uppercase; border-bottom: 1px solid #000; padding-bottom: 5px; }
-        
-        /* Beden Seçimi */
-        .size-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .size-box { border: 1px solid var(--border); padding: 10px; text-align: center; font-size: 12px; cursor: pointer; transition: 0.2s; background: #fff; }
-        .size-box:hover, .size-box.active { background: #000; color: #fff; border-color: #000; }
-
-        /* PRODUCT GRID */
-        .product-grid { flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
-        .p-card { background: #fff; border: 1px solid var(--border); padding: 12px; cursor: pointer; position: relative; overflow: hidden; }
-        .img-box { width: 100%; height: 350px; overflow: hidden; background: #f4f4f4; position: relative; }
+        .product-grid { flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+        .p-card { background: var(--white); border: 1px solid var(--border); padding: 12px; cursor: pointer; position: relative; overflow: hidden; }
+        .img-box { width: 100%; height: 380px; overflow: hidden; position: relative; background: #f4f4f4; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
         .p-card:hover img { transform: scale(1.05); }
         
-        .quick-view { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.8); color: #fff; padding: 15px 0; text-align: center; font-size: 11px; font-weight: 700; transform: translateY(100%); transition: 0.3s; }
-        .p-card:hover .quick-view { transform: translateY(0); }
+        /* HIZLI EKLE BUTONU */
+        .quick-add-btn { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.9); color: #fff; padding: 18px 0; text-align: center; font-size: 11px; font-weight: 700; transform: translateY(100%); transition: 0.3s; z-index: 10; }
+        .p-card:hover .quick-add-btn { transform: translateY(0); }
 
-        /* SEPET & DETAY PANELLERİ (DRAWER) */
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 5000; display: none; backdrop-filter: blur(4px); }
-        .drawer { position: fixed; right: -500px; top: 0; width: 450px; height: 100%; background: #fff; z-index: 6000; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; }
+        /* BÜYÜTEÇ SİSTEMİ (ZOOM) */
+        .zoom-container { position: relative; overflow: hidden; cursor: crosshair; flex: 1.2; background: #f9f9f9; height: 100%; }
+        .zoom-container img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.1s ease-out; transform-origin: center center; }
+
+        /* DRAWER & OVERLAYS */
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 5000; display: none; backdrop-filter: blur(8px); }
+        .drawer { position: fixed; right: -500px; top: 0; width: 450px; height: 100%; background: #fff; z-index: 6000; transition: 0.5s; padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; }
         .drawer.active { right: 0; }
 
-        /* MOBİL */
+        /* DETAY SAYFASI (TAM EKRAN) */
+        #product-detail-page { position: fixed; top: 0; left: -100%; width: 100%; height: 100%; background: #fff; z-index: 8000; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; }
+        #product-detail-page.active { left: 0; }
+
+        /* MOBİL AYARLAR */
         @media (max-width: 768px) {
             .sidebar { display: none; }
             .product-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-            .drawer { width: 100%; right: -100%; }
-            .img-box { height: 240px; }
-            .logo { font-size: 22px; }
+            .logo { font-size: 24px; letter-spacing: 4px; }
+            .mobile-stack { flex-direction: column; overflow-y: auto; }
+            .zoom-container { height: 350px; flex: none; }
         }
     </style>
 </head>
@@ -71,7 +69,7 @@
 
 <div id="cart-drawer" class="drawer">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
-        <h2 style="font-family:'Playfair Display'; margin:0;">Sepetim</h2>
+        <h2 style="font-family:'Playfair Display'; margin:0;">Sepetiniz</h2>
         <span onclick="closeAll()" style="cursor:pointer; font-size:30px;">✕</span>
     </div>
     <div id="cart-items" style="flex:1; overflow-y:auto;"></div>
@@ -79,34 +77,41 @@
         <div style="display:flex; justify-content:space-between; font-weight:700; font-size:20px; margin-bottom:20px;">
             <span>TOPLAM:</span><span id="cart-total">0 TL</span>
         </div>
-        <button onclick="sendWhatsApp()" style="width:100%; background:#25d366; color:#fff; border:none; padding:20px; font-weight:700; cursor:pointer; font-size:14px; border-radius:5px;">SİPARİŞİ WHATSAPP İLE BİTİR</button>
+        <button onclick="sendWhatsApp()" style="width:100%; background:#25d366; color:#fff; border:none; padding:20px; font-weight:700; cursor:pointer; font-size:14px;">SİPARİŞİ WHATSAPP İLE TAMAMLA</button>
     </div>
 </div>
 
-<div id="product-detail" class="drawer" style="right: auto; left: -100%; width: 100%; max-width: 100%; transition: 0.6s;">
-    <div style="max-width: 1200px; margin: 0 auto; width: 100%; height: 100%; display: flex; flex-direction: column;">
-        <div style="display:flex; justify-content:space-between; align-items:center; padding: 20px 0;">
-            <span onclick="closeAll()" style="cursor:pointer; font-weight:700; font-size:14px;">← GERİ DÖN</span>
-            <h2 id="d-title" style="font-family:'Playfair Display'; margin:0;"></h2>
-            <span onclick="closeAll()" style="cursor:pointer; font-size:30px;">✕</span>
+<div id="product-detail-page">
+    <div style="padding: 20px 5%; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+        <span onclick="closeAll()" style="cursor:pointer; font-weight:700; letter-spacing:1px; font-size:12px;">← ALIŞVERİŞE DEVAM ET</span>
+        <div style="font-family:'Playfair Display'; font-size:24px; letter-spacing:4px;">RE-ZA</div>
+        <span onclick="closeAll()" style="cursor:pointer; font-size:30px;">✕</span>
+    </div>
+    
+    <div style="display:flex; flex:1; overflow:hidden;" class="mobile-stack">
+        <div class="zoom-container" onmousemove="zoomIn(event)" onmouseleave="zoomOut()">
+            <img id="d-img" src="">
         </div>
-        <div style="display:flex; gap:50px; flex:1; overflow:hidden;" class="mobile-stack">
-            <div style="flex:1.2; height: 100%;"><img id="d-img" src="" style="width:100%; height:100%; object-fit:contain; background:#f9f9f9;"></div>
-            <div style="flex:1; padding-top:40px;">
-                <h1 id="d-price" style="font-size:36px; color:var(--accent); margin:0;"></h1>
-                <p style="margin:30px 0; line-height:1.8; color:#666;">Bu özel RE-ZA tasarımı, en yüksek kalite kumaşlar kullanılarak titizlikle üretilmiştir. Sınırlı sayıda üretilen bu parça ile stilinizi bir üst seviyeye taşıyın.</p>
-                
-                <div class="filter-group">
-                    <span class="filter-title">BEDEN SEÇİMİ</span>
-                    <div class="size-grid" id="detail-sizes">
-                        <div class="size-box" onclick="setSiz(this, 'S')">S</div>
-                        <div class="size-box" onclick="setSiz(this, 'M')">M</div>
-                        <div class="size-box" onclick="setSiz(this, 'L')">L</div>
-                        <div class="size-box" onclick="setSiz(this, 'XL')">XL</div>
-                    </div>
+        
+        <div style="flex:1; padding: 60px; display: flex; flex-direction: column; overflow-y: auto;">
+            <h1 id="d-title" style="font-family:'Playfair Display'; font-size:42px; margin:0 0 10px 0;"></h1>
+            <h2 id="d-price" style="color:var(--accent); font-size:32px; font-weight:400; margin-bottom:40px;"></h2>
+            
+            <p style="line-height:2; color:#555; font-size:15px; margin-bottom:40px;">
+                RE-ZA Premium koleksiyonunun bu eşsiz parçası, el işçiliği detayları ve sürdürülebilir kumaş teknolojisi ile tasarlanmıştır. 
+                Modern silüeti ve zamansız duruşuyla gardırobunuzun en değerli parçası olmaya aday.
+            </p>
+
+            <div style="margin-bottom:40px;">
+                <span style="font-size:11px; font-weight:700; display:block; margin-bottom:15px; letter-spacing:1px;">BEDEN SEÇİN</span>
+                <div style="display:flex; gap:15px;">
+                    <button class="size-box-detail" onclick="setSiz(this, 'S')" style="padding:15px 30px; border:1px solid #ddd; background:none; cursor:pointer;">S</button>
+                    <button class="size-box-detail" onclick="setSiz(this, 'M')" style="padding:15px 30px; border:1px solid #ddd; background:none; cursor:pointer;">M</button>
+                    <button class="size-box-detail" onclick="setSiz(this, 'L')" style="padding:15px 30px; border:1px solid #ddd; background:none; cursor:pointer;">L</button>
                 </div>
-                <button onclick="addToCartFinal()" style="width:100%; background:#000; color:#fff; border:none; padding:25px; font-weight:700; cursor:pointer; font-size:16px; margin-top:30px;">SEPETE EKLE</button>
             </div>
+
+            <button onclick="addToCartFinal()" style="width:100%; background:#000; color:#fff; border:none; padding:25px; font-weight:700; cursor:pointer; font-size:16px; transition:0.3s;">SEPETE EKLE</button>
         </div>
     </div>
 </div>
@@ -115,46 +120,45 @@
     <div style="width:150px;"></div>
     <a href="javascript:void(0)" onclick="location.reload()" class="logo">RE-ZA</a>
     <div class="header-icons">
-        <div class="auth-btn" onclick="alert('Üye Girişi')">👤 <span>ÜYE GİRİŞİ</span></div>
+        <div class="auth-btn">👤 <span>ÜYE GİRİŞİ</span></div>
         <div class="cart-trigger" onclick="openCart()">🛒 <span id="badge">0</span></div>
     </div>
 </header>
 
 <nav class="top-nav">
-    <div class="nav-item" onclick="location.reload()"><span class="nav-link">Tümü</span></div>
+    <div class="nav-item" onclick="filterCategory('Tümü')"><span class="nav-link">Tümü</span></div>
     <div class="nav-item">
         <span class="nav-link">Kadın ▾</span>
         <div class="dropdown">
-            <a href="#">Yeni Gelenler</a><a href="#">Elbiseler</a><a href="#">Dış Giyim</a><a href="#">Triko</a><a href="#">Aksesuar</a>
+            <a onclick="filterCategory('Elbise')">Elbiseler</a>
+            <a onclick="filterCategory('Kadın Ceket')">Ceket & Palto</a>
+            <a onclick="filterCategory('Kadın Takı')">Aksesuar</a>
         </div>
     </div>
     <div class="nav-item">
         <span class="nav-link">Erkek ▾</span>
         <div class="dropdown">
-            <a href="#">Ceket & Palto</a><a href="#">Gömlek</a><a href="#">Pantolon</a><a href="#">Ayakkabı</a>
+            <a onclick="filterCategory('Gömlek')">Gömlekler</a>
+            <a onclick="filterCategory('Erkek Pantolon')">Pantolonlar</a>
+            <a onclick="filterCategory('Erkek Takım')">Takım Elbise</a>
         </div>
     </div>
     <div class="nav-item">
         <span class="nav-link">Çocuk ▾</span>
         <div class="dropdown">
-            <a href="#">Bebek</a><a href="#">Kız Çocuk</a><a href="#">Erkek Çocuk</a><a href="#">Oyuncak</a>
+            <a onclick="filterCategory('Bebek')">Bebek Giyim</a>
+            <a onclick="filterCategory('Oyuncak')">Oyuncaklar</a>
         </div>
     </div>
 </nav>
 
 <div class="main-container">
     <aside class="sidebar">
-        <div class="filter-group">
-            <span class="filter-title">FİYAT ARALIĞI (MAX)</span>
-            <input type="range" min="0" max="10000" value="10000" style="width:100%; accent-color:#000;" oninput="document.getElementById('pr-v').innerText = this.value + ' TL'">
-            <div id="pr-v" style="font-weight:700; margin-top:10px;">10000 TL</div>
-        </div>
-        <div class="filter-group">
-            <span class="filter-title">BEDEN</span>
-            <div class="size-grid">
-                <div class="size-box">S</div><div class="size-box">M</div><div class="size-box">L</div>
-                <div class="size-box">XL</div><div class="size-box">XXL</div>
-            </div>
+        <h4 style="border-bottom:2px solid #000; padding-bottom:10px; font-size:14px; letter-spacing:1px;">FİLTRELER</h4>
+        <div style="margin-top:30px;">
+            <span style="font-size:11px; font-weight:700; display:block; margin-bottom:15px;">FİYAT (MAX)</span>
+            <input type="range" min="0" max="15000" value="15000" style="width:100%; accent-color:#000;" oninput="updatePriceFilter(this.value)">
+            <div id="price-v" style="font-weight:700; margin-top:10px; font-size:18px;">15000 TL</div>
         </div>
     </aside>
 
@@ -167,31 +171,34 @@
     let cart = [];
     let currentP = null;
     let selectedS = "";
-
-    // 50 ÜRÜNLÜK VERİ SETİ (Kesin Kıyafet Görselleri)
-    const imgs = [
-        "1591054333671-2940f35505ba", "1539106723-7a503a404668", "1595341888053-9ef0d674b102",
-        "1596755094544-b83b63cc0b2b", "1551028150-64d9fe8ef9af", "1541339946-45222440b2f1",
-        "1434389671581-1b60bad7d903", "1624378439575-d8705ad7ae80", "1604176356209-bfd5bb27ca95"
-    ];
-    const names = ["Kruvaze Kaban", "Triko Kazak", "Saten Elbise", "Oxford Gömlek", "Deri Ceket", "Denim Pantolon", "Hırka", "Spor Ceket", "Şık Bluz"];
-    
     let products = [];
+
+    // 50 FARKLI GÖRSEL VE ÜRÜN OLUŞTURMA
+    const fashionImages = [
+        "1581063539031-01f60024764d", "1515886657613-9f3515b0c78f", "1539106723-7a503a404668",
+        "1595341888053-9ef0d674b102", "1490481651845-84024bd3584a", "1549298916-35cd0784ee9b",
+        "1604176356209-bfd5bb27ca95", "1434389671581-1b60bad7d903", "1617137934032-29bc0448d0a6"
+    ];
+
+    const cats = ["Elbise", "Gömlek", "Kadın Ceket", "Erkek Pantolon", "Bebek", "Oyuncak", "Erkek Takım"];
+
     for(let i=1; i<=50; i++) {
         products.push({
             id: i,
-            name: `RE-ZA ${names[i % names.length]} - No:${i}`,
-            price: (Math.floor(Math.random() * 20) + 5) * 200,
-            img: `https://images.unsplash.com/photo-${imgs[i % imgs.length]}?auto=format&fit=crop&w=600&q=80`
+            category: cats[i % cats.length],
+            name: `RE-ZA ${cats[i % cats.length]} Design No:${i}`,
+            price: (Math.floor(Math.random() * 50) + 10) * 200,
+            img: `https://images.unsplash.com/photo-${fashionImages[i % fashionImages.length]}?auto=format&fit=crop&w=1000&q=80`
         });
     }
 
-    function render() {
-        document.getElementById('grid').innerHTML = products.map(p => `
-            <div class="p-card" onclick="openDetail(${p.id})">
+    function render(data = products) {
+        const grid = document.getElementById('grid');
+        grid.innerHTML = data.map(p => `
+            <div class="p-card" onclick="openDetailPage(${p.id})">
                 <div class="img-box">
                     <img src="${p.img}" loading="lazy">
-                    <div class="quick-view">ÜRÜNÜ İNCELE</div>
+                    <div class="quick-add-btn">HIZLI EKLE +</div>
                 </div>
                 <div style="font-size:12px; font-weight:600; margin-top:15px; height:35px; overflow:hidden;">${p.name}</div>
                 <div style="font-weight:700; color:var(--accent); margin-top:8px;">${p.price} TL</div>
@@ -199,16 +206,38 @@
         `).join('');
     }
 
-    function openDetail(id) {
+    // KATEGORİ FİLTRELEME ÇALIŞIYOR
+    function filterCategory(cat) {
+        if(cat === 'Tümü') render(products);
+        else render(products.filter(p => p.category === cat));
+    }
+
+    function openDetailPage(id) {
         currentP = products.find(x => x.id === id);
-        document.getElementById('d-img').src = currentP.img;
+        const img = document.getElementById('d-img');
+        img.src = currentP.img;
+        img.style.transform = "scale(1)"; // Reset zoom
         document.getElementById('d-title').innerText = currentP.name;
         document.getElementById('d-price').innerText = currentP.price + " TL";
         selectedS = "";
-        document.querySelectorAll('#detail-sizes .size-box').forEach(b => b.classList.remove('active'));
         
-        document.getElementById('product-detail').style.left = '0';
+        document.getElementById('product-detail-page').classList.add('active');
         document.getElementById('overlay').style.display = 'block';
+    }
+
+    // BÜYÜTEÇ FONKSİYONU
+    function zoomIn(e) {
+        const img = document.getElementById('d-img');
+        const container = e.currentTarget;
+        const x = e.clientX - container.offsetLeft;
+        const y = e.clientY - container.offsetTop;
+        
+        img.style.transformOrigin = `${(x / container.offsetWidth) * 100}% ${(y / container.offsetHeight) * 100}%`;
+        img.style.transform = "scale(2.5)";
+    }
+
+    function zoomOut() {
+        document.getElementById('d-img').style.transform = "scale(1)";
     }
 
     function openCart() {
@@ -218,13 +247,13 @@
 
     function closeAll() {
         document.getElementById('cart-drawer').classList.remove('active');
-        document.getElementById('product-detail').style.left = '-100%';
+        document.getElementById('product-detail-page').classList.remove('active');
         document.getElementById('overlay').style.display = 'none';
     }
 
     function setSiz(el, s) {
-        document.querySelectorAll('#detail-sizes .size-box').forEach(b => b.classList.remove('active'));
-        el.classList.add('active');
+        document.querySelectorAll('.size-box-detail').forEach(b => b.style.borderColor = '#ddd');
+        el.style.borderColor = '#000';
         selectedS = s;
     }
 
@@ -233,7 +262,7 @@
         cart.push({...currentP, size: selectedS, cid: Date.now()});
         updateCart();
         closeAll();
-        openCart(); // Ürün eklenince sepeti göster
+        openCart();
     }
 
     function updateCart() {
@@ -246,7 +275,7 @@
                     <img src="${item.img}" style="width:70px; height:90px; object-fit:cover;">
                     <div style="flex:1;">
                         <div style="font-size:12px; font-weight:700;">${item.name}</div>
-                        <div style="font-size:11px; color:#888; margin:5px 0;">Beden: ${item.size}</div>
+                        <div style="font-size:11px; color:#888;">Beden: ${item.size}</div>
                         <div style="font-weight:700;">${item.price} TL</div>
                     </div>
                     <span onclick="removeFromCart(${item.cid})" style="color:red; cursor:pointer; font-weight:700;">✕</span>
@@ -261,10 +290,14 @@
         updateCart();
     }
 
+    function updatePriceFilter(v) {
+        document.getElementById('price-v').innerText = v + " TL";
+        render(products.filter(p => p.price <= v));
+    }
+
     function sendWhatsApp() {
-        if(cart.length === 0) return alert("Sepetiniz boş!");
-        let msg = "*RE-ZA SİPARİŞ HATTI*%0A%0A";
-        cart.forEach(i => msg += `- ${i.name} (Beden: ${i.size}) - ${i.price} TL%0A`);
+        let msg = "*RE-ZA SİPARİŞ*%0A";
+        cart.forEach(i => msg += `- ${i.name} (${i.size}) - ${i.price} TL%0A`);
         window.location.href = `https://wa.me/905331709622?text=${msg}`;
     }
 
