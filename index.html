@@ -9,135 +9,116 @@
         :root { --bg: #fdfbf7; --accent: #a68b6d; --border: #e8e2d9; --white: #ffffff; --black: #1a1a1a; }
         body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--bg); color: var(--black); overflow-x: hidden; }
 
-        /* HEADER & ÜYE GİRİŞİ */
-        .header { background: var(--white); padding: 0 5%; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; position: sticky; top: 0; z-index: 2000; height: 70px; }
-        .header-left { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .login-text { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 26px; letter-spacing: 4px; text-decoration: none; color: #000; font-weight: 700; }
-        .header-right { display: flex; justify-content: flex-end; align-items: center; }
+        /* HEADER */
+        .header { background: var(--white); padding: 0 5%; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; position: sticky; top: 0; z-index: 2000; height: 60px; }
+        .header-left { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 22px; letter-spacing: 3px; text-decoration: none; color: #000; font-weight: 700; }
 
-        /* KATEGORİLER */
-        .top-nav { background: var(--white); display: flex; justify-content: center; border-bottom: 1px solid var(--border); position: sticky; top: 70px; z-index: 1500; overflow-x: auto; white-space: nowrap; }
-        .nav-item { position: relative; padding: 15px 20px; cursor: pointer; }
+        /* MOBİL UYUMLU KATEGORİ VE ALT SEKME */
+        .top-nav { background: var(--white); display: flex; justify-content: center; border-bottom: 1px solid var(--border); position: sticky; top: 60px; z-index: 1500; overflow-x: auto; white-space: nowrap; padding: 0 10px; }
+        .nav-item { position: relative; padding: 15px 12px; cursor: pointer; display: inline-block; }
         .nav-link { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-        .dropdown { position: absolute; top: 100%; left: 0; background: #fff; min-width: 180px; border: 1px solid var(--border); display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .nav-item:hover .dropdown { display: block; }
-        .dropdown a { display: block; padding: 12px 20px; font-size: 11px; text-decoration: none; color: #666; }
+        
+        /* Dropdown (Masaüstü ve Mobil için ortak çözüm) */
+        .dropdown { position: absolute; top: 100%; left: 0; background: #fff; min-width: 160px; border: 1px solid var(--border); display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.1); z-index: 3000; }
+        .nav-item:hover .dropdown, .nav-item.active .dropdown { display: block; }
+        .dropdown a { display: block; padding: 12px 15px; font-size: 11px; text-decoration: none; color: #666; border-bottom: 1px solid #f9f9f9; }
 
         /* ANA KONTEYNER */
-        .main-container { display: flex; padding: 30px 5%; gap: 40px; }
-        .sidebar { width: 230px; flex-shrink: 0; }
-        .sidebar-title { font-size: 11px; font-weight: 700; border-bottom: 1px solid #000; padding-bottom: 10px; margin-bottom: 15px; text-transform: uppercase; margin-top: 30px; }
-        .sidebar-title:first-child { margin-top: 0; }
+        .main-container { display: flex; padding: 20px 5%; gap: 30px; }
+        .sidebar { width: 220px; flex-shrink: 0; }
+        .sidebar-title { font-size: 10px; font-weight: 700; border-bottom: 1px solid #000; padding-bottom: 8px; margin-bottom: 15px; text-transform: uppercase; margin-top: 25px; }
 
-        /* BEDEN FİLTRESİ (YENİLENMİŞ) */
-        .size-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-        .f-size { border: 1px solid var(--border); padding: 10px 0; text-align: center; font-size: 10px; cursor: pointer; background: #fff; font-weight: 600; transition: 0.2s; }
-        .f-size.active { background: var(--black); color: #fff; border-color: var(--black); }
+        /* BEDEN FİLTRESİ */
+        .size-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+        .f-size { border: 1px solid var(--border); padding: 8px 0; text-align: center; font-size: 10px; cursor: pointer; background: #fff; }
+        .f-size.active { background: var(--black); color: #fff; }
 
-        /* FİYAT FİLTRESİ */
-        .price-opt { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 12px; cursor: pointer; }
-        .custom-price-inputs { display: flex; gap: 5px; align-items: center; margin-top: 10px; }
-        .custom-price-inputs input { width: 65px; padding: 8px; border: 1px solid var(--border); font-size: 11px; }
-
-        /* ÜRÜN KARTLARI */
-        .product-grid { flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
+        /* ÜRÜN GRID */
+        .product-grid { flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
         .p-card { background: var(--white); padding: 10px; cursor: pointer; }
-        .img-box { width: 100%; height: 320px; overflow: hidden; background: #f4f4f4; }
+        .img-box { width: 100%; height: 280px; overflow: hidden; background: #f4f4f4; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* ÜYE GİRİŞ MODAL */
-        .auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10000; display: none; justify-content: center; align-items: center; }
-        .auth-box { background: #fff; padding: 40px; width: 320px; border-radius: 4px; position: relative; }
-
-        /* ZOOM MODAL */
-        .detail-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9000; display: none; justify-content: center; align-items: center; }
-        .detail-card { width: 100%; max-width: 950px; background: #fff; display: flex; position: relative; max-height: 90vh; overflow: hidden; }
-        .zoom-area { flex: 1.3; background: #000; display: flex; align-items: center; justify-content: center; cursor: zoom-in; position: relative; }
-        .zoom-area img { width: 100%; height: auto; max-height: 100%; object-fit: contain; }
+        /* MODALLAR (ÜYE & DETAY) */
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; display: none; justify-content: center; align-items: center; }
+        .auth-box { background: #fff; padding: 30px; width: 300px; text-align: center; }
         
-        #full-view { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 11000; display: none; align-items: center; justify-content: center; cursor: zoom-out; }
+        .detail-card { width: 95%; max-width: 900px; background: #fff; display: flex; position: relative; max-height: 90vh; overflow: hidden; }
+        .zoom-area { flex: 1.2; background: #000; display: flex; align-items: center; justify-content: center; cursor: zoom-in; }
+        .zoom-area img { width: 100%; height: auto; max-height: 100%; }
+
+        #full-view { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 11000; display: none; align-items: center; justify-content: center; }
 
         @media (max-width: 768px) {
-            .header-left .login-text { display: none; }
             .sidebar { display: none; }
             .product-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-            .detail-card { flex-direction: column; height: 100vh; }
-            .zoom-area { height: 45vh; flex: none; }
+            .detail-card { flex-direction: column; }
+            .zoom-area { height: 40vh; }
+            .login-text { display: none; }
         }
     </style>
 </head>
 <body>
 
-<div id="loginModal" class="auth-overlay" onclick="if(event.target==this) this.style.display='none'">
+<div id="loginModal" class="overlay" onclick="if(event.target==this) this.style.display='none'">
     <div class="auth-box">
-        <h2 style="font-family:'Playfair Display'; margin-top:0;">Üye Girişi</h2>
-        <input type="email" placeholder="E-posta" style="width:100%; padding:12px; margin:8px 0; border:1px solid #eee;">
-        <input type="password" placeholder="Şifre" style="width:100%; padding:12px; margin:8px 0; border:1px solid #eee;">
-        <button style="background:var(--black); color:#fff; border:none; width:100%; padding:15px; cursor:pointer; font-weight:700;">GİRİŞ YAP</button>
+        <h2 style="font-family:'Playfair Display'">Giriş Yap</h2>
+        <input type="email" placeholder="E-posta" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ddd;">
+        <input type="password" placeholder="Şifre" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ddd;">
+        <button style="width:100%; padding:12px; background:var(--black); color:#fff; border:none; font-weight:700;">DEVAM ET</button>
     </div>
 </div>
 
 <div id="full-view" onclick="this.style.display='none'">
-    <img id="full-src" style="max-width:100%; height:auto;">
+    <img id="full-src" style="max-width:100%">
 </div>
 
 <header class="header">
     <div class="header-left" onclick="document.getElementById('loginModal').style.display='flex'">
         <span style="font-size: 20px;">👤</span>
-        <span class="login-text">ÜYE GİRİŞİ / KAYIT</span>
+        <span class="login-text" style="font-size:10px; font-weight:700;">GİRİŞ YAP</span>
     </div>
     <a href="#" class="logo">RE-ZA</a>
-    <div class="header-right">
-        <div style="cursor:pointer; font-size:22px;">🛒</div>
-    </div>
+    <div class="header-right" style="font-size:20px;">🛒</div>
 </header>
 
 <nav class="top-nav">
     <div class="nav-item" onclick="resetFilters()"><span class="nav-link">Tümü</span></div>
-    <div class="nav-item">
-        <span class="nav-link">Kadın</span>
+    <div class="nav-item" onclick="toggleMobDropdown(this)">
+        <span class="nav-link">Kadın ▾</span>
         <div class="dropdown">
             <a onclick="filterCat('Elbise')">Elbiseler</a>
             <a onclick="filterCat('Ceket')">Ceketler</a>
+            <a onclick="filterCat('Bluz')">Bluzlar</a>
         </div>
     </div>
-    <div class="nav-item">
-        <span class="nav-link">Erkek</span>
+    <div class="nav-item" onclick="toggleMobDropdown(this)">
+        <span class="nav-link">Erkek ▾</span>
         <div class="dropdown">
             <a onclick="filterCat('Gömlek')">Gömlekler</a>
+            <a onclick="filterCat('Pantolon')">Pantolonlar</a>
         </div>
     </div>
+    <div class="nav-item"><span class="nav-link">Bebek</span></div>
 </nav>
 
 <div class="main-container">
     <aside class="sidebar">
         <div class="sidebar-title">BEDEN</div>
-        <div class="size-grid" id="size-filter-area">
-            <div class="f-size" onclick="toggleSize(this, 'XS')">XS</div>
-            <div class="f-size" onclick="toggleSize(this, 'S')">S</div>
-            <div class="f-size" onclick="toggleSize(this, 'M')">M</div>
-            <div class="f-size" onclick="toggleSize(this, 'L')">L</div>
-            <div class="f-size" onclick="toggleSize(this, 'XL')">XL</div>
-            <div class="f-size" onclick="toggleSize(this, '2XL')">2XL</div>
-            <div class="f-size" onclick="toggleSize(this, '3XL')">3XL</div>
-            <div class="f-size" onclick="toggleSize(this, '36')">36</div>
-            <div class="f-size" onclick="toggleSize(this, '38')">38</div>
-            <div class="f-size" onclick="toggleSize(this, '40')">40</div>
-            <div class="f-size" onclick="toggleSize(this, '42')">42</div>
-            <div class="f-size" onclick="toggleSize(this, '44')">44</div>
-        </div>
+        <div class="size-grid" id="sidebar-sizes">
+            </div>
 
         <div class="sidebar-title">FİYAT ARALIĞI</div>
-        <div class="price-opt" onclick="applyPrice(0, 2000)"><input type="radio" name="p"> 0 - 2000 TL</div>
-        <div class="price-opt" onclick="applyPrice(2000, 5000)"><input type="radio" name="p"> 2000 - 5000 TL</div>
-        <div class="price-opt" onclick="applyPrice(5000, 50000)"><input type="radio" name="p"> 5000 TL+</div>
-
-        <div class="sidebar-title">ELLE FİYAT GİR</div>
-        <div class="custom-price-inputs">
-            <input type="number" id="minP" placeholder="Min">
-            <input type="number" id="maxP" placeholder="Max">
-            <button onclick="applyCustom()" style="background:#000; color:#fff; border:none; padding:8px; cursor:pointer;">GİT</button>
+        <div style="font-size:12px;">
+            <label style="display:block; margin-bottom:8px;"><input type="radio" name="p" onclick="applyPrice(0, 2000)"> 0 - 2000 TL</label>
+            <label style="display:block; margin-bottom:8px;"><input type="radio" name="p" onclick="applyPrice(2000, 5000)"> 2000 - 5000 TL</label>
+        </div>
+        <div class="sidebar-title">ÖZEL FİYAT</div>
+        <div style="display:flex; gap:5px;">
+            <input type="number" id="minP" placeholder="Min" style="width:50px; padding:5px; font-size:11px;">
+            <input type="number" id="maxP" placeholder="Max" style="width:50px; padding:5px; font-size:11px;">
+            <button onclick="applyCustomPrice()" style="padding:5px; background:#000; color:#fff; border:none; cursor:pointer;">➔</button>
         </div>
     </aside>
 
@@ -146,121 +127,99 @@
     </main>
 </div>
 
-<div id="detail-modal" class="detail-overlay" onclick="if(event.target==this) closeDet()">
+<div id="detailModal" class="overlay" onclick="if(event.target==this) closeDet()">
     <div class="detail-card">
-        <span onclick="closeDet()" style="position:absolute; top:20px; right:25px; font-size:30px; cursor:pointer; color:#999; z-index:100;">✕</span>
+        <span onclick="closeDet()" style="position:absolute; top:15px; right:20px; font-size:25px; cursor:pointer; z-index:100;">✕</span>
         <div class="zoom-area" onclick="openFull()">
             <img id="d-img" src="">
-            <div style="position:absolute; bottom:15px; color:#fff; font-size:10px; background:rgba(0,0,0,0.5); padding:5px 10px; border-radius:20px;">FOTOĞRAFA TIKLA & BÜYÜT</div>
         </div>
-        <div class="detail-info">
-            <h2 id="d-title" style="font-family:'Playfair Display'; margin-bottom:10px;"></h2>
-            <div id="d-price" style="font-size:24px; font-weight:700; color:var(--accent); margin-bottom:20px;"></div>
-            <div style="margin-bottom:20px;">
-                <b>Mevcut Bedenler:</b> <span id="d-sizes"></span>
-            </div>
-            <button class="btn-gold" style="background:var(--accent); color:#fff; border:none; padding:18px; cursor:pointer; font-weight:700; width:100%; text-transform:uppercase;" onclick="alert('Sepete Eklendi')">SEPETE EKLE</button>
+        <div style="flex:1; padding:30px; overflow-y:auto;">
+            <h2 id="d-title" style="font-family:'Playfair Display'; margin-top:0;"></h2>
+            <div id="d-price" style="font-size:22px; font-weight:700; color:var(--accent); margin-bottom:20px;"></div>
+            <p id="d-sizes-info" style="font-size:12px; color:#888;"></p>
+            <button style="width:100%; padding:15px; background:var(--accent); color:#fff; border:none; font-weight:700; margin-top:20px;">SEPETE EKLE</button>
         </div>
     </div>
 </div>
 
 <script>
-    let products = []; 
-    let selectedSize = null;
-    let currentCat = 'Tümü';
+    let products = [];
     let curP = null;
+    let selectedSize = null;
+    const sizes = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "36", "38", "40", "42", "44"];
+    const cats = ["Elbise", "Gömlek", "Ceket", "Pantolon"];
 
-    const imgs = ["1581063539031-01f60024764d", "1515886657613-9f3515b0c78f", "1539106723-7a503a404668", "1595341888053-9ef0d674b102"];
-    const cats = ["Elbise", "Gömlek", "Ceket"];
-    const allSizes = ["XS", "S", "M", "L", "XL", "2XL", "3XL", "36", "38", "40", "42", "44"];
-
-    // Ürünleri oluştururken rastgele bedenler atayalım
-    for(let i=1; i<=40; i++) {
-        let pSizes = [];
-        // Her ürüne 3-4 rastgele beden verelim
-        for(let j=0; j<4; j++) pSizes.push(allSizes[Math.floor(Math.random()*allSizes.length)]);
-        
+    // 1. Ürünleri ve Bedenleri Oluştur
+    for(let i=1; i<=30; i++) {
+        let pSizes = [sizes[i%5], sizes[(i+1)%5], sizes[(i+2)%12]];
         products.push({
-            id:i, 
-            name:`RE-ZA Elite No:${i}`, 
-            cat:cats[i%3], 
-            price:i*300+1000, 
-            img:`https://images.unsplash.com/photo-${imgs[i%4]}?auto=format&fit=crop&w=800&q=80`,
-            sizes: [...new Set(pSizes)] // Tekrar edenleri sil
+            id: i, name: `RE-ZA Model ${i}`, price: i*400+1000, cat: cats[i%4], 
+            img: `https://images.unsplash.com/photo-${["1581063539031-01f60024764d", "1515886657613-9f3515b0c78f", "1539106723-7a503a404668"][i%3]}?auto=format&fit=crop&w=600`,
+            sizes: [...new Set(pSizes)]
         });
     }
 
+    // 2. Beden Filtresini Sidebar'a Yaz
+    document.getElementById('sidebar-sizes').innerHTML = sizes.map(s => `<div class="f-size" onclick="filterSize(this, '${s}')">${s}</div>`).join('');
+
     function render(data) {
-        document.getElementById('grid').innerHTML = data.length ? data.map(p => `
+        document.getElementById('grid').innerHTML = data.map(p => `
             <div class="p-card" onclick="openDet(${p.id})">
                 <div class="img-box"><img src="${p.img}"></div>
-                <div style="font-size:12px; font-weight:700; margin-top:15px;">${p.name}</div>
-                <div style="color:var(--accent); font-weight:700;">${p.price} TL</div>
-                <div style="font-size:10px; color:#aaa; margin-top:5px;">Beden: ${p.sizes.join(', ')}</div>
+                <div style="font-size:11px; font-weight:700; margin-top:10px;">${p.name}</div>
+                <div style="color:var(--accent); font-weight:700; font-size:14px;">${p.price} TL</div>
+                <div style="font-size:9px; color:#aaa; margin-top:4px;">Bedenler: ${p.sizes.join(', ')}</div>
             </div>
-        `).join('') : '<div style="grid-column:1/-1; text-align:center; padding:50px;">Aradığınız kriterde ürün bulunamadı.</div>';
+        `).join('');
     }
 
-    function toggleSize(el, size) {
-        if(selectedSize === size) {
-            selectedSize = null;
-            el.classList.remove('active');
-        } else {
-            document.querySelectorAll('.f-size').forEach(x => x.classList.remove('active'));
-            selectedSize = size;
-            el.classList.add('active');
-        }
-        applyAllFilters();
+    // 3. Mobil Alt Sekme Açma Fonksiyonu
+    function toggleMobDropdown(el) {
+        const isActive = el.classList.contains('active');
+        document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
+        if (!isActive) el.classList.add('active');
+    }
+
+    function filterSize(el, s) {
+        document.querySelectorAll('.f-size').forEach(x => x.classList.remove('active'));
+        if(selectedSize === s) { selectedSize = null; } 
+        else { selectedSize = s; el.classList.add('active'); }
+        applyFilters();
     }
 
     function filterCat(c) {
-        currentCat = c;
-        applyAllFilters();
+        render(products.filter(p => p.cat === c));
+        event.stopPropagation(); // Dropdown kapanmasın diye
     }
 
-    function applyAllFilters() {
-        let filtered = products;
-        if(currentCat !== 'Tümü') filtered = filtered.filter(p => p.cat === currentCat);
-        if(selectedSize) filtered = filtered.filter(p => p.sizes.includes(selectedSize));
-        render(filtered);
-    }
-
-    function applyPrice(min, max) {
-        let filtered = products.filter(p => p.price >= min && p.price <= max);
-        if(selectedSize) filtered = filtered.filter(p => p.sizes.includes(selectedSize));
-        render(filtered);
-    }
-
-    function applyCustom() {
+    function applyPrice(min, max) { render(products.filter(p => p.price >= min && p.price <= max)); }
+    
+    function applyCustomPrice() {
         const min = parseInt(document.getElementById('minP').value) || 0;
-        const max = parseInt(document.getElementById('maxP').value) || 999999;
+        const max = parseInt(document.getElementById('maxP').value) || 99999;
         applyPrice(min, max);
     }
 
-    function resetFilters() {
-        selectedSize = null;
-        currentCat = 'Tümü';
-        document.querySelectorAll('.f-size').forEach(x => x.classList.remove('active'));
-        document.querySelectorAll('input[type="radio"]').forEach(x => x.checked = false);
-        render(products);
+    function applyFilters() {
+        let filtered = products;
+        if(selectedSize) filtered = filtered.filter(p => p.sizes.includes(selectedSize));
+        render(filtered);
     }
+
+    function resetFilters() { selectedSize = null; document.querySelectorAll('.f-size').forEach(x => x.classList.remove('active')); render(products); }
 
     function openDet(id) {
         curP = products.find(x => x.id === id);
         document.getElementById('d-img').src = curP.img;
         document.getElementById('d-title').innerText = curP.name;
         document.getElementById('d-price').innerText = curP.price + " TL";
-        document.getElementById('d-sizes').innerText = curP.sizes.join(', ');
-        document.getElementById('detail-modal').style.display = 'flex';
+        document.getElementById('d-sizes-info').innerText = "Mevcut Bedenler: " + curP.sizes.join(', ');
+        document.getElementById('detailModal').style.display = 'flex';
         document.body.style.overflow = 'hidden';
     }
 
-    function openFull() {
-        document.getElementById('full-src').src = curP.img;
-        document.getElementById('full-view').style.display = 'flex';
-    }
-
-    function closeDet() { document.getElementById('detail-modal').style.display = 'none'; document.body.style.overflow = 'auto'; }
+    function openFull() { document.getElementById('full-src').src = curP.img; document.getElementById('full-view').style.display = 'flex'; }
+    function closeDet() { document.getElementById('detailModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
 
     render(products);
 </script>
