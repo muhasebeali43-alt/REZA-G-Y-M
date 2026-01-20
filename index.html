@@ -3,200 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RE-ZA GİYİM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Oswald:wght@600&display=swap" rel="stylesheet">
+    <title>RE-ZA GİYİM | Official Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --ana: #000; --gri: #f4f4f4; --yesil: #25d366; }
-        body { font-family: 'Roboto', sans-serif; margin: 0; background: #fff; color: #333; }
+        :root { --accent: #2c3e50; --gold: #bda06d; --light: #f9f9f9; --border: #ececec; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: #fff; color: #333; }
 
-        /* HEADER & LOGO */
-        .header { 
-            background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; 
-            align-items: center; border-bottom: 2px solid var(--ana); position: sticky; top: 0; z-index: 1000;
-        }
-        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ana); }
-        .logo-box { background: var(--ana); color: #fff; padding: 5px 12px; font-family: 'Oswald', sans-serif; font-size: 24px; }
-        .logo-name { font-family: 'Oswald', sans-serif; font-size: 28px; letter-spacing: 1px; }
+        /* HEADER */
+        .header { background: #fff; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 28px; font-weight: 800; text-decoration: none; color: #000; letter-spacing: 2px; border: 3px solid #000; padding: 5px 15px; }
+        .cart-trigger { cursor: pointer; position: relative; font-size: 24px; }
+        .count-badge { position: absolute; top: -8px; right: -12px; background: #000; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 50%; }
 
-        /* SEPET BUTONU */
-        .cart-toggle { cursor: pointer; position: relative; font-size: 26px; }
-        .badge { position: absolute; top: -5px; right: -10px; background: red; color: #fff; font-size: 12px; padding: 2px 7px; border-radius: 50%; font-weight: bold; }
+        /* MEGA MENÜ (ÜST KATEGORİLER) */
+        .nav-container { background: #fff; border-bottom: 1px solid var(--border); display: flex; justify-content: center; position: sticky; top: 75px; z-index: 999; }
+        .nav-item { position: relative; padding: 15px 25px; cursor: pointer; font-weight: 600; font-size: 14px; text-transform: uppercase; }
+        .dropdown { position: absolute; top: 100%; left: 0; background: #fff; min-width: 200px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); display: none; border: 1px solid var(--border); }
+        .nav-item:hover { color: var(--gold); }
+        .nav-item:hover .dropdown { display: block; }
+        .dropdown a { display: block; padding: 12px 20px; text-decoration: none; color: #666; font-size: 13px; border-bottom: 1px solid var(--light); }
+        .dropdown a:hover { background: var(--light); color: #000; }
 
-        /* ÜST MENÜ */
-        .nav { background: var(--gri); padding: 10px; display: flex; justify-content: center; gap: 15px; border-bottom: 1px solid #ddd; }
-        .nav-btn { padding: 8px 20px; border: 1px solid #000; background: #fff; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .nav-btn.active { background: var(--ana); color: #fff; }
+        /* LAYOUT */
+        .main-content { display: flex; padding: 30px 5%; gap: 40px; }
 
-        /* ANA YAPI */
-        .container { display: flex; padding: 20px 5%; gap: 30px; }
-
-        /* SOL FİLTRE (SADELEŞTİRİLDİ) */
-        .sidebar { width: 220px; position: sticky; top: 130px; height: fit-content; }
-        .f-group { margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
-        .f-group h4 { margin: 0 0 15px 0; font-size: 14px; text-transform: uppercase; }
-        input[type="range"] { width: 100%; accent-color: #000; }
-
-        /* ÜRÜNLER (NET VE TEMİZ) */
-        .grid { flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-        .card { border: 1px solid #eee; padding: 10px; transition: 0.2s; }
-        .card:hover { border-color: #000; }
-        .img-h { width: 100%; height: 260px; background: #f9f9f9; overflow: hidden; }
-        .img-h img { width: 100%; height: 100%; object-fit: cover; }
-        .card-body { padding: 10px 0; text-align: left; }
-        .p-name { font-weight: bold; font-size: 14px; margin-bottom: 5px; height: 34px; overflow: hidden; }
-        .p-price { font-size: 16px; color: #000; font-weight: 700; }
-        .add-btn { background: #000; color: #fff; border: none; width: 100%; padding: 10px; margin-top: 10px; cursor: pointer; font-weight: bold; }
-
-        /* SEPET (SABİT ALT VE SCROLL) */
-        #cart { 
-            position: fixed; right: -400px; top: 0; width: 360px; height: 100%; 
-            background: #fff; z-index: 2000; transition: 0.4s; display: flex; flex-direction: column; box-shadow: -5px 0 20px rgba(0,0,0,0.1); 
-        }
-        #cart.active { right: 0; }
-        .cart-h { padding: 20px; background: #000; color: #fff; display: flex; justify-content: space-between; }
+        /* SOL FİLTRE PANELİ */
+        .sidebar { width: 260px; position: sticky; top: 140px; height: fit-content; }
+        .filter-box { margin-bottom: 35px; background: var(--light); padding: 20px; border-radius: 8px; }
+        .filter-box h4 { margin: 0 0 20px 0; font-size: 14px; border-bottom: 2px solid #000; padding-bottom: 8px; }
         
-        #cart-list { flex: 1; overflow-y: auto; padding: 15px; }
-        .c-item { display: flex; gap: 10px; align-items: center; border-bottom: 1px solid #eee; padding: 10px 0; }
-        .c-item img { width: 50px; height: 50px; object-fit: cover; }
-        
-        .cart-f { padding: 20px; border-top: 2px solid #000; background: #fff; }
-        .total { display: flex; justify-content: space-between; font-size: 20px; font-weight: bold; margin-bottom: 15px; }
-        .wa-btn { background: var(--yesil); color: #fff; border: none; width: 100%; padding: 15px; font-weight: bold; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .price-range { width: 100%; accent-color: #000; margin: 15px 0; }
+        .beden-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .beden-btn { border: 1px solid #ddd; background: #fff; padding: 8px; cursor: pointer; font-size: 12px; transition: 0.2s; }
+        .beden-btn:hover, .beden-btn.active { background: #000; color: #fff; border-color: #000; }
 
-        @media (max-width: 768px) { .sidebar { display: none; } #cart { width: 100%; } }
+        /* ÜRÜN KARTLARI */
+        .grid { flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 30px; }
+        .card { background: #fff; transition: 0.3s; }
+        .img-wrap { width: 100%; height: 300px; background: #f4f4f4; overflow: hidden; border-radius: 4px; }
+        .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .card:hover img { transform: scale(1.08); }
+        .card-info { padding: 15px 0; }
+        .p-type { font-size: 11px; color: #999; text-transform: uppercase; }
+        .p-title { font-size: 15px; font-weight: 600; margin: 5px 0; }
+        .p-price { font-size: 17px; font-weight: 700; color: #000; }
+        .add-btn { background: #000; color: #fff; border: none; width: 100%; padding: 12px; margin-top: 10px; cursor: pointer; font-weight: 600; letter-spacing: 1px; }
+
+        /* SEPET PANELİ (SABİT ALTLI) */
+        #cart-sidebar { position: fixed; right: -400px; top: 0; width: 380px; height: 100%; background: #fff; z-index: 2000; transition: 0.4s; display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.1); }
+        #cart-sidebar.active { right: 0; }
+        .cart-h { padding: 25px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        
+        #cart-items { flex: 1; overflow-y: auto; padding: 20px; }
+        .cart-item { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; border-bottom: 1px solid var(--light); padding-bottom: 10px; }
+        .cart-item img { width: 60px; height: 60px; object-fit: cover; }
+        
+        .cart-f { padding: 25px; border-top: 2px solid #000; background: #fff; }
+        .total-row { display: flex; justify-content: space-between; font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+        .wa-button { background: #25d366; color: #fff; border: none; width: 100%; padding: 18px; font-weight: 700; font-size: 16px; cursor: pointer; border-radius: 4px; }
+
+        @media (max-width: 800px) { .sidebar { display: none; } }
     </style>
 </head>
 <body>
 
 <header class="header">
-    <a href="#" class="logo-area">
-        <div class="logo-box">RZ</div>
-        <div class="logo-name">RE-ZA GİYİM</div>
-    </a>
-    <div class="cart-toggle" onclick="toggleCart()">🛒 <span class="badge" id="c-count">0</span></div>
+    <a href="#" class="logo">RE-ZA</a>
+    <div class="cart-trigger" onclick="toggleCart()">🛒 <span class="count-badge" id="c-badge">0</span></div>
 </header>
 
-<nav class="nav">
-    <button class="nav-btn active" onclick="fGen('Tümü', this)">HEPSİ</button>
-    <button class="nav-btn" onclick="fGen('Erkek', this)">ERKEK</button>
-    <button class="nav-btn" onclick="fGen('Kadın', this)">KADIN</button>
+<nav class="nav-container">
+    <div class="nav-item">Erkek Koleksiyonu
+        <div class="dropdown">
+            <a href="#" onclick="fCat('Erkek Tişört')">Tişörtler</a>
+            <a href="#" onclick="fCat('Erkek Pantolon')">Pantolonlar</a>
+            <a href="#" onclick="fCat('Erkek Gömlek')">Gömlekler</a>
+            <a href="#" onclick="fCat('Erkek Şort')">Şortlar</a>
+        </div>
+    </div>
+    <div class="nav-item">Kadın Koleksiyonu
+        <div class="dropdown">
+            <a href="#" onclick="fCat('Kadın Tişört')">Tişörtler</a>
+            <a href="#" onclick="fCat('Kadın Elbise')">Elbiseler</a>
+            <a href="#" onclick="fCat('Kadın Pantolon')">Pantolonlar</a>
+            <a href="#" onclick="fCat('Kadın Gömlek')">Gömlekler</a>
+        </div>
+    </div>
+    <div class="nav-item" onclick="fCat('Tümü')">Tüm Ürünler</div>
 </nav>
 
-<div class="container">
+<div class="main-content">
     <aside class="sidebar">
-        <div class="f-group">
-            <h4>MAKSİMUM FİYAT</h4>
-            <input type="range" min="200" max="2000" step="50" value="2000" oninput="fPrice(this.value)">
-            <div style="font-weight: bold; margin-top: 5px;" id="p-val">2000 TL</div>
+        <div class="filter-box">
+            <h4>Bütçe Filtresi</h4>
+            <input type="range" class="price-range" min="400" max="4000" step="100" value="4000" oninput="upPrice(this.value)">
+            <div style="font-weight: 700;" id="price-label">4000 TL</div>
         </div>
-        <div class="f-group">
-            <h4>KATEGORİLER</h4>
-            <div style="font-size: 13px; line-height: 2;">
-                <div>• Tişört</div>
-                <div>• Pantolon</div>
-                <div>• Şort</div>
+
+        <div class="filter-box">
+            <h4>Beden Seçimi</h4>
+            <div class="beden-grid">
+                <button class="beden-btn">S</button><button class="beden-btn">M</button>
+                <button class="beden-btn active">L</button><button class="beden-btn">XL</button>
+                <button class="beden-btn">XXL</button>
             </div>
         </div>
-        <button onclick="apply()" style="width:100%; background:#000; color:#fff; border:none; padding:10px; cursor:pointer; font-weight:bold;">FİLTRELE</button>
+        <button onclick="apply()" style="width:100%; padding:15px; background:#000; color:#fff; border:none; cursor:pointer; font-weight:700;">SONUÇLARI GÖSTER</button>
     </aside>
 
     <div class="grid" id="grid"></div>
 </div>
 
-<div id="cart">
+<div id="cart-sidebar">
     <div class="cart-h">
-        <span style="font-weight:bold;">SEPETİM</span>
-        <span onclick="toggleCart()" style="cursor:pointer;">Kapat ✕</span>
+        <h3 style="margin:0">Sepetiniz</h3>
+        <span onclick="toggleCart()" style="cursor:pointer; font-size:24px;">✕</span>
     </div>
-    <div id="cart-list"></div>
+    <div id="cart-items"></div>
     <div class="cart-f">
-        <div class="total">
-            <span>TOPLAM:</span>
+        <div class="total-row">
+            <span>Toplam:</span>
             <span id="t-price">0 TL</span>
         </div>
-        <button class="wa-btn" onclick="send()">WHATSAPP İLE SİPARİŞ</button>
+        <button class="wa-button" onclick="sendWA()">SİPARİŞİ TAMAMLA (WhatsApp)</button>
     </div>
 </div>
 
 <script>
     let cart = [];
     let products = [];
-    let curGen = 'Tümü';
-    let curMax = 2000;
+    let activeFilter = 'Tümü';
+    let activeMax = 4000;
 
-    // SADE ÜRÜN İSİMLERİ (PANTOLON, TİŞÖRT, ŞORT)
-    const items = ["Pamuklu Tişört", "Jean Pantolon", "Spor Şort", "Klasik Tişört", "Kargo Pantolon", "Basic Şort"];
-
+    const types = ["Tişört", "Pantolon", "Gömlek", "Şort", "Hoodie", "Ceket"];
+    
+    // 50 ÜRÜN OLUŞTURMA (MANKENSİZ, ÜRÜN ODAKLI GÖRSELLER)
     for(let i=1; i<=50; i++) {
-        const g = i % 2 === 0 ? "Erkek" : "Kadın";
+        const gender = i % 2 === 0 ? "Erkek" : "Kadın";
+        const type = types[i % types.length];
         products.push({
             id: i,
-            name: `${g} ${items[i % items.length]}`,
-            price: (Math.floor(Math.random() * 15) + 3) * 100, // 300 - 1800 TL
-            gender: g,
-            // Sadece kıyafet odaklı, temiz görseller
-            img: `https://loremflickr.com/400/500/tshirt,pants,shorts?lock=${i}`
+            category: `${gender} ${type}`,
+            name: `RE-ZA ${gender} ${type}`,
+            price: (Math.floor(Math.random() * 30) + 5) * 100, // 500 - 3500 TL
+            // Ürün odaklı çekimler için 'flat lay' veya 'product shoot' parametresi
+            img: `https://loremflickr.com/400/500/clothing,tshirt,pants?lock=${i+100}`
         });
     }
 
     function render(data) {
         document.getElementById('grid').innerHTML = data.map(p => `
             <div class="card">
-                <div class="img-h"><img src="${p.img}" alt="ürün"></div>
-                <div class="card-body">
-                    <div class="p-name">${p.name}</div>
+                <div class="img-wrap"><img src="${p.img}" alt="ürün"></div>
+                <div class="card-info">
+                    <div class="p-type">${p.category}</div>
+                    <div class="p-title">${p.name}</div>
                     <div class="p-price">${p.price} TL</div>
-                    <button class="add-btn" onclick="add(${p.id})">EKLE</button>
+                    <button class="add-btn" onclick="add(${p.id})">SEPETE EKLE</button>
                 </div>
             </div>
         `).join('');
     }
 
-    function fPrice(v) { document.getElementById('p-val').innerText = v + " TL"; curMax = v; }
-    function fGen(g, el) {
-        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        el.classList.add('active');
-        curGen = g;
+    function upPrice(v) { document.getElementById('price-label').innerText = v + " TL"; activeMax = v; }
+    
+    function fCat(c) {
+        activeFilter = c;
         apply();
     }
 
     function apply() {
-        let f = products.filter(p => p.price <= curMax);
-        if(curGen !== 'Tümü') f = f.filter(p => p.gender === curGen);
-        render(f);
+        let filtered = products.filter(p => p.price <= activeMax);
+        if(activeFilter !== 'Tümü') {
+            filtered = filtered.filter(p => p.category.includes(activeFilter));
+        }
+        render(filtered);
     }
 
     function add(id) {
         cart.push(products.find(p => p.id === id));
-        update();
-        document.getElementById('cart').classList.add('active');
+        updateCart();
+        document.getElementById('cart-sidebar').classList.add('active');
     }
 
-    function update() {
+    function updateCart() {
         let t = 0;
-        document.getElementById('cart-list').innerHTML = cart.map((i, idx) => {
-            t += i.price;
+        document.getElementById('cart-items').innerHTML = cart.map((item, idx) => {
+            t += item.price;
             return `
-                <div class="c-item">
-                    <img src="${i.img}">
-                    <div style="flex:1; font-size:13px;"><b>${i.name}</b><br>${i.price} TL</div>
+                <div class="cart-item">
+                    <img src="${item.img}">
+                    <div style="flex:1">
+                        <div style="font-weight:600; font-size:13px;">${item.name}</div>
+                        <div style="font-weight:700;">${item.price} TL</div>
+                    </div>
                     <span onclick="remove(${idx})" style="color:red; cursor:pointer; font-size:12px;">SİL</span>
                 </div>
             `;
         }).join('');
-        document.getElementById('c-count').innerText = cart.length;
+        document.getElementById('c-badge').innerText = cart.length;
         document.getElementById('t-price').innerText = t + " TL";
     }
 
-    function remove(idx) { cart.splice(idx, 1); update(); }
-    function toggleCart() { document.getElementById('cart').classList.toggle('active'); }
+    function remove(idx) { cart.splice(idx, 1); updateCart(); }
+    function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('active'); }
 
-    function send() {
+    function sendWA() {
         if(cart.length === 0) return alert("Sepetiniz boş!");
-        let m = "*RE-ZA GİYİM SİPARİŞİ*%0A";
-        cart.forEach(i => m += `- ${i.name} (${i.price} TL)%0A`);
-        m += `%0AToplam: ${document.getElementById('t-price').innerText}`;
-        window.location.href = `https://wa.me/905331709622?text=${m}`;
+        let msg = "*RE-ZA YENİ SİPARİŞ*%0A%0A";
+        cart.forEach(i => msg += `• ${i.name} (${i.price} TL)%0A`);
+        msg += `%0A*TOPLAM:* ${document.getElementById('t-price').innerText}`;
+        window.location.href = `https://wa.me/905331709622?text=${msg}`;
     }
 
     render(products);
