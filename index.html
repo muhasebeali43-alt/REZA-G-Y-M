@@ -3,64 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RE-ZA | Premium Fashion Store</title>
+    <title>RE-ZA | Premium Fashion Boutique</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #fdfbf7; --primary: #1a1a1a; --accent: #a68b6d; --border: #e8e2d9; }
         body { font-family: 'Montserrat', sans-serif; margin: 0; background: var(--bg); color: var(--primary); overflow-x: hidden; }
 
-        /* HEADER & AUTH */
-        .header { background: #fff; padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: relative; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 30px; letter-spacing: 6px; cursor: pointer; position: absolute; left: 50%; transform: translateX(-50%); text-decoration: none; color: #000; }
+        /* HEADER & LOGO */
+        .header { background: #fff; padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2000; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 30px; letter-spacing: 6px; cursor: pointer; position: absolute; left: 50%; transform: translateX(-50%); text-decoration: none; color: #000; font-weight: 700; }
+        
         .header-icons { display: flex; gap: 20px; align-items: center; margin-left: auto; }
         .auth-btn { display: flex; align-items: center; gap: 8px; padding: 10px 22px; border: 1.5px solid #000; border-radius: 50px; cursor: pointer; font-size: 11px; font-weight: 700; text-transform: uppercase; background: #fff; transition: 0.3s; }
         .auth-btn:hover { background: #000; color: #fff; }
+        
         .cart-trigger { cursor: pointer; font-size: 22px; position: relative; }
         #badge { position: absolute; top: -8px; right: -10px; background: var(--accent); color: #fff; font-size: 10px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 700; }
 
-        /* NAVIGATION & DROPDOWNS */
+        /* NAV & DROPDOWN */
         .top-nav { background: #fff; display: flex; justify-content: center; gap: 40px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
         .nav-item { position: relative; padding: 20px 0; cursor: pointer; }
         .nav-link { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; }
         .dropdown { position: absolute; top: 100%; left: 0; background: #fff; min-width: 220px; border: 1px solid var(--border); display: none; padding: 15px 0; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
         .nav-item:hover .dropdown { display: block; }
-        .dropdown a { display: block; padding: 12px 25px; font-size: 12px; text-decoration: none; color: #555; transition: 0.2s; }
-        .dropdown a:hover { background: var(--bg); color: var(--accent); padding-left: 30px; }
+        .dropdown a { display: block; padding: 12px 25px; font-size: 12px; text-decoration: none; color: #555; }
+        .dropdown a:hover { background: var(--bg); color: var(--accent); }
 
         /* MAIN LAYOUT */
         .main-container { display: flex; padding: 40px 5%; gap: 50px; }
-        .sidebar { width: 240px; flex-shrink: 0; }
-        .sidebar h4 { font-size: 14px; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 25px; letter-spacing: 1px; }
+        .sidebar { width: 240px; flex-shrink: 0; position: sticky; top: 120px; height: fit-content; }
         .filter-group { margin-bottom: 35px; }
-        .filter-title { font-size: 11px; font-weight: 700; margin-bottom: 15px; display: block; text-transform: uppercase; }
+        .filter-title { font-size: 12px; font-weight: 700; margin-bottom: 15px; display: block; text-transform: uppercase; border-bottom: 1px solid #000; padding-bottom: 5px; }
         
-        /* Beden Filtresi */
+        /* Beden Seçimi */
         .size-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .size-box { border: 1px solid var(--border); padding: 8px; text-align: center; font-size: 11px; cursor: pointer; transition: 0.2s; }
-        .size-box:hover, .size-box.active { border-color: #000; background: #000; color: #fff; }
+        .size-box { border: 1px solid var(--border); padding: 10px; text-align: center; font-size: 12px; cursor: pointer; transition: 0.2s; background: #fff; }
+        .size-box:hover, .size-box.active { background: #000; color: #fff; border-color: #000; }
 
         /* PRODUCT GRID */
-        .product-grid { flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-        .p-card { background: #fff; border: 1px solid var(--border); padding: 12px; cursor: pointer; position: relative; transition: 0.3s; }
-        .p-card:hover { border-color: #aaa; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .img-box { width: 100%; height: 400px; overflow: hidden; position: relative; background: #f9f9f9; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .p-card:hover img { transform: scale(1.03); }
+        .product-grid { flex: 1; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
+        .p-card { background: #fff; border: 1px solid var(--border); padding: 12px; cursor: pointer; position: relative; overflow: hidden; }
+        .img-box { width: 100%; height: 350px; overflow: hidden; background: #f4f4f4; position: relative; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+        .p-card:hover img { transform: scale(1.05); }
         
-        .quick-add { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.85); color: #fff; padding: 15px 0; text-align: center; font-size: 11px; font-weight: 700; transform: translateY(100%); transition: 0.3s; }
-        .p-card:hover .quick-add { transform: translateY(0); }
+        .quick-view { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.8); color: #fff; padding: 15px 0; text-align: center; font-size: 11px; font-weight: 700; transform: translateY(100%); transition: 0.3s; }
+        .p-card:hover .quick-view { transform: translateY(0); }
 
-        /* DRAWER & OVERLAYS */
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 5000; display: none; backdrop-filter: blur(3px); }
-        .drawer { position: fixed; right: -450px; top: 0; width: 400px; height: 100%; background: #fff; z-index: 6000; transition: 0.4s; padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; }
+        /* SEPET & DETAY PANELLERİ (DRAWER) */
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 5000; display: none; backdrop-filter: blur(4px); }
+        .drawer { position: fixed; right: -500px; top: 0; width: 450px; height: 100%; background: #fff; z-index: 6000; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); padding: 40px; box-sizing: border-box; display: flex; flex-direction: column; }
         .drawer.active { right: 0; }
 
+        /* MOBİL */
         @media (max-width: 768px) {
-            .main-container { flex-direction: column; padding: 20px 5%; }
             .sidebar { display: none; }
-            .product-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
-            .img-box { height: 260px; }
+            .product-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
             .drawer { width: 100%; right: -100%; }
+            .img-box { height: 240px; }
+            .logo { font-size: 22px; }
         }
     </style>
 </head>
@@ -71,48 +72,51 @@
 <div id="cart-drawer" class="drawer">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
         <h2 style="font-family:'Playfair Display'; margin:0;">Sepetim</h2>
-        <span onclick="closeAll()" style="cursor:pointer; font-size:28px;">✕</span>
+        <span onclick="closeAll()" style="cursor:pointer; font-size:30px;">✕</span>
     </div>
     <div id="cart-items" style="flex:1; overflow-y:auto;"></div>
-    <div style="border-top:1px solid #eee; padding-top:25px;">
-        <div style="display:flex; justify-content:space-between; font-weight:700; font-size:18px; margin-bottom:20px;">
-            <span>TOPLAM</span><span id="cart-total">0 TL</span>
+    <div style="border-top:2px solid #eee; padding-top:25px;">
+        <div style="display:flex; justify-content:space-between; font-weight:700; font-size:20px; margin-bottom:20px;">
+            <span>TOPLAM:</span><span id="cart-total">0 TL</span>
         </div>
-        <button onclick="sendWhatsApp()" style="width:100%; background:#25d366; color:#fff; border:none; padding:20px; font-weight:700; cursor:pointer; border-radius:4px; font-size:14px;">WHATSAPP İLE TAMAMLA</button>
+        <button onclick="sendWhatsApp()" style="width:100%; background:#25d366; color:#fff; border:none; padding:20px; font-weight:700; cursor:pointer; font-size:14px; border-radius:5px;">SİPARİŞİ WHATSAPP İLE BİTİR</button>
     </div>
 </div>
 
-<div id="product-modal" class="drawer" style="right: auto; left: -500px; transition: 0.5s;">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
-        <h2 id="m-title" style="font-family:'Playfair Display'; margin:0; font-size:20px;"></h2>
-        <span onclick="closeAll()" style="cursor:pointer; font-size:28px;">✕</span>
-    </div>
-    <div style="height:300px; margin-bottom:20px;"><img id="m-img" src="" style="width:100%; height:100%; object-fit:cover;"></div>
-    <h3 id="m-price" style="color:var(--accent); font-size:24px; margin-bottom:15px;"></h3>
-    <p style="font-size:13px; color:#666; line-height:1.6; margin-bottom:30px;">RE-ZA koleksiyonunun en seçkin parçası. Yüksek kalite kumaş ve modern kesim ile her mevsim stilinizi yansıtın.</p>
-    
-    <div class="filter-group">
-        <span class="filter-title">BEDEN SEÇİN</span>
-        <div class="size-grid" id="modal-sizes">
-            <div class="size-box" onclick="selectSize(this, 'S')">S</div>
-            <div class="size-box" onclick="selectSize(this, 'M')">M</div>
-            <div class="size-box" onclick="selectSize(this, 'L')">L</div>
-            <div class="size-box" onclick="selectSize(this, 'XL')">XL</div>
+<div id="product-detail" class="drawer" style="right: auto; left: -100%; width: 100%; max-width: 100%; transition: 0.6s;">
+    <div style="max-width: 1200px; margin: 0 auto; width: 100%; height: 100%; display: flex; flex-direction: column;">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding: 20px 0;">
+            <span onclick="closeAll()" style="cursor:pointer; font-weight:700; font-size:14px;">← GERİ DÖN</span>
+            <h2 id="d-title" style="font-family:'Playfair Display'; margin:0;"></h2>
+            <span onclick="closeAll()" style="cursor:pointer; font-size:30px;">✕</span>
+        </div>
+        <div style="display:flex; gap:50px; flex:1; overflow:hidden;" class="mobile-stack">
+            <div style="flex:1.2; height: 100%;"><img id="d-img" src="" style="width:100%; height:100%; object-fit:contain; background:#f9f9f9;"></div>
+            <div style="flex:1; padding-top:40px;">
+                <h1 id="d-price" style="font-size:36px; color:var(--accent); margin:0;"></h1>
+                <p style="margin:30px 0; line-height:1.8; color:#666;">Bu özel RE-ZA tasarımı, en yüksek kalite kumaşlar kullanılarak titizlikle üretilmiştir. Sınırlı sayıda üretilen bu parça ile stilinizi bir üst seviyeye taşıyın.</p>
+                
+                <div class="filter-group">
+                    <span class="filter-title">BEDEN SEÇİMİ</span>
+                    <div class="size-grid" id="detail-sizes">
+                        <div class="size-box" onclick="setSiz(this, 'S')">S</div>
+                        <div class="size-box" onclick="setSiz(this, 'M')">M</div>
+                        <div class="size-box" onclick="setSiz(this, 'L')">L</div>
+                        <div class="size-box" onclick="setSiz(this, 'XL')">XL</div>
+                    </div>
+                </div>
+                <button onclick="addToCartFinal()" style="width:100%; background:#000; color:#fff; border:none; padding:25px; font-weight:700; cursor:pointer; font-size:16px; margin-top:30px;">SEPETE EKLE</button>
+            </div>
         </div>
     </div>
-    <button id="add-to-cart-btn" onclick="finalAddToCart()" style="width:100%; background:#000; color:#fff; border:none; padding:18px; font-weight:700; cursor:pointer; margin-top:auto;">SEPETE EKLE</button>
 </div>
 
 <header class="header">
     <div style="width:150px;"></div>
-    <a href="#" class="logo">RE-ZA</a>
+    <a href="javascript:void(0)" onclick="location.reload()" class="logo">RE-ZA</a>
     <div class="header-icons">
-        <div class="auth-btn" onclick="alert('Üye Girişi Sayfasına Yönlendiriliyorsunuz...')">
-            👤 <span>ÜYE GİRİŞİ</span>
-        </div>
-        <div class="cart-trigger" onclick="toggleCart()">
-            🛒 <span id="badge">0</span>
-        </div>
+        <div class="auth-btn" onclick="alert('Üye Girişi')">👤 <span>ÜYE GİRİŞİ</span></div>
+        <div class="cart-trigger" onclick="openCart()">🛒 <span id="badge">0</span></div>
     </div>
 </header>
 
@@ -121,55 +125,35 @@
     <div class="nav-item">
         <span class="nav-link">Kadın ▾</span>
         <div class="dropdown">
-            <a href="#">Yeni Gelenler</a>
-            <a href="#">Elbiseler</a>
-            <a href="#">Ceket & Palto</a>
-            <a href="#">Triko & Kazak</a>
-            <a href="#">Ayakkabı & Çanta</a>
-            <a href="#">Aksesuar</a>
+            <a href="#">Yeni Gelenler</a><a href="#">Elbiseler</a><a href="#">Dış Giyim</a><a href="#">Triko</a><a href="#">Aksesuar</a>
         </div>
     </div>
     <div class="nav-item">
         <span class="nav-link">Erkek ▾</span>
         <div class="dropdown">
-            <a href="#">Takım Elbise</a>
-            <a href="#">Gömlek</a>
-            <a href="#">Dış Giyim</a>
-            <a href="#">Jean & Pantolon</a>
-            <a href="#">Basic Koleksiyonu</a>
-            <a href="#">Saat & Gözlük</a>
+            <a href="#">Ceket & Palto</a><a href="#">Gömlek</a><a href="#">Pantolon</a><a href="#">Ayakkabı</a>
         </div>
     </div>
     <div class="nav-item">
         <span class="nav-link">Çocuk ▾</span>
         <div class="dropdown">
-            <a href="#">Bebek (0-3 Yaş)</a>
-            <a href="#">Kız Çocuk</a>
-            <a href="#">Erkek Çocuk</a>
-            <a href="#">Okul Koleksiyonu</a>
-            <a href="#">Oyuncak & Hobi</a>
+            <a href="#">Bebek</a><a href="#">Kız Çocuk</a><a href="#">Erkek Çocuk</a><a href="#">Oyuncak</a>
         </div>
     </div>
 </nav>
 
 <div class="main-container">
     <aside class="sidebar">
-        <h4>FİLTRELE</h4>
-        
         <div class="filter-group">
-            <span class="filter-title">Fiyat Aralığı (Max)</span>
-            <input type="range" min="0" max="5000" value="5000" style="width:100%; accent-color:#000;" oninput="updateFilterPrice(this.value)">
-            <div id="price-val" style="font-weight:700; margin-top:10px; font-size:16px;">5000 TL</div>
+            <span class="filter-title">FİYAT ARALIĞI (MAX)</span>
+            <input type="range" min="0" max="10000" value="10000" style="width:100%; accent-color:#000;" oninput="document.getElementById('pr-v').innerText = this.value + ' TL'">
+            <div id="pr-v" style="font-weight:700; margin-top:10px;">10000 TL</div>
         </div>
-
         <div class="filter-group">
-            <span class="filter-title">Beden Seçenekleri</span>
+            <span class="filter-title">BEDEN</span>
             <div class="size-grid">
-                <div class="size-box">S</div>
-                <div class="size-box">M</div>
-                <div class="size-box">L</div>
-                <div class="size-box">XL</div>
-                <div class="size-box">XXL</div>
+                <div class="size-box">S</div><div class="size-box">M</div><div class="size-box">L</div>
+                <div class="size-box">XL</div><div class="size-box">XXL</div>
             </div>
         </div>
     </aside>
@@ -180,87 +164,92 @@
 </div>
 
 <script>
-    let products = [
-        { id: 1, name: "Kruvaze Yün Kaban", price: 3450, img: "https://images.unsplash.com/photo-1591054333671-2940f35505ba?q=80&w=800" },
-        { id: 2, name: "Saten Askılı Gece Elbisesi", price: 1890, img: "https://images.unsplash.com/photo-1595341888053-9ef0d674b102?q=80&w=800" },
-        { id: 3, name: "Premium Slim Fit Gömlek", price: 920, img: "https://images.unsplash.com/photo-1596755094544-b83b63cc0b2b?q=80&w=800" },
-        { id: 4, name: "Oversize Kaşmir Kazak", price: 2100, img: "https://images.unsplash.com/photo-1539106723-7a503a404668?q=80&w=800" },
-        { id: 5, name: "Desenli Çocuk Takımı", price: 780, img: "https://images.unsplash.com/photo-1519748771451-a94c59ad3a75?q=80&w=800" },
-        { id: 6, name: "Klasik Deri Ceket", price: 4200, img: "https://images.unsplash.com/photo-1551028150-64d9fe8ef9af?q=80&w=800" },
-        { id: 7, name: "Keten Erkek Pantolon", price: 1150, img: "https://images.unsplash.com/photo-1541339946-45222440b2f1?q=80&w=800" },
-        { id: 8, name: "Tüvit Mini Elbise", price: 2400, img: "https://images.unsplash.com/photo-1539008835154-06889a928177?q=80&w=800" }
-    ];
-
     let cart = [];
-    let currentProduct = null;
-    let selectedSize = "";
+    let currentP = null;
+    let selectedS = "";
+
+    // 50 ÜRÜNLÜK VERİ SETİ (Kesin Kıyafet Görselleri)
+    const imgs = [
+        "1591054333671-2940f35505ba", "1539106723-7a503a404668", "1595341888053-9ef0d674b102",
+        "1596755094544-b83b63cc0b2b", "1551028150-64d9fe8ef9af", "1541339946-45222440b2f1",
+        "1434389671581-1b60bad7d903", "1624378439575-d8705ad7ae80", "1604176356209-bfd5bb27ca95"
+    ];
+    const names = ["Kruvaze Kaban", "Triko Kazak", "Saten Elbise", "Oxford Gömlek", "Deri Ceket", "Denim Pantolon", "Hırka", "Spor Ceket", "Şık Bluz"];
+    
+    let products = [];
+    for(let i=1; i<=50; i++) {
+        products.push({
+            id: i,
+            name: `RE-ZA ${names[i % names.length]} - No:${i}`,
+            price: (Math.floor(Math.random() * 20) + 5) * 200,
+            img: `https://images.unsplash.com/photo-${imgs[i % imgs.length]}?auto=format&fit=crop&w=600&q=80`
+        });
+    }
 
     function render() {
-        const grid = document.getElementById('grid');
-        grid.innerHTML = products.map(p => `
-            <div class="p-card" onclick="openModal(${p.id})">
+        document.getElementById('grid').innerHTML = products.map(p => `
+            <div class="p-card" onclick="openDetail(${p.id})">
                 <div class="img-box">
-                    <img src="${p.img}">
-                    <div class="quick-add">HIZLI EKLE +</div>
+                    <img src="${p.img}" loading="lazy">
+                    <div class="quick-view">ÜRÜNÜ İNCELE</div>
                 </div>
                 <div style="font-size:12px; font-weight:600; margin-top:15px; height:35px; overflow:hidden;">${p.name}</div>
-                <div style="font-weight:700; color:var(--accent); margin-top:8px; font-size:16px;">${p.price} TL</div>
+                <div style="font-weight:700; color:var(--accent); margin-top:8px;">${p.price} TL</div>
             </div>
         `).join('');
     }
 
-    function openModal(id) {
-        currentProduct = products.find(x => x.id === id);
-        document.getElementById('m-img').src = currentProduct.img;
-        document.getElementById('m-title').innerText = currentProduct.name;
-        document.getElementById('m-price').innerText = currentProduct.price + " TL";
-        selectedSize = "";
+    function openDetail(id) {
+        currentP = products.find(x => x.id === id);
+        document.getElementById('d-img').src = currentP.img;
+        document.getElementById('d-title').innerText = currentP.name;
+        document.getElementById('d-price').innerText = currentP.price + " TL";
+        selectedS = "";
+        document.querySelectorAll('#detail-sizes .size-box').forEach(b => b.classList.remove('active'));
         
-        // Modal Bedenlerini Resetle
-        document.querySelectorAll('#modal-sizes .size-box').forEach(b => b.classList.remove('active'));
-        
-        document.getElementById('product-modal').style.left = '0';
+        document.getElementById('product-detail').style.left = '0';
         document.getElementById('overlay').style.display = 'block';
     }
 
-    function selectSize(el, s) {
-        document.querySelectorAll('#modal-sizes .size-box').forEach(b => b.classList.remove('active'));
-        el.classList.add('active');
-        selectedSize = s;
-    }
-
-    function finalAddToCart() {
-        if(!selectedSize) return alert("Lütfen bir beden seçiniz!");
-        cart.push({...currentProduct, size: selectedSize, cid: Date.now()});
-        updateCartUI();
-        closeAll();
-    }
-
-    function toggleCart() {
+    function openCart() {
         document.getElementById('cart-drawer').classList.add('active');
         document.getElementById('overlay').style.display = 'block';
     }
 
     function closeAll() {
         document.getElementById('cart-drawer').classList.remove('active');
-        document.getElementById('product-modal').style.left = '-500px';
+        document.getElementById('product-detail').style.left = '-100%';
         document.getElementById('overlay').style.display = 'none';
     }
 
-    function updateCartUI() {
+    function setSiz(el, s) {
+        document.querySelectorAll('#detail-sizes .size-box').forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+        selectedS = s;
+    }
+
+    function addToCartFinal() {
+        if(!selectedS) return alert("Lütfen beden seçin!");
+        cart.push({...currentP, size: selectedS, cid: Date.now()});
+        updateCart();
+        closeAll();
+        openCart(); // Ürün eklenince sepeti göster
+    }
+
+    function updateCart() {
         document.getElementById('badge').innerText = cart.length;
         let total = 0;
         document.getElementById('cart-items').innerHTML = cart.map(item => {
             total += item.price;
             return `
                 <div style="display:flex; gap:15px; margin-bottom:20px; border-bottom:1px solid #eee; padding-bottom:15px;">
-                    <img src="${item.img}" style="width:65px; height:85px; object-fit:cover;">
+                    <img src="${item.img}" style="width:70px; height:90px; object-fit:cover;">
                     <div style="flex:1;">
-                        <div style="font-size:12px; font-weight:600;">${item.name}</div>
-                        <div style="font-size:10px; color:#888; margin:5px 0;">Beden: ${item.size}</div>
+                        <div style="font-size:12px; font-weight:700;">${item.name}</div>
+                        <div style="font-size:11px; color:#888; margin:5px 0;">Beden: ${item.size}</div>
                         <div style="font-weight:700;">${item.price} TL</div>
                     </div>
-                    <span onclick="removeFromCart(${item.cid})" style="color:red; font-size:11px; cursor:pointer; font-weight:700;">SİL</span>
+                    <span onclick="removeFromCart(${item.cid})" style="color:red; cursor:pointer; font-weight:700;">✕</span>
                 </div>
             `;
         }).join('');
@@ -269,19 +258,14 @@
 
     function removeFromCart(id) {
         cart = cart.filter(i => i.cid !== id);
-        updateCartUI();
-    }
-
-    function updateFilterPrice(v) {
-        document.getElementById('price-val').innerText = v + " TL";
-        // Gerçek filtreleme mantığı buraya eklenebilir
+        updateCart();
     }
 
     function sendWhatsApp() {
         if(cart.length === 0) return alert("Sepetiniz boş!");
-        let text = "*YENİ SİPARİŞ - RE-ZA*%0A%0A";
-        cart.forEach(i => text += `- ${i.name} [Beden: ${i.size}] - ${i.price} TL%0A`);
-        window.location.href = `https://wa.me/905331709622?text=${text}`;
+        let msg = "*RE-ZA SİPARİŞ HATTI*%0A%0A";
+        cart.forEach(i => msg += `- ${i.name} (Beden: ${i.size}) - ${i.price} TL%0A`);
+        window.location.href = `https://wa.me/905331709622?text=${msg}`;
     }
 
     render();
