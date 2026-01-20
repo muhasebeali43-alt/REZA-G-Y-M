@@ -3,80 +3,321 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RE-ZA Giyim | Koleksiyon</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>RE-ZA Giyim | Profesyonel Mağaza</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --ana-koyu: #2c3e50; /* Koyu Gri */
-            --vurgu-yesil: #2ecc71; /* Canlı Yeşil */
-            --vurgu-turuncu: #e67e22; /* Turuncu (Badge için) */
-            --arka-plan-acik: #ecf0f1; /* Açık Gri */
-            --arka-plan-beyaz: #ffffff;
-            --yazi-koyu: #34495e; /* Daha koyu yazı */
-            --golge: rgba(0, 0, 0, 0.1);
-            --golge-hafif: rgba(0, 0, 0, 0.05);
+            --ana-renk: #2c3e50; 
+            --vurgu: #c0392b; 
+            --arka-plan: #fdfdfd; 
+            --yazi: #333; 
+            --yesil: #27ae60;
         }
         
         body { 
-            font-family: 'Poppins', sans-serif; 
+            font-family: 'Montserrat', sans-serif; 
             margin: 0; 
-            background: var(--arka-fan-acik); 
-            color: var(--yazi-koyu); 
-            line-height: 1.6;
+            background: var(--arka-plan); 
+            color: var(--yazi); 
+            scroll-behavior: smooth;
         }
-
-        /* Başlık ve Navigasyon */
+        
+        /* Navigasyon & Logo */
         .header { 
-            background: var(--arka-plan-beyaz); 
+            background: white; 
             padding: 15px 5%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            box-shadow: 0 4px 15px var(--golge-hafif); 
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05); 
             position: sticky; 
             top: 0; 
-            z-index: 1000;
+            z-index: 1000; 
         }
+        
         .logo { 
-            font-size: 26px; 
+            font-size: 24px; 
             font-weight: 700; 
-            color: var(--ana-koyu); 
+            color: var(--ana-renk); 
             text-decoration: none; 
-            letter-spacing: 1.5px;
+            letter-spacing: 2px; 
         }
+        
         .cart-btn { 
             position: relative; 
             cursor: pointer; 
             font-size: 28px; 
             background: none; 
             border: none; 
-            color: var(--ana-koyu); 
-            transition: transform 0.2s ease-in-out;
         }
-        .cart-btn:hover { transform: scale(1.1); }
+        
         .badge { 
             position: absolute; 
-            top: -8px; 
-            right: -10px; 
-            background: var(--vurgu-turuncu); 
+            top: -5px; 
+            right: -8px; 
+            background: var(--vurgu); 
             color: white; 
             border-radius: 50%; 
-            padding: 4px 9px; 
-            font-size: 13px; 
-            font-weight: 600;
-            min-width: 15px;
-            text-align: center;
+            padding: 2px 8px; 
+            font-size: 12px; 
         }
 
-        /* Kategori Menüsü (Üstte) */
+        /* Üst Kategori Menüsü */
         .category-nav { 
-            background: var(--arka-plan-beyaz); 
-            padding: 15px 0; 
+            background: white; 
+            padding: 20px 0; 
             display: flex; 
             justify-content: center; 
             gap: 15px; 
-            border-bottom: 1px solid #e0e6ea;
-            box-shadow: 0 2px 10px var(--golge-hafif);
+            border-bottom: 1px solid #eee;
             position: sticky;
-            top: 70px; /* Header'ın altına */
-            z-index: 990
+            top: 70px;
+            z-index: 999;
+        }
+        
+        .cat-btn { 
+            padding: 10px 25px; 
+            border: 2px solid var(--ana-renk); 
+            background: white; 
+            color: var(--ana-renk); 
+            border-radius: 25px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            transition: 0.3s; 
+        }
+        
+        .cat-btn.active, .cat-btn:hover { 
+            background: var(--ana-renk); 
+            color: white; 
+        }
+
+        /* Ana İçerik Alanı */
+        .main-container { 
+            display: flex; 
+            padding: 30px 5%; 
+            gap: 30px; 
+        }
+
+        /* Yan Filtre Paneli (Beden ve Fiyat) */
+        .filter-sidebar { 
+            width: 220px; 
+            background: white; 
+            padding: 20px; 
+            border-radius: 12px; 
+            height: fit-content; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .filter-group { margin-bottom: 25px; }
+        .filter-group h4 { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .filter-group label { display: block; margin-bottom: 10px; cursor: pointer; font-size: 14px; }
+
+        /* Ürün Grid Yapısı */
+        .product-grid { 
+            flex: 1; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+            gap: 25px; 
+        }
+        
+        .product-card { 
+            background: white; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            transition: 0.3s; 
+            border: 1px solid #eee; 
+            text-align: center;
+        }
+        
+        .product-card:hover { transform: translateY(-8px); }
+        
+        .img-container { width: 100%; height: 320px; overflow: hidden; }
+        .product-img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .product-info { padding: 15px; }
+        .product-info h3 { font-size: 16px; margin: 10px 0; height: 40px; }
+        .product-price { font-size: 18px; font-weight: 700; color: var(--ana-renk); margin-bottom: 15px; }
+        
+        .add-btn { 
+            background: var(--ana-renk); 
+            color: white; 
+            border: none; 
+            padding: 12px; 
+            width: 100%; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            transition: 0.3s; 
+        }
+        .add-btn:hover { background: #1a252f; }
+
+        /* Sepet Paneli */
+        #cart-panel { 
+            position: fixed; 
+            right: -400px; 
+            top: 0; 
+            width: 350px; 
+            height: 100%; 
+            background: white; 
+            z-index: 2000; 
+            transition: 0.4s; 
+            padding: 30px; 
+            box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
+        }
+        
+        #cart-panel.active { right: 0; }
+        .cart-item { display: flex; justify-content: space-between; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
+        .whatsapp-btn { 
+            background: var(--yesil); 
+            color: white; 
+            border: none; 
+            width: 100%; 
+            padding: 15px; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .main-container { flex-direction: column; }
+            .filter-sidebar { width: auto; order: 2; }
+            .product-grid { order: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <a href="#" class="logo">RE-ZA GİYİM</a>
+    <button class="cart-btn" onclick="toggleCart()">🛒 <span class="badge" id="cart-count">0</span></button>
+</header>
+
+<div class="category-nav">
+    <button class="cat-btn active" onclick="setFilter('Tümü', this)">TÜMÜ</button>
+    <button class="cat-btn" onclick="setFilter('Erkek', this)">ERKEK</button>
+    <button class="cat-btn" onclick="setFilter('Kadın', this)">KADIN</button>
+</div>
+
+<div class="main-container">
+    <aside class="filter-sidebar">
+        <div class="filter-group">
+            <h4>Beden</h4>
+            <label><input type="checkbox" class="size-f" value="S"> S</label>
+            <label><input type="checkbox" class="size-f" value="M"> M</label>
+            <label><input type="checkbox" class="size-f" value="L"> L</label>
+            <label><input type="checkbox" class="size-f" value="XL"> XL</label>
+        </div>
+        <div class="filter-group">
+            <h4>Maksimum Fiyat</h4>
+            <input type="range" id="price-range" min="0" max="2000" value="2000" style="width:100%" oninput="document.getElementById('p-val').innerText = this.value; applyFilters();">
+            <p><span id="p-val">2000</span> TL</p>
+        </div>
+        <button class="add-btn" onclick="applyFilters()">FİLTRELERİ UYGULA</button>
+    </aside>
+
+    <main class="product-grid" id="product-display"></main>
+</div>
+
+<div id="cart-panel">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h2>Sepetiniz</h2>
+        <button onclick="toggleCart()" style="background:none; border:none; font-size:20px; cursor:pointer;">✕</button>
+    </div>
+    <div id="cart-list" style="margin-top:20px;"></div>
+    <div style="position:absolute; bottom:30px; left:30px; right:30px;">
+        <h3 style="display:flex; justify-content:space-between;">Toplam: <span id="total-price">0</span> TL</h3>
+        <button class="whatsapp-btn" onclick="sendWhatsApp()">WHATSAPP İLE SİPARİŞ VER</button>
+    </div>
+</div>
+
+<script>
+    let cart = [];
+    let activeGender = 'Tümü';
+    const whatsappNo = "905331709622";
+
+    // Örnek Ürün Listesi
+    const allProducts = [
+        { id: 1, name: "Premium Pamuklu Tişört", price: 450, gender: "Erkek", size: "M", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500" },
+        { id: 2, name: "Saten Askılı Elbise", price: 850, gender: "Kadın", size: "S", img: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=500" },
+        { id: 3, name: "Slim Fit Jean Pantolon", price: 600, gender: "Erkek", size: "L", img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500" },
+        { id: 4, name: "Keten Ceket", price: 1250, gender: "Kadın", size: "M", img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500" },
+        { id: 5, name: "Yazlık Gömlek", price: 550, gender: "Erkek", size: "XL", img: "https://images.unsplash.com/photo-1596755094514-f87034a26cc1?w=500" },
+        { id: 6, name: "Triko Kazak", price: 700, gender: "Kadın", size: "L", img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500" }
+    ];
+
+    function render(data) {
+        const display = document.getElementById('product-display');
+        display.innerHTML = data.map(p => `
+            <div class="product-card">
+                <div class="img-container">
+                    <img src="${p.img}" class="product-img" alt="${p.name}">
+                </div>
+                <div class="product-info">
+                    <p style="color:#888; font-size:12px;">${p.gender} | Beden: ${p.size}</p>
+                    <h3>${p.name}</h3>
+                    <div class="product-price">${p.price} TL</div>
+                    <button class="add-btn" onclick="addToCart(${p.id})">SEPETE EKLE</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function setFilter(gender, btn) {
+        activeGender = gender;
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilters();
+    }
+
+    function applyFilters() {
+        const selectedSizes = Array.from(document.querySelectorAll('.size-f:checked')).map(c => c.value);
+        const maxP = document.getElementById('price-range').value;
+
+        const filtered = allProducts.filter(p => {
+            const genderMatch = activeGender === 'Tümü' || p.gender === activeGender;
+            const sizeMatch = selectedSizes.length === 0 || selectedSizes.includes(p.size);
+            const priceMatch = p.price <= maxP;
+            return genderMatch && sizeMatch && priceMatch;
+        });
+        render(filtered);
+    }
+
+    function addToCart(id) {
+        const item = allProducts.find(p => p.id === id);
+        cart.push(item);
+        updateCart();
+        toggleCart(true);
+    }
+
+    function updateCart() {
+        const list = document.getElementById('cart-list');
+        let total = 0;
+        list.innerHTML = cart.map(i => {
+            total += i.price;
+            return `<div class="cart-item"><span>${i.name}</span><span>${i.price} TL</span></div>`;
+        }).join('');
+        document.getElementById('cart-count').innerText = cart.length;
+        document.getElementById('total-price').innerText = total;
+    }
+
+    function toggleCart(open) {
+        const p = document.getElementById('cart-panel');
+        if(open === true) p.classList.add('active'); else p.classList.toggle('active');
+    }
+
+    function sendWhatsApp() {
+        if(cart.length === 0) return alert("Sepetiniz boş!");
+        let text = "RE-ZA Giyim Sipariş Özeti:%0A%0A";
+        cart.forEach(i => text += `• ${i.name} (${i.size}) - ${i.price} TL%0A`);
+        text += `%0AToplam: ${document.getElementById('total-price').innerText} TL`;
+        window.location.href = `https://wa.me/${whatsappNo}?text=${text}`;
+    }
+
+    render(allProducts);
+</script>
+
+</body>
+</html>
