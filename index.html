@@ -1107,7 +1107,7 @@
       <form id="loginForm">
        <div class="form-group"><label for="email">E-posta</label> <input type="email" id="email" placeholder="ornek@email.com" required>
        </div>
-       <div class="form-group"><label for="password">Şifre</label> <input type="password" id="password" placeholder="•••�����••••" required>
+       <div class="form-group"><label for="password">Şifre</label> <input type="password" id="password" placeholder="���••�����••••" required>
        </div><button type="submit" class="login-submit">Giriş Yap</button>
       </form>
      </div>
@@ -1493,15 +1493,16 @@
             // Generate multiple product images (simulated)
             const imageVariations = [
                 product.image,
-                product.image + '&angle=side',
-                product.image + '&angle=back',
-                product.image + '&angle=detail'
+                product.image.replace('?w=500&h=600', '?w=500&h=600&sat=-20'),
+                product.image.replace('?w=500&h=600', '?w=500&h=600&hue=15'),
+                product.image.replace('?w=500&h=600', '?w=500&h=600&brightness=5')
             ];
             
             // Set main image
             const mainImg = document.getElementById('mainImageImg');
             mainImg.src = imageVariations[0];
             mainImg.alt = product.name;
+            mainImg.style.display = 'block';
             
             // Generate thumbnails
             const thumbnailContainer = document.getElementById('thumbnailImages');
@@ -1509,20 +1510,34 @@
             imageVariations.forEach((imgSrc, index) => {
                 const thumb = document.createElement('div');
                 thumb.className = 'thumbnail' + (index === 0 ? ' active' : '');
-                thumb.innerHTML = `<img src="${imgSrc}" alt="${product.name}" loading="lazy" onerror="this.style.display='none';">`;
-                thumb.addEventListener('click', () => {
+                thumb.innerHTML = `<img src="${imgSrc}" alt="${product.name} ${index + 1}" loading="lazy" onerror="this.parentElement.style.opacity='0.5';">`;
+                
+                thumb.addEventListener('click', (e) => {
+                    e.stopPropagation();
                     mainImg.src = imgSrc;
+                    mainImg.style.display = 'block';
                     document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
                     thumb.classList.add('active');
                 });
+                
                 thumbnailContainer.appendChild(thumb);
             });
             
-            // Zoom functionality
+            // Zoom functionality - remove old listener first
             const mainImage = document.getElementById('mainImage');
-            mainImage.addEventListener('click', () => {
-                mainImage.classList.toggle('zoomed');
+            const newMainImage = mainImage.cloneNode(true);
+            mainImage.parentNode.replaceChild(newMainImage, mainImage);
+            
+            newMainImage.addEventListener('click', (e) => {
+                e.stopPropagation();
+                newMainImage.classList.toggle('zoomed');
             });
+            
+            // Re-get the new main image element
+            const updatedMainImg = document.getElementById('mainImageImg');
+            updatedMainImg.src = imageVariations[0];
+            updatedMainImg.alt = product.name;
+            updatedMainImg.style.display = 'block';
             
             // Size buttons
             const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
@@ -1767,7 +1782,7 @@
             currentUser = { email };
             document.getElementById('loginBtn').textContent = email.split('@')[0];
             document.getElementById('loginModal').classList.remove('active');
-            showToast('Giriş başarılı! Hoş geldiniz.');
+            showToast('Giriş başarılı! Ho�� geldiniz.');
         });
 
         // Category filter - Navigation menu (only trigger on direct nav-item click, not dropdown)
@@ -1999,5 +2014,5 @@
         // Initialize
         renderProducts();
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c19cd44e2eb2722',t:'MTc2OTAyOTg2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c19d0f2551d2722',t:'MTc2OTAzMDAxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
