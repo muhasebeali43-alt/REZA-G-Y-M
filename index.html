@@ -2,295 +2,452 @@
 <html lang="tr" class="h-full">
  <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <title>RE-ZA | Boutique</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sosyete Pazarı</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Montserrat:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
   <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
   <style>
         body {
-          box-sizing: border-box;
+            box-sizing: border-box;
         }
         
-        :root { 
-            --bg: #fdfbf7; 
-            --accent: #c9a96e; 
-            --border: #e8e2d9; 
-            --white: #ffffff; 
-            --black: #1a1a1a; 
-            --gray: #666666;
-            --light-gray: #f8f8f8;
-        }
-        
-        @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        * { box-sizing: border-box; }
-        
-        html, body { 
-            font-family: 'Montserrat', sans-serif; 
-            margin: 0; 
+        * {
+            margin: 0;
             padding: 0;
-            background: var(--bg); 
-            color: var(--black); 
-            overflow-x: hidden; 
-            height: 100%;
+            box-sizing: border-box;
+        }
+        
+        html, body {
             width: 100%;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            background: #fdfbf7;
+            color: #1a1a1a;
         }
-
-        /* HEADER & AUTH */
-        .header { 
+        
+        .app-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        .header {
             background: linear-gradient(135deg, #ffffff 0%, #faf8f5 100%);
-            padding: 0 5%; 
-            border-bottom: 2px solid var(--accent);
+            padding: 20px 5%;
+            border-bottom: 2px solid #c9a96e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            display: grid; 
-            grid-template-columns: 1fr auto 1fr; 
-            align-items: center; 
-            position: sticky; 
-            top: 0; 
-            z-index: 2000; 
-            height: 70px;
         }
         
-        .header-left { 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            cursor: pointer;
-            transition: transform 0.3s;
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
         
-        .header-left:hover {
-            transform: scale(1.05);
-        }
-        
-        .logo { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 28px; 
-            letter-spacing: 4px; 
-            text-decoration: none; 
-            color: #000; 
+        .header-left h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
             font-weight: 700;
-            background: linear-gradient(135deg, #1a1a1a 0%, #c9a96e 50%, #1a1a1a 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shimmer 3s linear infinite;
-            transition: all 0.3s;
-        }
-        
-        .logo:hover {
-            letter-spacing: 6px;
+            color: #c9a96e;
+            letter-spacing: 2px;
         }
         
         .header-right {
             display: flex;
             align-items: center;
             gap: 20px;
-            justify-content: flex-end;
         }
         
         .login-btn {
-            background: linear-gradient(135deg, #1a1a1a 0%, #3a3a3a 100%);
-            border: 2px solid var(--accent);
-            color: var(--white);
-            padding: 12px 28px;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 12px 24px;
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            font-family: 'Montserrat', sans-serif;
-            box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .login-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .login-btn:hover::before {
-            left: 100%;
+            transition: all 0.3s;
         }
         
         .login-btn:hover {
-            background: linear-gradient(135deg, var(--accent) 0%, #d4b783 100%);
-            border-color: var(--accent);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(201, 169, 110, 0.5);
+            background: #c9a96e;
         }
         
-        .cart-trigger { 
-            cursor: pointer; 
-            font-size: 24px; 
+        .cart-icon {
+            font-size: 24px;
+            cursor: pointer;
             position: relative;
-            transition: all 0.3s;
-            filter: grayscale(0);
         }
         
-        .cart-trigger:hover {
-            transform: scale(1.2) rotate(5deg);
-            filter: drop-shadow(0 5px 10px rgba(201, 169, 110, 0.5));
-        }
-        
-        #cart-badge { 
-            position: absolute; 
-            top: -10px; 
-            right: -10px; 
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
-            color: #fff; 
-            font-size: 11px; 
-            padding: 3px 7px; 
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff5252;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
             border-radius: 50%;
             font-weight: 700;
-            box-shadow: 0 2px 8px rgba(255, 82, 82, 0.4);
-            animation: pulse 2s infinite;
-        }
-
-        /* MODERN LOGIN MODAL */
-        .overlay { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: rgba(0,0,0,0.7); 
-            z-index: 10000; 
-            display: none; 
-            justify-content: center; 
-            align-items: center; 
-            backdrop-filter: blur(5px);
         }
         
-        .overlay.active { display: flex; }
+        /* Navigation */
+        .nav {
+            background: white;
+            padding: 15px 5%;
+            border-bottom: 1px solid #e8e2d9;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
         
-        .login-modal {
-            background: var(--white);
-            width: 90%;
-            max-width: 440px;
-            border-radius: 0;
+        .nav-item {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+        
+        .nav-item:hover {
+            color: #c9a96e;
+        }
+        
+        .nav-item {
             position: relative;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            border: 1px solid #c9a96e;
+            border-top: 3px solid #c9a96e;
+            display: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            z-index: 100;
+        }
+        
+        .nav-item:hover .dropdown {
+            display: block;
+        }
+        
+        .dropdown a {
+            display: block;
+            padding: 12px 20px;
+            font-size: 12px;
+            text-decoration: none;
+            color: #666;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .dropdown a:hover {
+            background: rgba(201, 169, 110, 0.1);
+            color: #c9a96e;
+            border-left-color: #c9a96e;
+            padding-left: 25px;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 40px 5%;
+            display: flex;
+            gap: 40px;
+        }
+        
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+        }
+        
+        .filter-section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        
+        .filter-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #c9a96e;
+            color: #1a1a1a;
+        }
+        
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .filter-option label {
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        .price-inputs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .price-inputs input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #e8e2d9;
+            font-size: 13px;
+            width: 0;
+            min-width: 0;
+        }
+        
+        .apply-filter-btn {
+            width: 100%;
+            padding: 12px;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .apply-filter-btn:hover {
+            background: #c9a96e;
+        }
+        
+        .products-area {
+            flex: 1;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background: white;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(201, 169, 110, 0.3);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 300px;
+            background: #f4f4f4;
+            margin-bottom: 15px;
             overflow: hidden;
         }
         
-        .login-header {
-            background: var(--black);
-            color: var(--white);
-            padding: 40px 40px 30px;
-            text-align: center;
-        }
-        
-        .login-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            margin: 0 0 8px 0;
-            font-weight: 600;
-            letter-spacing: 2px;
-        }
-        
-        .login-header p {
-            font-size: 12px;
-            margin: 0;
-            opacity: 0.8;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-        }
-        
-        .login-body {
-            padding: 40px;
-        }
-        
-        .form-group {
-            margin-bottom: 25px;
-        }
-        
-        .form-group label {
-            display: block;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-            color: var(--gray);
-        }
-        
-        .form-group input {
+        .product-image img {
             width: 100%;
-            padding: 14px 16px;
-            border: 1px solid var(--border);
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+        
+        .product-name {
             font-size: 14px;
-            font-family: 'Montserrat', sans-serif;
-            transition: all 0.3s;
-            background: var(--light-gray);
+            font-weight: 700;
+            margin-bottom: 8px;
         }
         
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--accent);
-            background: var(--white);
+        .product-price {
+            font-size: 18px;
+            color: #c9a96e;
+            font-weight: 700;
+            margin-bottom: 15px;
         }
         
-        .forgot-password {
-            text-align: right;
-            margin-bottom: 25px;
-        }
-        
-        .forgot-password a {
+        .add-cart-btn {
+            width: 100%;
+            padding: 12px;
+            background: #1a1a1a;
+            color: white;
+            border: none;
             font-size: 11px;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
         
-        .forgot-password a:hover {
-            text-decoration: underline;
+        .add-cart-btn:hover {
+            background: #c9a96e;
         }
         
-        .login-btn-primary {
+        /* Cart Drawer */
+        .cart-drawer {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100%;
+            background: white;
+            box-shadow: -10px 0 40px rgba(0,0,0,0.2);
+            z-index: 2000;
+            transition: right 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cart-drawer.active {
+            right: 0;
+        }
+        
+        .cart-header {
+            padding: 30px;
+            border-bottom: 2px solid #e8e2d9;
+            background: #f8f8f8;
+        }
+        
+        .cart-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .cart-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f8f8;
+            border-radius: 8px;
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            background: #e8e2d9;
+            flex-shrink: 0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .cart-item-info {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: 700;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            font-size: 14px;
+            color: #c9a96e;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .cart-qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .qty-btn {
+            background: white;
+            border: 1px solid #e8e2d9;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        
+        .qty-btn:hover {
+            background: #1a1a1a;
+            color: white;
+        }
+        
+        .remove-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 12px;
+            border-radius: 4px;
+            margin-left: auto;
+        }
+        
+        .cart-footer {
+            padding: 25px;
+            border-top: 2px solid #e8e2d9;
+            background: #f8f8f8;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .checkout-btn {
             width: 100%;
             padding: 16px;
-            background: var(--black);
-            color: var(--white);
+            background: #1a1a1a;
+            color: white;
             border: none;
             font-size: 12px;
             font-weight: 700;
@@ -298,74 +455,108 @@
             letter-spacing: 2px;
             cursor: pointer;
             transition: all 0.3s;
+        }
+        
+        .checkout-btn:hover {
+            background: #c9a96e;
+        }
+        
+        .cart-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        /* Login Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .login-modal {
+            background: white;
+            width: 90%;
+            max-width: 440px;
+            position: relative;
+        }
+        
+        .modal-header {
+            background: #1a1a1a;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .modal-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+        
+        .modal-header p {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .modal-body {
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #e8e2d9;
+            font-size: 14px;
             font-family: 'Montserrat', sans-serif;
         }
         
-        .login-btn-primary:hover {
-            background: var(--accent);
+        .form-group input:focus {
+            outline: none;
+            border-color: #c9a96e;
         }
         
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 30px 0;
-            color: var(--gray);
-            font-size: 11px;
-        }
-        
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-        
-        .divider span {
-            padding: 0 15px;
-        }
-        
-        .social-login {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        
-        .social-btn {
-            padding: 12px;
-            border: 1px solid var(--border);
-            background: var(--white);
-            font-size: 11px;
-            font-weight: 600;
+        .login-submit {
+            width: 100%;
+            padding: 16px;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
         
-        .social-btn:hover {
-            background: var(--light-gray);
-        }
-        
-        .signup-link {
-            text-align: center;
-            margin-top: 25px;
-            padding-top: 25px;
-            border-top: 1px solid var(--border);
-            font-size: 12px;
-            color: var(--gray);
-        }
-        
-        .signup-link a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-        }
-        
-        .signup-link a:hover {
-            text-decoration: underline;
+        .login-submit:hover {
+            background: #c9a96e;
         }
         
         .close-modal {
@@ -374,7 +565,7 @@
             right: 15px;
             background: rgba(255,255,255,0.2);
             border: none;
-            color: var(--white);
+            color: white;
             font-size: 24px;
             width: 35px;
             height: 35px;
@@ -382,590 +573,357 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s;
             border-radius: 50%;
         }
         
         .close-modal:hover {
             background: rgba(255,255,255,0.3);
-            transform: rotate(90deg);
-        }
-
-        /* NAVIGASYON & DROPDOWN */
-        .top-nav { 
-            background: linear-gradient(180deg, #ffffff 0%, #faf8f5 100%);
-            display: flex; 
-            justify-content: center; 
-            border-bottom: 1px solid var(--border); 
-            position: sticky; 
-            top: 70px; 
-            z-index: 1500; 
-            overflow: visible;
-            flex-wrap: wrap;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         
-        .nav-item { 
-            position: relative; 
-            padding: 18px 20px; 
+        /* Product Detail Modal */
+        .product-detail-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 5000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .product-detail-modal.active {
+            display: flex;
+        }
+        
+        .product-detail-content {
+            background: white;
+            width: 100%;
+            max-width: 1000px;
+            max-height: 90%;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .close-detail {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            border: none;
+            color: white;
+            font-size: 28px;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-detail:hover {
+            background: rgba(0,0,0,0.9);
+        }
+        
+        .detail-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px;
+        }
+        
+        .detail-images {
+            position: sticky;
+            top: 0;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 500px;
+            background: #f4f4f4;
+            margin-bottom: 15px;
+            overflow: hidden;
+            cursor: zoom-in;
+        }
+        
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .main-image.zoomed {
+            cursor: zoom-out;
+        }
+        
+        .main-image.zoomed img {
+            transform: scale(1.8);
+        }
+        
+        .thumbnail-images {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        
+        .thumbnail {
+            width: 100%;
+            height: 100px;
+            background: #f4f4f4;
+            cursor: pointer;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .thumbnail:hover {
+            border-color: #c9a96e;
+        }
+        
+        .thumbnail.active {
+            border-color: #1a1a1a;
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .detail-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+        }
+        
+        .detail-price {
+            font-size: 28px;
+            color: #c9a96e;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        
+        .detail-description {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e8e2d9;
+        }
+        
+        .size-guide-link {
+            display: inline-block;
+            font-size: 12px;
+            color: #c9a96e;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .size-guide-link:hover {
+            color: #1a1a1a;
+        }
+        
+        .size-selector {
+            margin-bottom: 30px;
+        }
+        
+        .size-selector h4 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        
+        .size-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        
+        .size-btn {
+            border: 2px solid #e8e2d9;
+            background: white;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        
+        .size-btn:hover {
+            background: #f8f8f8;
+            border-color: #c9a96e;
+        }
+        
+        .size-btn.selected {
+            background: #1a1a1a;
+            color: white;
+            border-color: #1a1a1a;
+        }
+        
+        .add-to-cart-detail {
+            width: 100%;
+            padding: 18px;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             cursor: pointer;
             transition: all 0.3s;
+            margin-bottom: 20px;
         }
         
-        .nav-item:hover {
-            background: linear-gradient(180deg, rgba(201, 169, 110, 0.1) 0%, rgba(201, 169, 110, 0.15) 100%);
+        .add-to-cart-detail:hover {
+            background: #c9a96e;
         }
         
-        .nav-item::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent) 0%, #d4b783 100%);
-            transition: all 0.4s;
-            transform: translateX(-50%);
+        .add-to-cart-detail:disabled {
+            background: #ccc;
+            cursor: not-allowed;
         }
         
-        .nav-item:hover::after {
-            width: 80%;
+        .product-features {
+            padding: 20px;
+            background: #f8f8f8;
+            margin-bottom: 30px;
         }
         
-        .nav-link { 
-            font-size: 12px; 
-            font-weight: 700; 
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: color 0.3s;
+        .product-features ul {
+            list-style: none;
+            padding: 0;
         }
         
-        .nav-item:hover .nav-link {
-            color: var(--accent);
-        }
-        
-        .dropdown { 
-            position: absolute; 
-            top: 100%; 
-            left: 0; 
-            background: #fff; 
-            min-width: 200px; 
-            border: 1px solid var(--accent);
-            border-top: 3px solid var(--accent);
-            display: none; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            animation: slideIn 0.3s ease-out;
-        }
-        
-        .nav-item:hover .dropdown { 
-            display: block; 
-        }
-        
-        .dropdown a { 
-            display: block; 
-            padding: 12px 20px; 
-            font-size: 12px; 
-            text-decoration: none; 
+        .product-features li {
+            padding: 8px 0;
+            font-size: 13px;
             color: #666;
-            transition: all 0.3s;
-            border-left: 3px solid transparent;
         }
         
-        .dropdown a:hover {
-            background: linear-gradient(90deg, rgba(201, 169, 110, 0.1) 0%, transparent 100%);
-            color: var(--accent);
-            border-left-color: var(--accent);
-            padding-left: 25px;
+        .product-features li:before {
+            content: "✓ ";
+            color: #4BB543;
+            font-weight: 700;
+            margin-right: 8px;
         }
-
-        /* SEPET (SIDEBAR) */
-        #cart-drawer { 
-            position: fixed; 
-            right: -420px; 
-            top: 0; 
-            width: 420px; 
-            height: 100%; 
-            background: var(--white); 
-            z-index: 11000; 
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
-            box-shadow: -10px 0 40px rgba(0,0,0,0.15); 
+        
+        .reviews-section {
+            border-top: 2px solid #e8e2d9;
+            padding-top: 30px;
+        }
+        
+        .reviews-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+        
+        .review-item {
+            padding: 20px;
+            background: #f8f8f8;
+            margin-bottom: 15px;
+            border-left: 4px solid #c9a96e;
+        }
+        
+        .review-header {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
         }
         
-        #cart-drawer.active {
-            right: 0;
+        .review-author {
+            font-weight: 700;
+            font-size: 13px;
         }
         
-        .cart-header {
-            padding: 30px 30px 20px;
-            border-bottom: 2px solid var(--border);
-            background: var(--light-gray);
+        .review-rating {
+            color: #FFD700;
+            font-size: 14px;
         }
         
-        .cart-header h3 {
+        .review-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #666;
+        }
+        
+        .size-chart-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 6000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .size-chart-modal.active {
+            display: flex;
+        }
+        
+        .size-chart-content {
+            background: white;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+        }
+        
+        .size-chart-content h3 {
             font-family: 'Playfair Display', serif;
             font-size: 24px;
-            margin: 0 0 5px 0;
-            font-weight: 600;
-            letter-spacing: 1px;
+            margin-bottom: 25px;
         }
         
-        .cart-header p {
-            font-size: 11px;
-            color: var(--gray);
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .cart-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px 30px;
-        }
-        
-        .cart-item { 
-            display: flex; 
-            gap: 15px; 
-            margin-bottom: 20px; 
-            padding: 15px; 
-            background: var(--light-gray);
-            border-radius: 8px;
-            transition: all 0.3s;
-            position: relative;
-        }
-        
-        .cart-item:hover {
-            transform: translateX(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .cart-item-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 6px;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-        
-        .cart-item-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        
-        .cart-item-name {
-            font-weight: 700;
-            font-size: 13px;
-            margin-bottom: 5px;
-            color: var(--black);
-            line-height: 1.3;
-        }
-        
-        .cart-item-size {
-            font-size: 10px;
-            color: var(--gray);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-        
-        .cart-item-price {
-            font-size: 14px;
-            color: var(--accent);
-            font-weight: 700;
-        }
-        
-        .cart-item-controls {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 8px;
-        }
-        
-        .cart-qty-btn {
-            background: var(--white);
-            border: 1px solid var(--border);
-            width: 28px;
-            height: 28px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-        
-        .cart-qty-btn:hover {
-            background: var(--black);
-            color: var(--white);
-            border-color: var(--black);
-        }
-        
-        .cart-qty-display {
-            font-size: 12px;
-            font-weight: 700;
-            min-width: 25px;
-            text-align: center;
-            color: var(--black);
-        }
-        
-        .cart-remove-btn {
-            background: #ff4444;
-            border: none;
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-        
-        .cart-remove-btn:hover {
-            background: #cc0000;
-            transform: scale(1.1);
-        }
-        
-        .cart-empty {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--gray);
-        }
-        
-        .cart-empty-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-            opacity: 0.3;
-        }
-        
-        .cart-empty-text {
-            font-size: 14px;
-            font-weight: 500;
-        }
-        
-        .cart-footer {
-            padding: 25px 30px;
-            border-top: 2px solid var(--border);
-            background: var(--light-gray);
-        }
-        
-        .cart-subtotal {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 13px;
-            color: var(--gray);
-        }
-        
-        .cart-shipping {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border);
-            font-size: 13px;
-            color: var(--gray);
-        }
-        
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--black);
-        }
-        
-        .cart-total span:last-child {
-            color: var(--accent);
-            font-size: 22px;
-        }
-        
-        .cart-checkout-btn {
+        .size-chart-table {
             width: 100%;
-            padding: 16px;
-            background: var(--black);
-            color: var(--white);
-            border: none;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Montserrat', sans-serif;
-            border-radius: 4px;
+            border-collapse: collapse;
         }
         
-        .cart-checkout-btn:hover {
-            background: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-        
-        .cart-continue {
-            width: 100%;
+        .size-chart-table th,
+        .size-chart-table td {
+            border: 1px solid #e8e2d9;
             padding: 12px;
-            background: transparent;
-            color: var(--gray);
-            border: 1px solid var(--border);
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: all 0.3s;
-            font-family: 'Montserrat', sans-serif;
-            border-radius: 4px;
+            text-align: center;
+            font-size: 13px;
         }
         
-        .cart-continue:hover {
-            background: var(--light-gray);
-            border-color: var(--black);
-            color: var(--black);
-        }
-
-        /* MAIN STRUCTURE */
-        .main-container { 
-            display: flex; 
-            padding: 20px 5%; 
-            gap: 30px; 
-        }
-        
-        .sidebar { 
-            width: 240px; 
-            flex-shrink: 0;
-            background: linear-gradient(180deg, #fff5e6 0%, #ffd6a5 100%);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(255,107,53,0.1);
-        }
-        
-        .sidebar-title { 
-            font-size: 11px; 
-            font-weight: 700; 
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 10px; 
-            margin-bottom: 18px; 
-            text-transform: uppercase; 
-            margin-top: 25px;
-            letter-spacing: 1.5px;
-            color: var(--black);
-        }
-        
-        /* SIZE SELECTOR */
-        .size-grid { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 8px; 
-        }
-        
-        .f-size { 
-            border: 2px solid var(--border); 
-            padding: 10px 0; 
-            text-align: center; 
-            font-size: 11px; 
-            cursor: pointer; 
-            background: #fff;
-            transition: all 0.3s;
-            font-weight: 600;
-        }
-        
-        .f-size:hover {
-            border-color: var(--accent);
-            transform: scale(1.05);
-            background: rgba(201, 169, 110, 0.1);
-        }
-        
-        .f-size.active { 
-            background: linear-gradient(135deg, var(--accent) 0%, #d4b783 100%);
-            color: #fff; 
-            border-color: var(--accent);
-            box-shadow: 0 4px 12px rgba(201, 169, 110, 0.3);
-        }
-
-        /* PRODUCT GRID */
-        .product-grid { 
-            flex: 1; 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
-            gap: 30px;
-        }
-        
-        .p-card { 
-            background: #fff;
-            padding: 12px; 
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid transparent;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 0.6s ease-out;
-        }
-        
-        .p-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.1), transparent);
-            transition: left 0.6s;
-        }
-        
-        .p-card:hover::before {
-            left: 100%;
-        }
-        
-        .p-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-            box-shadow: 0 15px 40px rgba(201, 169, 110, 0.3);
-        }
-        
-        .img-box { 
-            width: 100%; 
-            height: 300px; 
-            overflow: visible; 
-            background: #f4f4f4; 
-            margin-bottom: 15px;
-            cursor: pointer;
-            position: relative;
-            border: 1px solid var(--border);
-            z-index: 1;
-        }
-        
-        .img-box > div {
-            width: 100%;
-            height: 100%;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .img-box:hover > div {
-            transform: scale(1.15);
-            z-index: 10;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            border: 2px solid var(--accent);
-        }
-        
-        .img-box::after {
-            content: '���️ Detayları Gör';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.8);
+        .size-chart-table th {
+            background: #1a1a1a;
             color: white;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 12px;
             font-weight: 700;
-            opacity: 0;
-            transition: all 0.3s;
-            white-space: nowrap;
-            z-index: 11;
-            pointer-events: none;
         }
         
-        .img-box:hover::after {
-            opacity: 1;
-        }
-        
-        .img-box img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .img-box:hover img {
-            transform: scale(1.1);
-        }
-        
-        .p-name {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            cursor: pointer;
-            transition: color 0.3s;
-            letter-spacing: 0.5px;
-        }
-        
-        .p-name:hover {
-            color: var(--accent);
-        }
-        
-        .p-price {
-            font-size: 18px;
-            color: var(--accent);
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 4px rgba(201, 169, 110, 0.2);
-        }
-        
-        .add-to-cart-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #3a3a3a 100%);
-            color: var(--white);
-            border: 2px solid var(--accent);
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            font-family: 'Montserrat', sans-serif;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .add-to-cart-btn::before {
-            content: '🛒';
-            position: absolute;
-            left: -30px;
-            transition: left 0.4s;
-        }
-        
-        .add-to-cart-btn:hover::before {
-            left: 15px;
-        }
-        
-        .add-to-cart-btn:hover {
-            background: linear-gradient(135deg, var(--accent) 0%, #d4b783 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(201, 169, 110, 0.4);
-            padding-left: 40px;
-        }
-        
-        .add-to-cart-btn:active {
-            transform: translateY(-1px);
-        }
-        
-        /* SIZE SELECTION MODAL */
+        /* Size Modal */
         .size-modal {
             position: fixed;
             bottom: -100%;
             left: 0;
             width: 100%;
             background: white;
-            z-index: 12000;
+            z-index: 4000;
             padding: 30px;
             box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
             transition: bottom 0.3s;
-            max-height: 50%;
-            overflow-y: auto;
         }
         
         .size-modal.active {
@@ -973,9 +931,8 @@
         }
         
         .size-modal h3 {
-            margin: 0 0 15px 0;
+            margin-bottom: 20px;
             font-size: 16px;
-            font-weight: 700;
         }
         
         .size-options {
@@ -986,7 +943,7 @@
         }
         
         .size-option {
-            border: 2px solid var(--border);
+            border: 2px solid #e8e2d9;
             padding: 15px;
             text-align: center;
             cursor: pointer;
@@ -995,21 +952,23 @@
         }
         
         .size-option:hover {
-            border-color: var(--accent);
+            background: #1a1a1a;
+            color: white;
+            border-color: #1a1a1a;
         }
         
         .size-option.selected {
-            background: var(--black);
+            background: #1a1a1a;
             color: white;
-            border-color: var(--black);
+            border-color: #1a1a1a;
         }
         
-        .size-modal-actions {
+        .size-actions {
             display: flex;
             gap: 10px;
         }
         
-        .size-modal-actions button {
+        .size-actions button {
             flex: 1;
             padding: 14px;
             border: none;
@@ -1019,1075 +978,261 @@
             letter-spacing: 1.5px;
             cursor: pointer;
             transition: all 0.3s;
-            font-family: 'Montserrat', sans-serif;
         }
         
         .size-confirm {
-            background: var(--black);
+            background: #1a1a1a;
             color: white;
         }
         
         .size-confirm:hover {
-            background: var(--accent);
+            background: #c9a96e;
         }
         
         .size-cancel {
             background: #f0f0f0;
-            color: var(--black);
-        }
-        
-        /* PRODUCT DETAIL PAGE */
-        .product-detail {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            z-index: 15000;
-            display: none;
-            overflow-y: auto;
-        }
-        
-        .product-detail.active {
-            display: block;
-        }
-        
-        .detail-header {
-            background: white;
-            padding: 15px 5%;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .back-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 5px 10px;
-        }
-        
-        .detail-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            padding: 40px 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .detail-image {
-            width: 100%;
-            height: 600px;
-            background: #f4f4f4;
-        }
-        
-        .detail-info h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            margin: 0 0 15px 0;
-            font-weight: 600;
-        }
-        
-        .detail-price {
-            font-size: 28px;
-            color: var(--accent);
-            font-weight: 700;
-            margin-bottom: 30px;
-        }
-        
-        .detail-section {
-            margin-bottom: 30px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .detail-section h3 {
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 15px;
-        }
-        
-        .detail-section p {
-            font-size: 14px;
-            line-height: 1.8;
-            color: var(--gray);
-        }
-        
-        .size-guide {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            font-size: 12px;
-        }
-        
-        .size-guide-item {
-            padding: 15px;
-            background: var(--light-gray);
-            text-align: center;
-        }
-        
-        .size-guide-item strong {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-        
-        .features-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .features-list li {
-            padding: 10px 0;
-            font-size: 13px;
-            color: var(--gray);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .features-list li:before {
-            content: '��';
-            color: var(--accent);
-            font-weight: bold;
+            color: #1a1a1a;
         }
         
         @media (max-width: 768px) {
-            .detail-content {
-                grid-template-columns: 1fr;
-                gap: 20px;
-                padding: 20px 15px;
+            .main-content {
+                flex-direction: column;
             }
             
-            .detail-image {
-                height: 400px;
-            }
-            
-            .size-options {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .sidebar { 
-                display: none;
-            }
-            
-            .header {
-                grid-template-columns: auto 1fr auto;
-                padding: 0 15px;
-            }
-            
-            .login-modal {
-                max-width: 95%;
-            }
-            
-            .login-header,
-            .login-body {
-                padding: 30px 25px;
-            }
-            
-            .social-login {
-                grid-template-columns: 1fr;
+            .sidebar {
+                width: 100%;
             }
             
             .product-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
                 gap: 15px;
             }
+            
+            .cart-drawer {
+                width: 100%;
+                right: -100%;
+            }
         }
     </style>
   <style>@view-transition { navigation: auto; }</style>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
   <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
  </head>
- <body class="h-full"><!-- HEADER -->
-  <header class="header">
-   <div class="header-left"><span class="logo">RE-ZA</span>
-   </div>
-   <div></div>
-   <div class="header-right"><button class="login-btn" id="loginTrigger">Giriş Yap</button>
-    <div class="cart-trigger" id="cartTrigger">
-     🛒 <span id="cart-badge" style="display:none;">0</span>
+ <body class="h-full">
+  <div class="app-wrapper"><!-- Header -->
+   <header class="header">
+    <div class="header-left">
+     <h1>SOSYETE PAZARI</h1>
     </div>
-   </div>
-  </header><!-- NAVIGATION -->
-  <nav class="top-nav">
-   <div class="nav-item"><a href="#" class="nav-link">Yeni Gelenler</a>
-   </div>
-   <div class="nav-item"><a href="#" class="nav-link">Kadın</a>
-    <div class="dropdown"><a href="#">Elbiseler</a> <a href="#">Kazak</a> <a href="#">Hırka</a> <a href="#">Bluz</a> <a href="#">Gömlek</a> <a href="#">T-Shirt</a> <a href="#">Sweatshirt</a> <a href="#">Mont &amp; Kaban</a> <a href="#">Ceket</a> <a href="#">Pantolon</a> <a href="#">Jean</a> <a href="#">Etek</a> <a href="#">Şort</a> <a href="#">Triko</a>
-    </div>
-   </div>
-   <div class="nav-item"><a href="#" class="nav-link">Erkek</a>
-    <div class="dropdown"><a href="#">Gömlek</a> <a href="#">Kazak</a> <a href="#">Hırka</a> <a href="#">T-Shirt</a> <a href="#">Polo</a> <a href="#">Sweatshirt</a> <a href="#">Hoodie</a> <a href="#">Mont &amp; Kaban</a> <a href="#">Ceket</a> <a href="#">Yelek</a> <a href="#">Pantolon</a> <a href="#">Jean</a> <a href="#">Şort</a> <a href="#">Takım Elbise</a>
-    </div>
-   </div>
-   <div class="nav-item"><a href="#" class="nav-link">Aksesuarlar</a>
-    <div class="dropdown"><a href="#">Çanta</a> <a href="#">Kemer</a> <a href="#">Şapka</a> <a href="#">Atkı</a> <a href="#">Eldiven</a> <a href="#">Bere</a> <a href="#">Güneş Gözlüğü</a> <a href="#">Cüzdan</a> <a href="#">Kolye</a> <a href="#">Küpe</a> <a href="#">Bileklik</a>
-    </div>
-   </div>
-   <div class="nav-item"><a href="#" class="nav-link">İndirim</a>
-   </div>
-  </nav><!-- MAIN CONTENT -->
-  <div class="main-container"><!-- SIDEBAR -->
-   <aside class="sidebar">
-    <div class="sidebar-title">
-     Beden
-    </div>
-    <div class="size-grid">
-     <div class="f-size">
-      XXS
-     </div>
-     <div class="f-size">
-      XS
-     </div>
-     <div class="f-size">
-      S
-     </div>
-     <div class="f-size">
-      M
-     </div>
-     <div class="f-size">
-      L
-     </div>
-     <div class="f-size">
-      XL
-     </div>
-     <div class="f-size">
-      XXL
-     </div>
-     <div class="f-size">
-      3XL
-     </div>
-     <div class="f-size">
-      4XL
-     </div>
-     <div class="f-size">
-      5XL
+    <div class="header-right"><button class="login-btn" id="loginBtn">Giriş Yap</button>
+     <div class="cart-icon" id="cartIcon">
+      🛒 <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
      </div>
     </div>
-    <div class="sidebar-title">
-     Fiyat Aralığı
+   </header><!-- Navigation -->
+   <nav class="nav">
+    <div class="nav-item">
+     Yeni Gelenler
     </div>
-    <div style="padding: 0 5px;">
-     <div class="f-size" data-price="500" style="margin-bottom: 5px;">
-      0 - ₺500
+    <div class="nav-item" data-category="kadın">
+     Kadın 
+     <div class="dropdown"><a href="#">Elbiseler</a> <a href="#">Kazak</a> <a href="#">Hırka</a> <a href="#">Bluz</a> <a href="#">Gömlek</a> <a href="#">T-Shirt</a> <a href="#">Sweatshirt</a> <a href="#">Mont &amp; Kaban</a> <a href="#">Ceket</a> <a href="#">Pantolon</a> <a href="#">Jean</a> <a href="#">Etek</a> <a href="#">Şort</a> <a href="#">Triko</a>
      </div>
-     <div class="f-size" data-price="1000" style="margin-bottom: 5px;">
-      ₺500 - ₺1.000
-     </div>
-     <div class="f-size" data-price="2000" style="margin-bottom: 5px;">
-      ₺1.000 - ₺2.000
-     </div>
-     <div class="f-size" data-price="3000" style="margin-bottom: 5px;">
-      ₺2.000 - ₺3.000
-     </div>
-     <div class="f-size" data-price="5000" style="margin-bottom: 5px;">
-      ₺3.000 - ₺5.000
-     </div>
-     <div class="f-size" data-price="99999" style="margin-bottom: 15px;">
-      ₺5.000+
-     </div>
-     <div style="font-size: 10px; font-weight: 600; margin-bottom: 8px; color: #666;">
-      ÖZEL FİYAT ARALIĞI
-     </div>
-     <div style="display: flex; gap: 8px; margin-bottom: 8px;"><input type="number" id="minPrice" placeholder="Min ₺" style="width: 50%; padding: 8px; border: 1px solid var(--border); font-size: 11px; font-family: 'Montserrat', sans-serif;"> <input type="number" id="maxPriceInput" placeholder="Max ₺" style="width: 50%; padding: 8px; border: 1px solid var(--border); font-size: 11px; font-family: 'Montserrat', sans-serif;">
-     </div><button id="applyPriceBtn" style="width: 100%; padding: 8px; background: var(--black); color: white; border: none; font-size: 10px; font-weight: 600; text-transform: uppercase; cursor: pointer; letter-spacing: 1px;">Uygula</button>
     </div>
-   </aside><!-- PRODUCTS -->
-   <div class="product-grid">
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+    <div class="nav-item" data-category="erkek">
+     Erkek 
+     <div class="dropdown"><a href="#">Gömlek</a> <a href="#">Kazak</a> <a href="#">Hırka</a> <a href="#">T-Shirt</a> <a href="#">Polo</a> <a href="#">Sweatshirt</a> <a href="#">Hoodie</a> <a href="#">Mont &amp; Kaban</a> <a href="#">Ceket</a> <a href="#">Yelek</a> <a href="#">Pantolon</a> <a href="#">Jean</a> <a href="#">Şort</a> <a href="#">Takım Elbise</a>
      </div>
-     <div class="p-name">
-      Klasik Beyaz Gömlek
-     </div>
-     <div class="p-price">
-      ₺499
-     </div><button class="add-to-cart-btn" onclick="showSizeModal('Klasik Beyaz Gömlek', 499)">Sepete Ekle</button>
     </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+    <div class="nav-item" data-category="aksesuar">
+     Aksesuarlar 
+     <div class="dropdown"><a href="#">Çanta</a> <a href="#">Kemer</a> <a href="#">Şapka</a> <a href="#">Atkı</a> <a href="#">Eldiven</a> <a href="#">Bere</a> <a href="#">Güne�� Gözlüğü</a> <a href="#">Cüzdan</a> <a href="#">Kolye</a> <a href="#">Küpe</a> <a href="#">Bileklik</a>
      </div>
-     <div class="p-name">
-      Çiçek Desenli Elbise
-     </div>
-     <div class="p-price">
-      ₺799
-     </div><button class="add-to-cart-btn" onclick="showSizeModal('Çiçek Desenli Elbise', 799)">Sepete Ekle</button>
     </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
-     </div>
-     <div class="p-name">
-      Slim Fit Kot Pantolon
-     </div>
-     <div class="p-price">
-      ₺599
-     </div><button class="add-to-cart-btn" onclick="showSizeModal('Slim Fit Kot Pantolon', 599)">Sepete Ekle</button>
+    <div class="nav-item">
+     İndirim
     </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
-     </div>
-     <div class="p-name">
-      Deri Spor Ceket
-     </div>
-     <div class="p-price">
-      ₺1899
-     </div><button class="add-to-cart-btn" onclick="showSizeModal('Deri Spor Ceket', 1899)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
-     </div>
-     <div class="p-name">
-      Yün Kazak
-     </div>
-     <div class="p-price">
-      ₺649
-     </div><button class="add-to-cart-btn" onclick="showSizeModal('Yün Kazak', 649)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #30cfd0 0%, #330867 100%);"></div>
-     </div>
-     <div class="p-name">
-      Polo Yaka T-Shirt
-     </div>
-     <div class="p-price">
-      ₺299
-     </div><button class="add-to-cart-btn" onclick="addToCart('Polo Yaka T-Shirt', 299)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
-     </div>
-     <div class="p-name">
-      Saten Bluz
-     </div>
-     <div class="p-price">
-      ₺549
-     </div><button class="add-to-cart-btn" onclick="addToCart('Saten Bluz', 549)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);"></div>
-     </div>
-     <div class="p-name">
-      Askılı Elbise
-     </div>
-     <div class="p-price">
-      ₺899
-     </div><button class="add-to-cart-btn" onclick="addToCart('Askılı Elbise', 899)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);"></div>
-     </div>
-     <div class="p-name">
-      Yüksek Bel Pantolon
-     </div>
-     <div class="p-price">
-      ₺699
-     </div><button class="add-to-cart-btn" onclick="addToCart('Yüksek Bel Pantolon', 699)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%);"></div>
-     </div>
-     <div class="p-name">
-      Trençkot
-     </div>
-     <div class="p-price">
-      ₺1499
-     </div><button class="add-to-cart-btn" onclick="addToCart('Trençkot', 1499)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);"></div>
-     </div>
-     <div class="p-name">
-      Hırka Ceket
-     </div>
-     <div class="p-price">
-      ₺749
-     </div><button class="add-to-cart-btn" onclick="addToCart('Hırka Ceket', 749)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #f77062 0%, #fe5196 100%);"></div>
-     </div>
-     <div class="p-name">
-      Mini Etek
-     </div>
-     <div class="p-price">
-      ₺449
-     </div><button class="add-to-cart-btn" onclick="addToCart('Mini Etek', 449)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #c471f5 0%, #fa71cd 100%);"></div>
-     </div>
-     <div class="p-name">
-      Sweatshirt
-     </div>
-     <div class="p-price">
-      ₺399
-     </div><button class="add-to-cart-btn" onclick="addToCart('Sweatshirt', 399)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%);"></div>
-     </div>
-     <div class="p-name">
-      Erkek Gömlek
-     </div>
-     <div class="p-price">
-      ₺549
-     </div><button class="add-to-cart-btn" onclick="addToCart('Erkek Gömlek', 549)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #feada6 0%, #f5efef 100%);"></div>
-     </div>
-     <div class="p-name">
-      Kapüşonlu Hoodie
-     </div>
-     <div class="p-price">
-      ₺599
-     </div><button class="add-to-cart-btn" onclick="addToCart('Kapüşonlu Hoodie', 599)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);"></div>
-     </div>
-     <div class="p-name">
-      Yelek
-     </div>
-     <div class="p-price">
-      ₺699
-     </div><button class="add-to-cart-btn" onclick="addToCart('Yelek', 699)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);"></div>
-     </div>
-     <div class="p-name">
-      Kargo Pantolon
-     </div>
-     <div class="p-price">
-      ₺649
-     </div><button class="add-to-cart-btn" onclick="addToCart('Kargo Pantolon', 649)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #fccb90 0%, #d57eeb 100%);"></div>
-     </div>
-     <div class="p-name">
-      Tak��������m Elbise
-     </div>
-     <div class="p-price">
-      ₺2499
-     </div><button class="add-to-cart-btn" onclick="addToCart('Takım Elbise', 2499)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);"></div>
-     </div>
-     <div class="p-name">
-      Yaz Şortu
-     </div>
-     <div class="p-price">
-      ₺349
-     </div><button class="add-to-cart-btn" onclick="addToCart('Yaz Şortu', 349)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
-     </div>
-     <div class="p-name">
-      Deri Çanta
-     </div>
-     <div class="p-price">
-      ₺899
-     </div><button class="add-to-cart-btn" onclick="addToCart('Deri Çanta', 899)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
-     </div>
-     <div class="p-name">
-      Spor Ayakkabı
-     </div>
-     <div class="p-price">
-      ₺799
-     </div><button class="add-to-cart-btn" onclick="addToCart('Spor Ayakkabı', 799)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
-     </div>
-     <div class="p-name">
-      Deri Kemer
-     </div>
-     <div class="p-price">
-      ₺249
-     </div><button class="add-to-cart-btn" onclick="addToCart('Deri Kemer', 249)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
-     </div>
-     <div class="p-name">
-      Hasır Şapka
-     </div>
-     <div class="p-price">
-      ₺299
-     </div><button class="add-to-cart-btn" onclick="addToCart('Hasır Şapka', 299)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #30cfd0 0%, #330867 100%);"></div>
-     </div>
-     <div class="p-name">
-      Güneş Gözlüğü
-     </div>
-     <div class="p-price">
-      ₺449
-     </div><button class="add-to-cart-btn" onclick="addToCart('Güneş Gözlüğü', 449)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
-     </div>
-     <div class="p-name">
-      Yün Atkı
-     </div>
-     <div class="p-price">
-      ₺199
-     </div><button class="add-to-cart-btn" onclick="addToCart('Yün Atkı', 199)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);"></div>
-     </div>
-     <div class="p-name">
-      Deri Eldiven
-     </div>
-     <div class="p-price">
-      ₺349
-     </div><button class="add-to-cart-btn" onclick="addToCart('Deri Eldiven', 349)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);"></div>
-     </div>
-     <div class="p-name">
-      Örme Bere
-     </div>
-     <div class="p-price">
-      ₺149
-     </div><button class="add-to-cart-btn" onclick="addToCart('Örme Bere', 149)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%);"></div>
-     </div>
-     <div class="p-name">
-      Sırt Çantası
-     </div>
-     <div class="p-price">
-      ₺699
-     </div><button class="add-to-cart-btn" onclick="addToCart('Sırt Çantası', 699)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);"></div>
-     </div>
-     <div class="p-name">
-      Deri Cüzdan
-     </div>
-     <div class="p-price">
-      ₺299
-     </div><button class="add-to-cart-btn" onclick="addToCart('Deri Cüzdan', 299)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #f77062 0%, #fe5196 100%);"></div>
-     </div>
-     <div class="p-name">
-      Altın Kolye
-     </div>
-     <div class="p-price">
-      ₺1299
-     </div><button class="add-to-cart-btn" onclick="addToCart('Altın Kolye', 1299)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #c471f5 0%, #fa71cd 100%);"></div>
-     </div>
-     <div class="p-name">
-      İnci Küpe
-     </div>
-     <div class="p-price">
-      ₺549
-     </div><button class="add-to-cart-btn" onclick="addToCart('İnci Küpe', 549)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%);"></div>
-     </div>
-     <div class="p-name">
-      Gümüş Bileklik
-     </div>
-     <div class="p-price">
-      ₺449
-     </div><button class="add-to-cart-btn" onclick="addToCart('Gümüş Bileklik', 449)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #feada6 0%, #f5efef 100%);"></div>
-     </div>
-     <div class="p-name">
-      Uzun Elbise
-     </div>
-     <div class="p-price">
-      ₺949
-     </div><button class="add-to-cart-btn" onclick="addToCart('Uzun Elbise', 949)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);"></div>
-     </div>
-     <div class="p-name">
-      Crop Top
-     </div>
-     <div class="p-price">
-      ₺349
-     </div><button class="add-to-cart-btn" onclick="addToCart('Crop Top', 349)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);"></div>
-     </div>
-     <div class="p-name">
-      Wide Leg Pantolon
-     </div>
-     <div class="p-price">
-      ₺699
-     </div><button class="add-to-cart-btn" onclick="addToCart('Wide Leg Pantolon', 699)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #fccb90 0%, #d57eeb 100%);"></div>
-     </div>
-     <div class="p-name">
-      Blazer Ceket
-     </div>
-     <div class="p-price">
-      ₺1199
-     </div><button class="add-to-cart-btn" onclick="addToCart('Blazer Ceket', 1199)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
-     </div>
-     <div class="p-name">
-      Oversize Gömlek
-     </div>
-     <div class="p-price">
-      ₺549
-     </div><button class="add-to-cart-btn" onclick="addToCart('Oversize Gömlek', 549)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
-     </div>
-     <div class="p-name">
-      Kadife Elbise
-     </div>
-     <div class="p-price">
-      ₺1099
-     </div><button class="add-to-cart-btn" onclick="addToCart('Kadife Elbise', 1099)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
-     </div>
-     <div class="p-name">
-      Spor Tayt
-     </div>
-     <div class="p-price">
-      ₺399
-     </div><button class="add-to-cart-btn" onclick="addToCart('Spor Tayt', 399)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
-     </div>
-     <div class="p-name">
-      Fitness Atlet
-     </div>
-     <div class="p-price">
-      ₺249
-     </div><button class="add-to-cart-btn" onclick="addToCart('Fitness Atlet', 249)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
-     </div>
-     <div class="p-name">
-      Parka Mont
-     </div>
-     <div class="p-price">
-      ₺1699
-     </div><button class="add-to-cart-btn" onclick="addToCart('Parka Mont', 1699)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #30cfd0 0%, #330867 100%);"></div>
-     </div>
-     <div class="p-name">
-      Bomber Ceket
-     </div>
-     <div class="p-price">
-      ₺999
-     </div><button class="add-to-cart-btn" onclick="addToCart('Bomber Ceket', 999)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
-     </div>
-     <div class="p-name">
-      Şifon Bluz
-     </div>
-     <div class="p-price">
-      ₺449
-     </div><button class="add-to-cart-btn" onclick="addToCart('Şifon Bluz', 449)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);"></div>
-     </div>
-     <div class="p-name">
-      Tül Etek
-     </div>
-     <div class="p-price">
-      ₺599
-     </div><button class="add-to-cart-btn" onclick="addToCart('Tül Etek', 599)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);"></div>
-     </div>
-     <div class="p-name">
-      Sıfır Yaka Kazak
-     </div>
-     <div class="p-price">
-      ₺649
-     </div><button class="add-to-cart-btn" onclick="addToCart('Sıfır Yaka Kazak', 649)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%);"></div>
-     </div>
-     <div class="p-name">
-      Balıkçı Yaka Triko
-     </div>
-     <div class="p-price">
-      ₺549
-     </div><button class="add-to-cart-btn" onclick="addToCart('Balıkçı Yaka Triko', 549)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);"></div>
-     </div>
-     <div class="p-name">
-      Keten Pantolon
-     </div>
-     <div class="p-price">
-      ₺699
-     </div><button class="add-to-cart-btn" onclick="addToCart('Keten Pantolon', 699)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #f77062 0%, #fe5196 100%);"></div>
-     </div>
-     <div class="p-name">
-      Çizgili T-Shirt
-     </div>
-     <div class="p-price">
-      ₺299
-     </div><button class="add-to-cart-btn" onclick="addToCart('Çizgili T-Shirt', 299)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #c471f5 0%, #fa71cd 100%);"></div>
-     </div>
-     <div class="p-name">
-      V Yaka Kazak
-     </div>
-     <div class="p-price">
-      ₺599
-     </div><button class="add-to-cart-btn" onclick="addToCart('V Yaka Kazak', 599)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%);"></div>
-     </div>
-     <div class="p-name">
-      Dar Kesim Jean
-     </div>
-     <div class="p-price">
-      ₺649
-     </div><button class="add-to-cart-btn" onclick="addToCart('Dar Kesim Jean', 649)">Sepete Ekle</button>
-    </div>
-    <div class="p-card">
-     <div class="img-box">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg, #feada6 0%, #f5efef 100%);"></div>
-     </div>
-     <div class="p-name">
-      Postacı Çanta
-     </div>
-     <div class="p-price">
-      ₺799
-     </div><button class="add-to-cart-btn" onclick="addToCart('Postacı Çanta', 799)">Sepete Ekle</button>
-    </div>
-   </div>
-  </div><!-- LOGIN MODAL -->
-  <div class="overlay" id="loginModal">
-   <div class="login-modal"><button class="close-modal" id="closeLogin">×</button>
-    <div class="login-header">
-     <h2>HOŞ GELD��N����Z</h2>
-     <p>Hesabınıza giriş yapın</p>
-    </div>
-    <div class="login-body">
-     <form id="loginForm">
-      <div class="form-group"><label for="email">E-posta</label> <input type="email" id="email" placeholder="ornek@email.com" required>
+   </nav><!-- Main Content -->
+   <main class="main-content"><!-- Sidebar Filters -->
+    <aside class="sidebar"><!-- Category Filter -->
+     <div class="filter-section">
+      <h3>Kategori</h3>
+      <div class="filter-option"><input type="checkbox" id="cat-kadin" value="kadın"> <label for="cat-kadin">Kadın</label>
       </div>
-      <div class="form-group"><label for="password">Şifre</label> <input type="password" id="password" placeholder="••••••••" required>
+      <div class="filter-option"><input type="checkbox" id="cat-erkek" value="erkek"> <label for="cat-erkek">Erkek</label>
       </div>
-      <div class="forgot-password"><a href="#">Şifrenizi mi unuttunuz?</a>
-      </div><button type="submit" class="login-btn-primary">Giriş Yap</button>
-     </form>
-     <div class="divider"><span>veya</span>
+      <div class="filter-option"><input type="checkbox" id="cat-aksesuar" value="aksesuar"> <label for="cat-aksesuar">Aksesuar</label>
+      </div>
+     </div><!-- Price Filter -->
+     <div class="filter-section">
+      <h3>Fiyat Aralığı</h3>
+      <div class="price-inputs"><input type="number" id="minPrice" placeholder="En Düşük"> <input type="number" id="maxPrice" placeholder="En Yüksek">
+      </div><button class="apply-filter-btn" id="applyFilters">Uygula</button>
+     </div><!-- Size Filter -->
+     <div class="filter-section">
+      <h3>Beden</h3>
+      <div class="filter-option"><input type="checkbox" id="size-xs" value="XS"> <label for="size-xs">XS</label>
+      </div>
+      <div class="filter-option"><input type="checkbox" id="size-s" value="S"> <label for="size-s">S</label>
+      </div>
+      <div class="filter-option"><input type="checkbox" id="size-m" value="M"> <label for="size-m">M</label>
+      </div>
+      <div class="filter-option"><input type="checkbox" id="size-l" value="L"> <label for="size-l">L</label>
+      </div>
+      <div class="filter-option"><input type="checkbox" id="size-xl" value="XL"> <label for="size-xl">XL</label>
+      </div>
      </div>
-     <div class="social-login"><button class="social-btn">
-       <svg width="16" height="16" viewbox="0 0 24 24" fill="#4285F4">
-        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" /><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" /><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" /><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
-       </svg> Google </button> <button class="social-btn">
-       <svg width="16" height="16" viewbox="0 0 24 24" fill="#1877F2">
-        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-       </svg> Facebook </button>
+    </aside><!-- Products Area -->
+    <div class="products-area">
+     <div class="product-grid" id="productGrid"></div>
+    </div>
+   </main><!-- Cart Drawer -->
+   <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+     <h3>Sepetim</h3>
+     <p id="cartCount">0 Ürün</p>
+    </div>
+    <div class="cart-body" id="cartBody"></div>
+    <div class="cart-footer">
+     <div class="cart-total"><span>Toplam:</span> <span id="cartTotal">₺0</span>
+     </div><button class="checkout-btn" id="checkoutBtn">Ödemeye Geç</button>
+    </div>
+   </div><!-- Login Modal -->
+   <div class="modal-overlay" id="loginModal">
+    <div class="login-modal"><button class="close-modal" id="closeModal">×</button>
+     <div class="modal-header">
+      <h2>HOŞ GELDİNİZ</h2>
+      <p>Hesabınıza giriş yapın</p>
      </div>
-     <div class="signup-link">
-      Hesabınız yok mu? <a href="#">Üye Olun</a>
+     <div class="modal-body">
+      <form id="loginForm">
+       <div class="form-group"><label for="email">E-posta</label> <input type="email" id="email" placeholder="ornek@email.com" required>
+       </div>
+       <div class="form-group"><label for="password">Şifre</label> <input type="password" id="password" placeholder="•••�����••••" required>
+       </div><button type="submit" class="login-submit">Giriş Yap</button>
+      </form>
      </div>
     </div>
-   </div>
-  </div><!-- CART DRAWER -->
-  <div id="cart-drawer">
-   <div class="cart-header">
-    <h3>Sepetim</h3>
-    <p id="cart-count">0 Ürün</p>
-   </div>
-   <div class="cart-body" id="cart-items"></div>
-   <div class="cart-footer">
-    <div class="cart-subtotal"><span>Ara Toplam:</span> <span id="cart-subtotal">₺0</span>
+   </div><!-- Size Selection Modal -->
+   <div class="size-modal" id="sizeModal">
+    <h3>Beden Seçin</h3>
+    <div class="size-options" id="sizeOptions"></div>
+    <div class="size-actions"><button class="size-cancel" id="sizeCancel">İptal</button> <button class="size-confirm" id="sizeConfirm">Sepete Ekle</button>
     </div>
-    <div class="cart-shipping"><span>Kargo:</span> <span style="color: #4BB543; font-weight: 600;">ÜCRETSİZ</span>
-    </div>
-    <div class="cart-total"><span>Toplam:</span> <span id="cart-total">₺0</span>
-    </div><button class="cart-checkout-btn">Ödemeye Geç</button> <button class="cart-continue" onclick="document.getElementById('cart-drawer').classList.remove('active')">Alışverişe Devam Et</button>
-   </div>
-  </div><!-- SIZE SELECTION MODAL -->
-  <div class="size-modal" id="sizeModal">
-   <h3>Beden Seçin</h3>
-   <div class="size-options" id="sizeOptions"></div>
-   <div class="size-modal-actions"><button class="size-cancel" id="sizeCancelBtn">İptal</button> <button class="size-confirm" id="sizeConfirmBtn">Sepete Ekle</button>
-   </div>
-  </div><!-- PRODUCT DETAIL PAGE -->
-  <div class="product-detail" id="productDetail">
-   <div class="detail-header"><button class="back-btn" id="backBtn">← Geri</button>
-    <div class="cart-trigger" onclick="document.getElementById('cartTrigger').click()">
-     🛒
-    </div>
-   </div>
-   <div class="detail-content">
-    <div>
-     <div class="detail-image" id="detailImage"></div>
-    </div>
-    <div class="detail-info">
-     <h1 id="detailName"></h1>
-     <div class="detail-price" id="detailPrice"></div>
-     <div class="detail-section">
-      <h3>Ürün Açıklaması</h3>
-      <p id="detailDescription"></p>
-     </div>
-     <div class="detail-section">
-      <h3>Beden Rehberi</h3>
-      <div class="size-guide">
-       <div class="size-guide-item"><strong>S</strong>
-        <div>
-         Göğüs: 86-90 cm
-        </div>
-        <div>
-         Bel: 68-72 cm
-        </div>
+   </div><!-- Product Detail Modal -->
+   <div class="product-detail-modal" id="productDetailModal">
+    <div class="product-detail-content"><button class="close-detail" id="closeDetail">×</button>
+     <div class="detail-layout">
+      <div class="detail-images">
+       <div class="main-image" id="mainImage"><img src="" alt="" id="mainImageImg" loading="lazy" onerror="this.style.display='none';">
        </div>
-       <div class="size-guide-item"><strong>M</strong>
-        <div>
-         Göğüs: 90-94 cm
-        </div>
-        <div>
-         Bel: 72-76 cm
-        </div>
+       <div class="thumbnail-images" id="thumbnailImages"></div>
+      </div>
+      <div class="detail-info">
+       <h2 id="detailName"></h2>
+       <div class="detail-price" id="detailPrice"></div>
+       <div class="detail-description" id="detailDescription"></div><a class="size-guide-link" id="sizeGuideLink">📏 Beden Tablosu</a>
+       <div class="size-selector">
+        <h4>Beden Seçin</h4>
+        <div class="size-buttons" id="detailSizeButtons"></div>
+       </div><button class="add-to-cart-detail" id="addToCartDetail" disabled>Sepete Ekle</button>
+       <div class="product-features">
+        <ul>
+         <li>Ücretsiz kargo (500 TL üzeri)</li>
+         <li>30 gün iade garantisi</li>
+         <li>Orijinal ürün garantisi</li>
+         <li>Hızlı teslimat (1-3 iş günü)</li>
+        </ul>
        </div>
-       <div class="size-guide-item"><strong>L</strong>
-        <div>
-         Göğüs: 94-98 cm
-        </div>
-        <div>
-         Bel: 76-80 cm
-        </div>
-       </div>
-       <div class="size-guide-item"><strong>XL</strong>
-        <div>
-         Göğüs: 98-102 cm
-        </div>
-        <div>
-         Bel: 80-84 cm
-        </div>
-       </div>
-       <div class="size-guide-item"><strong>XXL</strong>
-        <div>
-         Göğüs: 102-108 cm
-        </div>
-        <div>
-         Bel: 84-90 cm
-        </div>
-       </div>
-       <div class="size-guide-item"><strong>3XL</strong>
-        <div>
-         Göğüs: 108-114 cm
-        </div>
-        <div>
-         Bel: 90-96 cm
-        </div>
+       <div class="reviews-section" id="reviewsSection">
+        <h3>Müşteri Yorumları ⭐</h3>
+        <div id="reviewsList"></div>
        </div>
       </div>
      </div>
-     <div class="detail-section">
-      <h3>������rün ����zellikleri</h3>
-      <ul class="features-list">
-       <li>%100 Pamuklu kumaş</li>
-       <li>Nefes alabilen yapı</li>
-       <li>30°C'de makinede yıkanabilir</li>
-       <li>Ütülenebilir (orta sıcaklık)</li>
-       <li>Türkiye'de üretilmiştir</li>
-       <li>Slim fit kesim</li>
-       <li>Renk solması yapmaz</li>
-       <li>Çekmez ve bozulmaz</li>
-      </ul>
-     </div><button class="add-to-cart-btn" id="detailAddToCart" style="padding: 16px; font-size: 12px;">Sepete Ekle</button>
+    </div>
+   </div><!-- Size Chart Modal -->
+   <div class="size-chart-modal" id="sizeChartModal">
+    <div class="size-chart-content"><button class="close-detail" id="closeSizeChart">×</button>
+     <h3>📏 Beden Tablosu</h3>
+     <table class="size-chart-table">
+      <thead>
+       <tr>
+        <th>Beden</th>
+        <th>Göğüs (cm)</th>
+        <th>Bel (cm)</th>
+        <th>Kalça (cm)</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+        <td>XS</td>
+        <td>80-84</td>
+        <td>60-64</td>
+        <td>86-90</td>
+       </tr>
+       <tr>
+        <td>S</td>
+        <td>84-88</td>
+        <td>64-68</td>
+        <td>90-94</td>
+       </tr>
+       <tr>
+        <td>M</td>
+        <td>88-92</td>
+        <td>68-72</td>
+        <td>94-98</td>
+       </tr>
+       <tr>
+        <td>L</td>
+        <td>92-96</td>
+        <td>72-76</td>
+        <td>98-102</td>
+       </tr>
+       <tr>
+        <td>XL</td>
+        <td>96-100</td>
+        <td>76-80</td>
+        <td>102-106</td>
+       </tr>
+       <tr>
+        <td>XXL</td>
+        <td>100-106</td>
+        <td>80-86</td>
+        <td>106-112</td>
+       </tr>
+      </tbody>
+     </table>
     </div>
    </div>
   </div>
   <script>
         const defaultConfig = {
-            brand_name: "RE-ZA",
+            brand_name: "Sosyete Pazarı",
             login_title: "HOŞ GELDİNİZ",
-            login_subtitle: "Hesabınıza giriş yapın",
-            background_color: "#fdfbf7",
-            accent_color: "#a68b6d",
-            text_color: "#1a1a1a",
-            button_color: "#1a1a1a",
-            surface_color: "#ffffff"
+            login_subtitle: "Hesabınıza giriş yapın"
         };
 
         async function onConfigChange(config) {
             const brandName = config.brand_name || defaultConfig.brand_name;
             const loginTitle = config.login_title || defaultConfig.login_title;
             const loginSubtitle = config.login_subtitle || defaultConfig.login_subtitle;
-            const bgColor = config.background_color || defaultConfig.background_color;
-            const accentColor = config.accent_color || defaultConfig.accent_color;
-            const textColor = config.text_color || defaultConfig.text_color;
-            const buttonColor = config.button_color || defaultConfig.button_color;
-            const surfaceColor = config.surface_color || defaultConfig.surface_color;
 
-            document.querySelector('.logo').textContent = brandName;
-            document.querySelector('.login-header h2').textContent = loginTitle;
-            document.querySelector('.login-header p').textContent = loginSubtitle;
+            const logoEl = document.querySelector('.header-left h1');
+            if (logoEl) logoEl.textContent = brandName.toUpperCase();
             
-            document.documentElement.style.setProperty('--bg', bgColor);
-            document.documentElement.style.setProperty('--accent', accentColor);
-            document.documentElement.style.setProperty('--black', textColor);
-            document.documentElement.style.setProperty('--white', surfaceColor);
+            const modalTitleEl = document.querySelector('.modal-header h2');
+            if (modalTitleEl) modalTitleEl.textContent = loginTitle;
             
-            document.querySelectorAll('.login-btn, .login-btn-primary').forEach(btn => {
-                btn.style.background = buttonColor;
-            });
-            
-            document.querySelector('.login-header').style.background = buttonColor;
+            const modalSubEl = document.querySelector('.modal-header p');
+            if (modalSubEl) modalSubEl.textContent = loginSubtitle;
         }
 
         if (window.elementSdk) {
             window.elementSdk.init({
                 defaultConfig,
                 onConfigChange,
-                mapToCapabilities: (config) => ({
-                    recolorables: [
-                        {
-                            get: () => config.background_color || defaultConfig.background_color,
-                            set: (value) => {
-                                config.background_color = value;
-                                window.elementSdk.setConfig({ background_color: value });
-                            }
-                        },
-                        {
-                            get: () => config.surface_color || defaultConfig.surface_color,
-                            set: (value) => {
-                                config.surface_color = value;
-                                window.elementSdk.setConfig({ surface_color: value });
-                            }
-                        },
-                        {
-                            get: () => config.text_color || defaultConfig.text_color,
-                            set: (value) => {
-                                config.text_color = value;
-                                window.elementSdk.setConfig({ text_color: value });
-                            }
-                        },
-                        {
-                            get: () => config.button_color || defaultConfig.button_color,
-                            set: (value) => {
-                                config.button_color = value;
-                                window.elementSdk.setConfig({ button_color: value });
-                            }
-                        },
-                        {
-                            get: () => config.accent_color || defaultConfig.accent_color,
-                            set: (value) => {
-                                config.accent_color = value;
-                                window.elementSdk.setConfig({ accent_color: value });
-                            }
-                        }
-                    ],
+                mapToCapabilities: () => ({
+                    recolorables: [],
                     borderables: [],
                     fontEditable: undefined,
                     fontSizeable: undefined
@@ -2100,543 +1245,759 @@
             });
         }
 
-        // Login Modal
-        const loginTrigger = document.getElementById('loginTrigger');
-        const loginModal = document.getElementById('loginModal');
-        const closeLogin = document.getElementById('closeLogin');
-        const loginForm = document.getElementById('loginForm');
+        // Global state
+        let cart = [];
+        let currentUser = null;
+        let pendingProduct = null;
+        let selectedSize = '';
 
-        loginTrigger.addEventListener('click', () => {
-            loginModal.classList.add('active');
+        const products = [
+            // KADIN ELBİSELER
+            { name: "Çiçek Desenli Elbise", price: 799, image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&h=600&fit=crop", category: "kadın", subcategory: "elbise" },
+            { name: "Saten Gece Elbisesi", price: 1299, image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=500&h=600&fit=crop", category: "kadın", subcategory: "elbise" },
+            { name: "Yazlık Midi Elbise", price: 649, image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500&h=600&fit=crop", category: "kadın", subcategory: "elbise" },
+            { name: "Kokteyl Elbise", price: 999, image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=500&h=600&fit=crop", category: "kadın", subcategory: "elbise" },
+            
+            // KADIN KAZAK
+            { name: "Yün Kazak", price: 649, image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&h=600&fit=crop", category: "kadın", subcategory: "kazak" },
+            { name: "V Yaka Triko", price: 479, image: "https://images.unsplash.com/photo-1617019114583-affb34d1b3cd?w=500&h=600&fit=crop", category: "kadın", subcategory: "kazak" },
+            { name: "Bo��azlı Kazak", price: 589, image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=500&h=600&fit=crop", category: "kadın", subcategory: "kazak" },
+            
+            // KADIN HIRKA
+            { name: "Triko Hırka", price: 589, image: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=500&h=600&fit=crop", category: "kadın", subcategory: "hırka" },
+            { name: "Uzun Hırka", price: 729, image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop", category: "kadın", subcategory: "hırka" },
+            { name: "Düğmeli Hırka", price: 549, image: "https://images.unsplash.com/photo-1620799139834-6b8f844fbe61?w=500&h=600&fit=crop", category: "kadın", subcategory: "hırka" },
+            
+            // KADIN BLUZ
+            { name: "Şifon Bluz", price: 429, image: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=500&h=600&fit=crop", category: "kadın", subcategory: "bluz" },
+            { name: "Fırfırlı Bluz", price: 499, image: "https://images.unsplash.com/photo-1564257577315-dad3fffe7d36?w=500&h=600&fit=crop", category: "kadın", subcategory: "bluz" },
+            { name: "Dantel Detaylı Bluz", price: 549, image: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=500&h=600&fit=crop", category: "kadın", subcategory: "bluz" },
+            
+            // KADIN GÖMLEK
+            { name: "Klasik Beyaz Gömlek", price: 499, image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&h=600&fit=crop", category: "kadın", subcategory: "gömlek" },
+            { name: "��izgili Gömlek", price: 459, image: "https://images.unsplash.com/photo-1624206112431-23fe7d6e93e3?w=500&h=600&fit=crop", category: "kadın", subcategory: "gömlek" },
+            { name: "Oversize Gömlek", price: 529, image: "https://images.unsplash.com/photo-1598522325074-042db73aa4e6?w=500&h=600&fit=crop", category: "kadın", subcategory: "gömlek" },
+            
+            // KADIN T-SHIRT
+            { name: "Basic Beyaz T-Shirt", price: 199, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=600&fit=crop", category: "kadın", subcategory: "tshirt" },
+            { name: "V Yaka T-Shirt", price: 229, image: "https://images.unsplash.com/photo-1527719327859-c6ce80353573?w=500&h=600&fit=crop", category: "kadın", subcategory: "tshirt" },
+            { name: "Bisiklet Yaka T-Shirt", price: 219, image: "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=500&h=600&fit=crop", category: "kadın", subcategory: "tshirt" },
+            
+            // KADIN SWEATSHIRT
+            { name: "Kapüşonlu Sweatshirt", price: 449, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500&h=600&fit=crop", category: "kadın", subcategory: "sweatshirt" },
+            { name: "Oversize Sweatshirt", price: 489, image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=500&h=600&fit=crop", category: "kadın", subcategory: "sweatshirt" },
+            
+            // KADIN MONT & KABAN
+            { name: "Yün Kaban", price: 1899, image: "https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?w=500&h=600&fit=crop", category: "kadın", subcategory: "mont" },
+            { name: "Trençkot", price: 1599, image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop", category: "kadın", subcategory: "mont" },
+            { name: "Şişme Mont", price: 899, image: "https://images.unsplash.com/photo-1548126032-079166dfdb04?w=500&h=600&fit=crop", category: "kadın", subcategory: "mont" },
+            
+            // KADIN CEKET
+            { name: "Blazer Ceket", price: 899, image: "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=500&h=600&fit=crop", category: "kadın", subcategory: "ceket" },
+            { name: "Deri Ceket", price: 1499, image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&h=600&fit=crop", category: "kadın", subcategory: "ceket" },
+            { name: "Jean Ceket", price: 599, image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=500&h=600&fit=crop", category: "kadın", subcategory: "ceket" },
+            
+            // KADIN PANTOLON
+            { name: "Düz Kesim Pantolon", price: 549, image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500&h=600&fit=crop", category: "kadın", subcategory: "pantolon" },
+            { name: "Bol Paça Pantolon", price: 629, image: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500&h=600&fit=crop", category: "kadın", subcategory: "pantolon" },
+            { name: "Kumaş Pantolon", price: 499, image: "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=500&h=600&fit=crop", category: "kadın", subcategory: "pantolon" },
+            
+            // KADIN JEAN
+            { name: "Skinny Jean", price: 449, image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&h=600&fit=crop", category: "kadın", subcategory: "jean" },
+            { name: "Mom Jean", price: 499, image: "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=500&h=600&fit=crop", category: "kadın", subcategory: "jean" },
+            { name: "Boyfriend Jean", price: 529, image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&h=600&fit=crop", category: "kadın", subcategory: "jean" },
+            
+            // KADIN ETEK
+            { name: "Midi Etek", price: 459, image: "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=500&h=600&fit=crop", category: "kadın", subcategory: "etek" },
+            { name: "Pileli Etek", price: 399, image: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=500&h=600&fit=crop", category: "kadın", subcategory: "etek" },
+            { name: "Kalem Etek", price: 429, image: "https://images.unsplash.com/photo-1564257577315-dad3fffe7d36?w=500&h=600&fit=crop", category: "kadın", subcategory: "etek" },
+            
+            // KADIN ŞORT
+            { name: "Pileli Şort", price: 399, image: "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=500&h=600&fit=crop", category: "kadın", subcategory: "şort" },
+            { name: "Jean Şort", price: 329, image: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=500&h=600&fit=crop", category: "kadın", subcategory: "şort" },
+            { name: "Bermuda Şort", price: 379, image: "https://images.unsplash.com/photo-1591371111932-5de29e0d3cc8?w=500&h=600&fit=crop", category: "kadın", subcategory: "şort" },
+            
+            // KADIN TRİKO
+            { name: "Triko Kazak", price: 529, image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&h=600&fit=crop", category: "kadın", subcategory: "triko" },
+            { name: "Triko Bluz", price: 449, image: "https://images.unsplash.com/photo-1617019114583-affb34d1b3cd?w=500&h=600&fit=crop", category: "kadın", subcategory: "triko" },
+            
+            // ERKEK GÖMLEK
+            { name: "Ekose Gömlek", price: 529, image: "https://images.unsplash.com/photo-1603252110971-b8a57087be18?w=500&h=600&fit=crop", category: "erkek", subcategory: "gömlek" },
+            { name: "Denim Gömlek", price: 489, image: "https://images.unsplash.com/photo-1598032895397-b9b5d6a3c451?w=500&h=600&fit=crop", category: "erkek", subcategory: "gömlek" },
+            { name: "Oxford Gömlek", price: 599, image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&h=600&fit=crop", category: "erkek", subcategory: "gömlek" },
+            { name: "Klasik Beyaz Gömlek", price: 549, image: "https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=500&h=600&fit=crop", category: "erkek", subcategory: "gömlek" },
+            
+            // ERKEK KAZAK
+            { name: "V Yaka Kazak", price: 569, image: "https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=500&h=600&fit=crop", category: "erkek", subcategory: "kazak" },
+            { name: "Bo��azlı Kazak", price: 649, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&h=600&fit=crop", category: "erkek", subcategory: "kazak" },
+            { name: "Yuvarlak Yaka Kazak", price: 589, image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&h=600&fit=crop", category: "erkek", subcategory: "kazak" },
+            
+            // ERKEK HIRKA
+            { name: "D��ğmeli Hırka", price: 629, image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop", category: "erkek", subcategory: "hırka" },
+            { name: "Fermuarlı Hırka", price: 679, image: "https://images.unsplash.com/photo-1620799139834-6b8f844fbe61?w=500&h=600&fit=crop", category: "erkek", subcategory: "hırka" },
+            { name: "Şal Yaka Hırka", price: 699, image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500&h=600&fit=crop", category: "erkek", subcategory: "hırka" },
+            
+            // ERKEK T-SHIRT
+            { name: "Basic T-Shirt", price: 199, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=600&fit=crop", category: "erkek", subcategory: "tshirt" },
+            { name: "V Yaka T-Shirt", price: 229, image: "https://images.unsplash.com/photo-1527719327859-c6ce80353573?w=500&h=600&fit=crop", category: "erkek", subcategory: "tshirt" },
+            { name: "Baskılı T-Shirt", price: 249, image: "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=500&h=600&fit=crop", category: "erkek", subcategory: "tshirt" },
+            
+            // ERKEK POLO
+            { name: "Polo T-Shirt", price: 349, image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&h=600&fit=crop", category: "erkek", subcategory: "polo" },
+            { name: "Çizgili Polo", price: 379, image: "https://images.unsplash.com/photo-1594938328870-f3f77d4cee1d?w=500&h=600&fit=crop", category: "erkek", subcategory: "polo" },
+            { name: "Slim Fit Polo", price: 399, image: "https://images.unsplash.com/photo-1625944234631-4f2d720672c1?w=500&h=600&fit=crop", category: "erkek", subcategory: "polo" },
+            
+            // ERKEK SWEATSHIRT
+            { name: "Basic Sweatshirt", price: 449, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500&h=600&fit=crop", category: "erkek", subcategory: "sweatshirt" },
+            { name: "Oversize Sweatshirt", price: 479, image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=500&h=600&fit=crop", category: "erkek", subcategory: "sweatshirt" },
+            
+            // ERKEK HOODIE
+            { name: "Kapüşonlu Sweatshirt", price: 479, image: "https://images.unsplash.com/photo-1621976498727-9e5d56476276?w=500&h=600&fit=crop", category: "erkek", subcategory: "hoodie" },
+            { name: "Fermuarlı Hoodie", price: 529, image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&h=600&fit=crop", category: "erkek", subcategory: "hoodie" },
+            
+            // ERKEK MONT & KABAN
+            { name: "Yün Kaban", price: 1799, image: "https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?w=500&h=600&fit=crop", category: "erkek", subcategory: "mont" },
+            { name: "Şişme Mont", price: 999, image: "https://images.unsplash.com/photo-1548126032-079166dfdb04?w=500&h=600&fit=crop", category: "erkek", subcategory: "mont" },
+            { name: "Trençkot", price: 1699, image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop", category: "erkek", subcategory: "mont" },
+            
+            // ERKEK CEKET
+            { name: "Deri Spor Ceket", price: 1899, image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&h=600&fit=crop", category: "erkek", subcategory: "ceket" },
+            { name: "Bomber Ceket", price: 899, image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop", category: "erkek", subcategory: "ceket" },
+            { name: "Süet Ceket", price: 1299, image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=500&h=600&fit=crop", category: "erkek", subcategory: "ceket" },
+            
+            // ERKEK YELEK
+            { name: "Yelek", price: 549, image: "https://images.unsplash.com/photo-1594938328870-f3f77d4cee1d?w=500&h=600&fit=crop", category: "erkek", subcategory: "yelek" },
+            { name: "Şişme Yelek", price: 699, image: "https://images.unsplash.com/photo-1548126032-079166dfdb04?w=500&h=600&fit=crop", category: "erkek", subcategory: "yelek" },
+            
+            // ERKEK PANTOLON
+            { name: "Chino Pantolon", price: 679, image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=500&h=600&fit=crop", category: "erkek", subcategory: "pantolon" },
+            { name: "Keten Pantolon", price: 599, image: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500&h=600&fit=crop", category: "erkek", subcategory: "pantolon" },
+            { name: "Kumaş Pantolon", price: 629, image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500&h=600&fit=crop", category: "erkek", subcategory: "pantolon" },
+            
+            // ERKEK JEAN
+            { name: "Slim Fit Kot Pantolon", price: 599, image: "https://images.unsplash.com/photo-1542272454315-7f6d8d5b0aac?w=500&h=600&fit=crop", category: "erkek", subcategory: "jean" },
+            { name: "Straight Fit Jean", price: 549, image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&h=600&fit=crop", category: "erkek", subcategory: "jean" },
+            { name: "Regular Fit Jean", price: 529, image: "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=500&h=600&fit=crop", category: "erkek", subcategory: "jean" },
+            
+            // ERKEK ŞORT
+            { name: "Spor Şort", price: 329, image: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=500&h=600&fit=crop", category: "erkek", subcategory: "şort" },
+            { name: "Bermuda Şort", price: 379, image: "https://images.unsplash.com/photo-1591371111932-5de29e0d3cc8?w=500&h=600&fit=crop", category: "erkek", subcategory: "şort" },
+            { name: "Jean Şort", price: 399, image: "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=500&h=600&fit=crop", category: "erkek", subcategory: "şort" },
+            
+            // ERKEK TAKIM ELBİSE
+            { name: "Klasik Takım Elbise", price: 2499, image: "https://images.unsplash.com/photo-1594938328870-f3f77d4cee1d?w=500&h=600&fit=crop", category: "erkek", subcategory: "takım" },
+            { name: "Slim Fit Tak����m", price: 2699, image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500&h=600&fit=crop", category: "erkek", subcategory: "takım" },
+            
+            // AKSESUAR ÇANTA
+            { name: "Deri Çanta", price: 899, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "çanta" },
+            { name: "Omuz Çantası", price: 749, image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "çanta" },
+            { name: "El Çantası", price: 649, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "çanta" },
+            
+            // AKSESUAR KEMER
+            { name: "Deri Kemer", price: 279, image: "https://images.unsplash.com/photo-1624222247344-70d8e3f20b7c?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "kemer" },
+            { name: "Tokalı Kemer", price: 329, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "kemer" },
+            
+            // AKSESUAR ŞAPKA
+            { name: "Fötr Şapka", price: 399, image: "https://images.unsplash.com/photo-1529958030586-3aae4ca485ff?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "şapka" },
+            { name: "Kasket", price: 299, image: "https://images.unsplash.com/photo-1521369909029-2afed882baee?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "şapka" },
+            
+            // AKSESUAR ATKI
+            { name: "Yün Atkı", price: 399, image: "https://images.unsplash.com/photo-1601925260692-f74c1cee7fdb?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "atkı" },
+            { name: "Kaşmir Atkı", price: 549, image: "https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "atkı" },
+            
+            // AKSESUAR ELDİVEN
+            { name: "Deri Eldiven", price: 449, image: "https://images.unsplash.com/photo-1576022113402-1f6ad16f7b15?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "eldiven" },
+            { name: "Yün Eldiven", price: 299, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "eldiven" },
+            
+            // AKSESUAR BERE
+            { name: "Bere", price: 199, image: "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "bere" },
+            { name: "Ponponlu Bere", price: 249, image: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "bere" },
+            
+            // AKSESUAR GÜNE�� GÖZLÜĞÜ
+            { name: "Güneş Gözlüğü", price: 329, image: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "gözlük" },
+            { name: "Aviator Gözlük", price: 399, image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "gözlük" },
+            
+            // AKSESUAR CÜZDAN
+            { name: "Deri Cüzdan", price: 349, image: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "cüzdan" },
+            { name: "Kartlık", price: 249, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "cüzdan" },
+            
+            // AKSESUAR KOLYE
+            { name: "Gümüş Kolye", price: 599, image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "kolye" },
+            { name: "Altın Kolye", price: 1299, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "kolye" },
+            
+            // AKSESUAR KÜPE
+            { name: "İnci Küpe", price: 479, image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "küpe" },
+            { name: "Halka Küpe", price: 399, image: "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "küpe" },
+            
+            // AKSESUAR BİLEKLİK
+            { name: "Gümüş Bileklik", price: 449, image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "bileklik" },
+            { name: "Deri Bileklik", price: 299, image: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "bileklik" }
+        ];
+
+        // Data SDK
+        if (window.dataSdk) {
+            window.dataSdk.init({
+                onDataChanged(data) {
+                    // Reviews data handled here
+                }
+            });
+        }
+
+        // Render products
+        function renderProducts(filter = null) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            
+            const filteredProducts = filter ? products.filter(p => p.category === filter) : products;
+            
+            filteredProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.style.display='none';">
+                    </div>
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-price">₺${product.price}</div>
+                    <button class="add-cart-btn">Sepete Ekle</button>
+                `;
+                
+                // Click on product image/card opens detail modal
+                card.querySelector('.product-image').addEventListener('click', () => {
+                    openProductDetail(product);
+                });
+                
+                card.querySelector('.product-name').addEventListener('click', () => {
+                    openProductDetail(product);
+                });
+                
+                card.querySelector('.add-cart-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openSizeModal(product);
+                });
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // Open product detail modal
+        function openProductDetail(product) {
+            const modal = document.getElementById('productDetailModal');
+            let detailSelectedSize = '';
+            
+            // Set product info
+            document.getElementById('detailName').textContent = product.name;
+            document.getElementById('detailPrice').textContent = `₺${product.price}`;
+            document.getElementById('detailDescription').textContent = `${product.name} yüksek kalite standartlarında üretilmiştir. Modern tasarımı ve şık görünümü ile gardırobunuzun vazgeçilmezi olacak. Her mevsim rahatlıkla kullanabileceğiniz kaliteli kumaşı sayesinde uzun ömürlü bir üründür.`;
+            
+            // Generate multiple product images (simulated)
+            const imageVariations = [
+                product.image,
+                product.image + '&angle=side',
+                product.image + '&angle=back',
+                product.image + '&angle=detail'
+            ];
+            
+            // Set main image
+            const mainImg = document.getElementById('mainImageImg');
+            mainImg.src = imageVariations[0];
+            mainImg.alt = product.name;
+            
+            // Generate thumbnails
+            const thumbnailContainer = document.getElementById('thumbnailImages');
+            thumbnailContainer.innerHTML = '';
+            imageVariations.forEach((imgSrc, index) => {
+                const thumb = document.createElement('div');
+                thumb.className = 'thumbnail' + (index === 0 ? ' active' : '');
+                thumb.innerHTML = `<img src="${imgSrc}" alt="${product.name}" loading="lazy" onerror="this.style.display='none';">`;
+                thumb.addEventListener('click', () => {
+                    mainImg.src = imgSrc;
+                    document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
+                });
+                thumbnailContainer.appendChild(thumb);
+            });
+            
+            // Zoom functionality
+            const mainImage = document.getElementById('mainImage');
+            mainImage.addEventListener('click', () => {
+                mainImage.classList.toggle('zoomed');
+            });
+            
+            // Size buttons
+            const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+            const sizeButtonsContainer = document.getElementById('detailSizeButtons');
+            sizeButtonsContainer.innerHTML = '';
+            sizes.forEach(size => {
+                const btn = document.createElement('button');
+                btn.className = 'size-btn';
+                btn.textContent = size;
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    detailSelectedSize = size;
+                    document.getElementById('addToCartDetail').disabled = false;
+                });
+                sizeButtonsContainer.appendChild(btn);
+            });
+            
+            // Add to cart from detail
+            const addToCartBtn = document.getElementById('addToCartDetail');
+            addToCartBtn.disabled = true;
+            addToCartBtn.onclick = () => {
+                if (detailSelectedSize) {
+                    addToCart(product, detailSelectedSize);
+                    modal.classList.remove('active');
+                    detailSelectedSize = '';
+                }
+            };
+            
+            // Sample reviews
+            const reviewsList = document.getElementById('reviewsList');
+            const sampleReviews = [
+                { author: 'Ayşe K.', rating: 5, text: 'Harika bir ürün! Kumaşı çok kaliteli ve bedeni tam oturdu.' },
+                { author: 'Mehmet Y.', rating: 4, text: 'Ürün açıklamasına uygun geldi. Rengi çok güzel.' },
+                { author: 'Zeynep A.', rating: 5, text: 'Çok beğendim, tavsiye ederim. Hızlı kargo için teşekkürler!' }
+            ];
+            
+            reviewsList.innerHTML = '';
+            sampleReviews.forEach(review => {
+                const reviewDiv = document.createElement('div');
+                reviewDiv.className = 'review-item';
+                reviewDiv.innerHTML = `
+                    <div class="review-header">
+                        <span class="review-author">${review.author}</span>
+                        <span class="review-rating">${'⭐'.repeat(review.rating)}</span>
+                    </div>
+                    <div class="review-text">${review.text}</div>
+                `;
+                reviewsList.appendChild(reviewDiv);
+            });
+            
+            modal.classList.add('active');
+        }
+        
+        // Close product detail modal
+        document.getElementById('closeDetail').addEventListener('click', () => {
+            document.getElementById('productDetailModal').classList.remove('active');
         });
-
-        closeLogin.addEventListener('click', () => {
-            loginModal.classList.remove('active');
+        
+        document.getElementById('productDetailModal').addEventListener('click', (e) => {
+            if (e.target.id === 'productDetailModal') {
+                document.getElementById('productDetailModal').classList.remove('active');
+            }
         });
-
-        loginModal.addEventListener('click', (e) => {
-            if (e.target === loginModal) {
-                loginModal.classList.remove('active');
+        
+        // Size guide modal
+        document.getElementById('sizeGuideLink').addEventListener('click', () => {
+            document.getElementById('sizeChartModal').classList.add('active');
+        });
+        
+        document.getElementById('closeSizeChart').addEventListener('click', () => {
+            document.getElementById('sizeChartModal').classList.remove('active');
+        });
+        
+        document.getElementById('sizeChartModal').addEventListener('click', (e) => {
+            if (e.target.id === 'sizeChartModal') {
+                document.getElementById('sizeChartModal').classList.remove('active');
             }
         });
 
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            // Başarı mesajı göster
-            const successMsg = document.createElement('div');
-            successMsg.style.cssText = 'position:fixed;top:20px;right:20px;background:#4BB543;color:white;padding:15px 25px;border-radius:4px;z-index:99999;font-size:13px;box-shadow:0 5px 15px rgba(0,0,0,0.3);';
-            successMsg.textContent = 'Giriş başarılı! Hoş geldiniz.';
-            document.body.appendChild(successMsg);
-            
-            setTimeout(() => {
-                successMsg.remove();
-                loginModal.classList.remove('active');
-                loginForm.reset();
-            }, 2000);
-        });
-
-        // Cart functionality
-        const cartTrigger = document.getElementById('cartTrigger');
-        const cartDrawer = document.getElementById('cart-drawer');
-        const sizeModal = document.getElementById('sizeModal');
-        const sizeOptions = document.getElementById('sizeOptions');
-        const sizeCancelBtn = document.getElementById('sizeCancelBtn');
-        const sizeConfirmBtn = document.getElementById('sizeConfirmBtn');
-        const productDetail = document.getElementById('productDetail');
-        const backBtn = document.getElementById('backBtn');
-        
-        let cart = [];
-        let selectedSize = '';
-        let pendingProduct = null;
-
-        const products = [
-            { name: "Klasik Beyaz Gömlek", price: 499, gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", description: "Zamansız şıklığın simgesi klasik beyaz gömlek. Ofisten özel davetlere her ortama uyum sağlar. Premium pamuklu kumaş���� sayesinde tüm gün rahat edersiniz." },
-            { name: "Çiçek Desenli Elbise", price: 799, gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)", description: "İlkbahar ve yaz aylarının vazgeçilmezi çiçek desenli elbise. Hafif ve akışkan kumaşı ile ferah bir kullanım sunar. Romantik ve zarif görünüm için ideal." },
-            { name: "Slim Fit Kot Pantolon", price: 599, gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)", description: "Modern kesimi ve konforlu yapısıyla günl��k kullanıma uygun kot pantolon. Yüksek kaliteli denim kumaşı uzun ömürlü kullanım garantisi verir." },
-            { name: "Deri Spor Ceket", price: 1899, gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)", description: "Şık ve sportif görünüm bir arada. Gerçek deri malzeme ile üretilmiş, uzun y��llar kullanabileceğiniz kaliteli bir üründür. Her kombine kolayca uyum sağlar." },
-            { name: "Yün Kazak", price: 649, gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)", description: "Soğuk kış günlerinin en iyi dostu yün kazak. Yumuşak ve sıcak tutan yapısıyla konfor sunar. Şık görünümünden ödün vermeden ısınmanızı sağlar." }
-        ];
-
-        cartTrigger.addEventListener('click', () => {
-            cartDrawer.classList.toggle('active');
-        });
-
-        // Show size selection modal
-        function showSizeModal(name, price) {
-            pendingProduct = { name, price };
+        // Size modal
+        function openSizeModal(product) {
+            pendingProduct = product;
             selectedSize = '';
             
-            const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+            const modal = document.getElementById('sizeModal');
+            const sizeOptions = document.getElementById('sizeOptions');
+            
+            const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'];
             sizeOptions.innerHTML = '';
             
             sizes.forEach(size => {
-                const sizeBtn = document.createElement('div');
-                sizeBtn.className = 'size-option';
-                sizeBtn.textContent = size;
-                sizeBtn.addEventListener('click', () => {
-                    document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('selected'));
-                    sizeBtn.classList.add('selected');
+                const btn = document.createElement('div');
+                btn.className = 'size-option';
+                btn.textContent = size;
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.size-option').forEach(s => s.classList.remove('selected'));
+                    btn.classList.add('selected');
                     selectedSize = size;
                 });
-                sizeOptions.appendChild(sizeBtn);
+                sizeOptions.appendChild(btn);
             });
             
-            sizeModal.classList.add('active');
+            modal.classList.add('active');
         }
 
-        // Close size modal
-        sizeCancelBtn.addEventListener('click', () => {
-            sizeModal.classList.remove('active');
-            pendingProduct = null;
-            selectedSize = '';
+        document.getElementById('sizeCancel').addEventListener('click', () => {
+            document.getElementById('sizeModal').classList.remove('active');
         });
 
-        // Confirm size and add to cart
-        sizeConfirmBtn.addEventListener('click', () => {
+        document.getElementById('sizeConfirm').addEventListener('click', () => {
             if (!selectedSize) {
-                const msg = document.createElement('div');
-                msg.style.cssText = 'position:fixed;top:20px;right:20px;background:#ff4444;color:white;padding:12px 20px;border-radius:4px;z-index:99999;font-size:12px;box-shadow:0 5px 15px rgba(0,0,0,0.3);';
-                msg.textContent = 'Lütfen bir beden seçin!';
-                document.body.appendChild(msg);
-                setTimeout(() => msg.remove(), 2000);
+                showToast('Lütfen bir beden seçin!');
                 return;
             }
             
-            addToCart(pendingProduct.name, pendingProduct.price, selectedSize);
-            sizeModal.classList.remove('active');
-            pendingProduct = null;
-            selectedSize = '';
+            addToCart(pendingProduct, selectedSize);
+            document.getElementById('sizeModal').classList.remove('active');
         });
 
-        // Show product detail
-        function showProductDetail(name, price, gradient) {
-            const product = products.find(p => p.name === name) || { name, price, gradient, description: "Bu ürün kaliteli malzemelerden üretilmiştir. Rahatlık ve şıklığı bir arada sunar." };
+        // Cart functions
+        function addToCart(product, size) {
+            const itemKey = `${product.name}-${size}`;
+            const existing = cart.find(item => item.key === itemKey);
             
-            document.getElementById('detailName').textContent = product.name;
-            document.getElementById('detailPrice').textContent = '₺' + product.price;
-            document.getElementById('detailImage').style.background = product.gradient;
-            document.getElementById('detailDescription').textContent = product.description;
-            
-            document.getElementById('detailAddToCart').onclick = () => {
-                showSizeModal(product.name, product.price);
-            };
-            
-            productDetail.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Close product detail
-        backBtn.addEventListener('click', () => {
-            productDetail.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
-
-        // Add product cards click events
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.p-card').forEach(card => {
-                const imgBox = card.querySelector('.img-box');
-                const pName = card.querySelector('.p-name');
-                const gradient = imgBox.querySelector('div').style.background;
-                const name = pName.textContent;
-                const price = parseInt(card.querySelector('.p-price').textContent.replace('₺', ''));
-                
-                imgBox.addEventListener('click', () => {
-                    showProductDetail(name, price, gradient);
-                });
-                
-                pName.addEventListener('click', () => {
-                    showProductDetail(name, price, gradient);
-                });
-            });
-        });
-        
-        function addToCart(name, price, size = '') {
-            const itemKey = size ? `${name} - ${size}` : name;
-            const existingItem = cart.find(item => item.key === itemKey);
-            
-            if (existingItem) {
-                existingItem.quantity += 1;
+            if (existing) {
+                existing.quantity += 1;
             } else {
-                cart.push({ key: itemKey, name, price, size, quantity: 1 });
+                cart.push({
+                    key: itemKey,
+                    name: product.name,
+                    price: product.price,
+                    size: size,
+                    quantity: 1,
+                    image: product.image
+                });
             }
             
             updateCart();
-            
-            // Başarı mesajı
-            const msg = document.createElement('div');
-            msg.style.cssText = 'position:fixed;top:20px;right:20px;background:#4BB543;color:white;padding:12px 20px;border-radius:4px;z-index:99999;font-size:12px;box-shadow:0 5px 15px rgba(0,0,0,0.3);';
-            msg.textContent = name + (size ? ` (${size})` : '') + ' sepete eklendi! 🛒';
-            document.body.appendChild(msg);
-            setTimeout(() => msg.remove(), 2000);
+            showToast(`${product.name} (${size}) sepete eklendi!`);
         }
-        
+
         function updateCart() {
-            const cartItemsContainer = document.getElementById('cart-items');
-            const cartTotal = document.getElementById('cart-total');
-            const cartSubtotal = document.getElementById('cart-subtotal');
-            const cartCount = document.getElementById('cart-count');
-            const cartBadge = document.getElementById('cart-badge');
+            const body = document.getElementById('cartBody');
+            const badge = document.getElementById('cartBadge');
+            const count = document.getElementById('cartCount');
+            const total = document.getElementById('cartTotal');
             
             if (cart.length === 0) {
-                cartItemsContainer.innerHTML = `
-                    <div class="cart-empty">
-                        <div class="cart-empty-icon">🛍️</div>
-                        <div class="cart-empty-text">Sepetiniz boş</div>
-                        <p style="font-size: 11px; margin-top: 10px;">Beğendiğiniz ürünleri sepete ekleyin</p>
-                    </div>
-                `;
-                cartBadge.style.display = 'none';
-                cartTotal.textContent = '₺0';
-                cartSubtotal.textContent = '₺0';
-                cartCount.textContent = '0 Ürün';
+                body.innerHTML = '<div class="cart-empty">����️<br><br>Sepetiniz boş</div>';
+                badge.style.display = 'none';
+                count.textContent = '0 Ürün';
+                total.textContent = '₺0';
                 return;
             }
             
-            cartItemsContainer.innerHTML = '';
-            let total = 0;
+            body.innerHTML = '';
+            let totalPrice = 0;
             let totalItems = 0;
             
             cart.forEach((item, index) => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
+                totalPrice += item.price * item.quantity;
                 totalItems += item.quantity;
                 
-                // Her ürün için gradient oluştur
-                const gradients = [
-                    "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                    "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-                    "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-                    "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
-                    "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
-                    "linear-gradient(135deg, #30cfd0 0%, #330867 100%)",
-                    "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
-                    "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
-                ];
-                const gradient = gradients[index % gradients.length];
-                
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'cart-item';
-                itemDiv.innerHTML = `
-                    <div class="cart-item-image" style="background: ${gradient};"></div>
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `
+                    <div class="cart-item-image">
+                        <img src="${item.image}" alt="${item.name}" loading="lazy" onerror="this.style.display='none';">
+                    </div>
                     <div class="cart-item-info">
-                        <div>
-                            <div class="cart-item-name">${item.name}</div>
-                            ${item.size ? `<div class="cart-item-size">Beden: ${item.size}</div>` : ''}
-                            <div class="cart-item-price">₺${item.price} x ${item.quantity}</div>
-                        </div>
-                        <div class="cart-item-controls">
-                            <button class="cart-qty-btn" onclick="changeQuantity(${index}, -1)">-</button>
-                            <span class="cart-qty-display">${item.quantity}</span>
-                            <button class="cart-qty-btn" onclick="changeQuantity(${index}, 1)">+</button>
-                            <button class="cart-remove-btn" onclick="removeFromCart(${index})">×</button>
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">₺${item.price} x ${item.quantity}</div>
+                        <div class="cart-qty-controls">
+                            <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+                            <button class="remove-btn" onclick="removeItem(${index})">Sil</button>
                         </div>
                     </div>
                 `;
-                cartItemsContainer.appendChild(itemDiv);
+                body.appendChild(div);
             });
             
-            cartTotal.textContent = '₺' + total;
-            cartSubtotal.textContent = '₺' + total;
-            cartCount.textContent = totalItems + ' Ürün';
-            cartBadge.textContent = totalItems;
-            cartBadge.style.display = 'block';
+            badge.textContent = totalItems;
+            badge.style.display = 'block';
+            count.textContent = `${totalItems} Ürün`;
+            total.textContent = `₺${totalPrice}`;
         }
-        
-        function changeQuantity(index, change) {
+
+        function changeQty(index, change) {
             cart[index].quantity += change;
             if (cart[index].quantity <= 0) {
                 cart.splice(index, 1);
             }
             updateCart();
         }
-        
-        function removeFromCart(index) {
+
+        function removeItem(index) {
             cart.splice(index, 1);
             updateCart();
         }
 
-        // Size filter
-        document.querySelectorAll('.f-size').forEach(size => {
-            size.addEventListener('click', function() {
-                this.classList.toggle('active');
-            });
+        // Cart drawer
+        document.getElementById('cartIcon').addEventListener('click', () => {
+            document.getElementById('cartDrawer').classList.toggle('active');
         });
 
-        // Price filter - predefined ranges
-        document.querySelectorAll('.sidebar [data-price]').forEach(priceBtn => {
-            priceBtn.addEventListener('click', function() {
-                document.querySelectorAll('.sidebar [data-price]').forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                
-                const msg = document.createElement('div');
-                msg.style.cssText = 'position:fixed;top:20px;right:20px;background:#4BB543;color:white;padding:12px 20px;border-radius:4px;z-index:99999;font-size:12px;box-shadow:0 5px 15px rgba(0,0,0,0.3);';
-                msg.textContent = 'Fiyat filtresi uygulandı: ' + this.textContent;
-                document.body.appendChild(msg);
-                setTimeout(() => msg.remove(), 2000);
-            });
+        // Checkout
+        document.getElementById('checkoutBtn').addEventListener('click', () => {
+            if (!currentUser) {
+                showToast('Lütfen ��nce giriş yapın!');
+                return;
+            }
+            
+            if (cart.length === 0) return;
+            
+            showToast('Sipariş ba��arıyla tamamlandı! ��');
+            cart = [];
+            updateCart();
+            document.getElementById('cartDrawer').classList.remove('active');
         });
 
-        // Custom price range
-        const applyPriceBtn = document.getElementById('applyPriceBtn');
-        const minPriceInput = document.getElementById('minPrice');
-        const maxPriceInput = document.getElementById('maxPriceInput');
+        // Login
+        document.getElementById('loginBtn').addEventListener('click', () => {
+            document.getElementById('loginModal').classList.add('active');
+        });
 
-        if (applyPriceBtn) {
-            applyPriceBtn.addEventListener('click', () => {
-                const minVal = minPriceInput.value;
-                const maxVal = maxPriceInput.value;
+        document.getElementById('closeModal').addEventListener('click', () => {
+            document.getElementById('loginModal').classList.remove('active');
+        });
+
+        document.getElementById('loginModal').addEventListener('click', (e) => {
+            if (e.target.id === 'loginModal') {
+                document.getElementById('loginModal').classList.remove('active');
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            currentUser = { email };
+            document.getElementById('loginBtn').textContent = email.split('@')[0];
+            document.getElementById('loginModal').classList.remove('active');
+            showToast('Giriş başarılı! Hoş geldiniz.');
+        });
+
+        // Category filter - Navigation menu (only trigger on direct nav-item click, not dropdown)
+        document.querySelectorAll('.nav-item[data-category]').forEach(item => {
+            item.addEventListener('click', (e) => {
+                // Don't trigger if clicking on dropdown links
+                if (e.target.tagName === 'A') return;
                 
-                if (minVal || maxVal) {
-                    document.querySelectorAll('.sidebar [data-price]').forEach(btn => btn.classList.remove('active'));
-                    
-                    const msg = document.createElement('div');
-                    msg.style.cssText = 'position:fixed;top:20px;right:20px;background:#4BB543;color:white;padding:12px 20px;border-radius:4px;z-index:99999;font-size:12px;box-shadow:0 5px 15px rgba(0,0,0,0.3);';
-                    msg.textContent = `Özel fiyat filtresi: ₺${minVal || '0'} - ₺${maxVal || '∞'}`;
-                    document.body.appendChild(msg);
-                    setTimeout(() => msg.remove(), 2000);
+                const category = item.dataset.category;
+                
+                // Uncheck all sidebar category filters first
+                document.querySelectorAll('[id^="cat-"]').forEach(cb => {
+                    cb.checked = false;
+                });
+                
+                // Check the corresponding sidebar category
+                const categoryCheckbox = document.getElementById(`cat-${category}`);
+                if (categoryCheckbox) {
+                    categoryCheckbox.checked = true;
                 }
-            });
-        }
-
-        // Social login buttons
-        document.querySelectorAll('.social-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const platform = btn.textContent.trim();
-                const msg = document.createElement('div');
-                msg.style.cssText = 'position:fixed;top:20px;right:20px;background:#2196F3;color:white;padding:15px 25px;border-radius:4px;z-index:99999;font-size:13px;box-shadow:0 5px 15px rgba(0,0,0,0.3);';
-                msg.textContent = `${platform} ile giriş yapılıyor...`;
-                document.body.appendChild(msg);
-                setTimeout(() => msg.remove(), 2500);
-            });
-        });
-
-        // Logo click to go home
-        document.querySelector('.header-left').addEventListener('click', () => {
-            // Ana sayfaya dön
-            if (productDetail.classList.contains('active')) {
-                productDetail.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-            // Sepeti kapat
-            if (cartDrawer.classList.contains('active')) {
-                cartDrawer.classList.remove('active');
-            }
-            // Login modalını kapat
-            if (loginModal.classList.contains('active')) {
-                loginModal.classList.remove('active');
-            }
-            // Sayfayı en üste kaydır
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // Tüm ürünler veritabanı - kategoriye göre
-        const allProducts = {
-            'Elbiseler': [
-                { name: 'Çiçek Desenli Elbise', price: 799, gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
-                { name: 'Askılı Elbise', price: 899, gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)' },
-                { name: 'Uzun Elbise', price: 949, gradient: 'linear-gradient(135deg, #feada6 0%, #f5efef 100%)' },
-                { name: 'Kadife Elbise', price: 1099, gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }
-            ],
-            'Kazak': [
-                { name: 'Yün Kazak', price: 649, gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
-                { name: 'V Yaka Kazak', price: 599, gradient: 'linear-gradient(135deg, #c471f5 0%, #fa71cd 100%)' },
-                { name: 'Sıfır Yaka Kazak', price: 649, gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)' },
-                { name: 'Boğazlı Kazak', price: 699, gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' }
-            ],
-            'Hırka': [
-                { name: 'Hırka Ceket', price: 749, gradient: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)' },
-                { name: 'Düğmeli Hırka', price: 699, gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)' },
-                { name: 'Uzun Hırka', price: 849, gradient: 'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)' }
-            ],
-            'Gömlek': [
-                { name: 'Klasik Beyaz Gömlek', price: 499, gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
-                { name: 'Erkek Gömlek', price: 549, gradient: 'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)' },
-                { name: 'Oversize Gömlek', price: 549, gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
-                { name: 'Desenli Gömlek', price: 599, gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' }
-            ],
-            'T-Shirt': [
-                { name: 'Polo Yaka T-Shirt', price: 299, gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)' },
-                { name: 'Çizgili T-Shirt', price: 299, gradient: 'linear-gradient(135deg, #f77062 0%, #fe5196 100%)' },
-                { name: 'Baskılı T-Shirt', price: 349, gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' }
-            ],
-            'Pantolon': [
-                { name: 'Slim Fit Kot Pantolon', price: 599, gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
-                { name: 'Yüksek Bel Pantolon', price: 699, gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)' },
-                { name: 'Kargo Pantolon', price: 649, gradient: 'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)' },
-                { name: 'Keten Pantolon', price: 699, gradient: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)' },
-                { name: 'Wide Leg Pantolon', price: 699, gradient: 'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)' }
-            ],
-            'Jean': [
-                { name: 'Dar Kesim Jean', price: 649, gradient: 'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)' },
-                { name: 'Boyfriend Jean', price: 699, gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
-                { name: 'Yırtık Jean', price: 749, gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }
-            ],
-            'Mont & Kaban': [
-                { name: 'Deri Spor Ceket', price: 1899, gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' },
-                { name: 'Trençkot', price: 1499, gradient: 'linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%)' },
-                { name: 'Parka Mont', price: 1699, gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
-                { name: 'Kaşmir Palto', price: 2499, gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)' }
-            ],
-            'Sweatshirt': [
-                { name: 'Sweatshirt', price: 399, gradient: 'linear-gradient(135deg, #c471f5 0%, #fa71cd 100%)' },
-                { name: 'Kapüşonlu Hoodie', price: 599, gradient: 'linear-gradient(135deg, #feada6 0%, #f5efef 100%)' },
-                { name: 'Fermuarlı Sweat', price: 549, gradient: 'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)' }
-            ],
-            'Ceket': [
-                { name: 'Blazer Ceket', price: 1199, gradient: 'linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)' },
-                { name: 'Bomber Ceket', price: 999, gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)' },
-                { name: 'Kot Ceket', price: 899, gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' }
-            ],
-            'Etek': [
-                { name: 'Mini Etek', price: 449, gradient: 'linear-gradient(135deg, #f77062 0%, #fe5196 100%)' },
-                { name: 'Tül Etek', price: 599, gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)' },
-                { name: 'Pileli Etek', price: 549, gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }
-            ],
-            'Şort': [
-                { name: 'Yaz Şortu', price: 349, gradient: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)' },
-                { name: 'Jean Şort', price: 399, gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
-                { name: 'Spor Şort', price: 299, gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' }
-            ],
-            'Bluz': [
-                { name: 'Saten Bluz', price: 549, gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)' },
-                { name: 'Şifon Bluz', price: 449, gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)' },
-                { name: 'Dantel Bluz', price: 599, gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)' }
-            ],
-            'Yelek': [
-                { name: 'Yelek', price: 699, gradient: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)' },
-                { name: 'Triko Yelek', price: 549, gradient: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)' },
-                { name: 'Kot Yelek', price: 649, gradient: 'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)' }
-            ],
-            'Takım Elbise': [
-                { name: 'Takım Elbise', price: 2499, gradient: 'linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)' },
-                { name: 'Slim Fit Takım', price: 2699, gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
-                { name: 'İtalyan Kesim Takım', price: 2999, gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)' }
-            ],
-            'Çanta': [
-                { name: 'Deri Çanta', price: 899, gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
-                { name: 'Sırt Çantası', price: 699, gradient: 'linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%)' },
-                { name: 'Postacı Çanta', price: 799, gradient: 'linear-gradient(135deg, #feada6 0%, #f5efef 100%)' },
-                { name: 'Clutch Çanta', price: 649, gradient: 'linear-gradient(135deg, #f77062 0%, #fe5196 100%)' }
-            ],
-            'Aksesuarlar': [
-                { name: 'Deri Kemer', price: 249, gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' },
-                { name: 'Hasır Şapka', price: 299, gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
-                { name: 'Güneş Gözlüğü', price: 449, gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)' },
-                { name: 'Yün Atkı', price: 199, gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)' },
-                { name: 'Deri Eldiven', price: 349, gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)' },
-                { name: 'Örme Bere', price: 149, gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)' },
-                { name: 'Deri Cüzdan', price: 299, gradient: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)' },
-                { name: 'Altın Kolye', price: 1299, gradient: 'linear-gradient(135deg, #f77062 0%, #fe5196 100%)' },
-                { name: 'İnci Küpe', price: 549, gradient: 'linear-gradient(135deg, #c471f5 0%, #fa71cd 100%)' },
-                { name: 'Gümüş Bileklik', price: 449, gradient: 'linear-gradient(135deg, #48c6ef 0%, #6f86d6 100%)' }
-            ],
-            'Crop Top': [
-                { name: 'Crop Top', price: 349, gradient: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)' },
-                { name: 'Fitilli Crop Top', price: 299, gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }
-            ],
-            'Triko': [
-                { name: 'Balıkçı Yaka Triko', price: 549, gradient: 'linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%)' },
-                { name: 'Düğmeli Triko', price: 599, gradient: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)' }
-            ],
-            'Spor': [
-                { name: 'Spor Tayt', price: 399, gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
-                { name: 'Fitness Atlet', price: 249, gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' },
-                { name: 'Spor Ayakkabı', price: 799, gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' }
-            ]
-        };
-
-        // Ürünleri gösterme fonksiyonu
-        function displayProducts(category = 'Tümü') {
-            const productGrid = document.querySelector('.product-grid');
-            productGrid.innerHTML = '';
-            
-            let productsToShow = [];
-            
-            if (category === 'Tümü' || category === 'Yeni Gelenler') {
-                // Tüm ürünleri göster
-                Object.values(allProducts).forEach(categoryProducts => {
-                    productsToShow = productsToShow.concat(categoryProducts);
-                });
-                // Karıştır ve ilk 48 ürünü al
-                productsToShow = productsToShow.sort(() => Math.random() - 0.5).slice(0, 48);
-            } else if (allProducts[category]) {
-                productsToShow = allProducts[category];
-            } else {
-                // Kategori bulunamadıysa tüm ürünleri göster
-                Object.values(allProducts).forEach(categoryProducts => {
-                    productsToShow = productsToShow.concat(categoryProducts);
-                });
-                productsToShow = productsToShow.sort(() => Math.random() - 0.5).slice(0, 48);
-            }
-            
-            // Ürünleri oluştur
-            productsToShow.forEach(product => {
-                const card = document.createElement('div');
-                card.className = 'p-card';
-                card.innerHTML = `
-                    <div class="img-box">
-                        <div style="width:100%;height:100%;background:${product.gradient};"></div>
-                    </div>
-                    <div class="p-name">${product.name}</div>
-                    <div class="p-price">₺${product.price}</div>
-                    <button class="add-to-cart-btn" onclick="showSizeModal('${product.name}', ${product.price})">Sepete Ekle</button>
-                `;
                 
-                // Ürün detay sayfasına git
-                const imgBox = card.querySelector('.img-box');
-                const pName = card.querySelector('.p-name');
-                
-                imgBox.addEventListener('click', () => {
-                    showProductDetail(product.name, product.price, product.gradient);
-                });
-                
-                pName.addEventListener('click', () => {
-                    showProductDetail(product.name, product.price, product.gradient);
-                });
-                
-                productGrid.appendChild(card);
-            });
-            
-            // Sayfayı ürünlere kaydır
-            productGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        // Category filter functionality
-        document.querySelectorAll('.dropdown a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const categoryName = link.textContent.trim();
-                
-                // Bildirim göster
-                const msg = document.createElement('div');
-                msg.style.cssText = 'position:fixed;top:20px;right:20px;background:linear-gradient(135deg, #c9a96e 0%, #d4b783 100%);color:white;padding:15px 30px;border-radius:4px;z-index:99999;font-size:13px;box-shadow:0 8px 25px rgba(201, 169, 110, 0.5);font-weight:600;letter-spacing:0.5px;';
-                msg.innerHTML = `<span style="margin-right:8px;">📂</span>${categoryName} kategorisi görüntüleniyor`;
-                document.body.appendChild(msg);
-                
-                setTimeout(() => {
-                    msg.style.transition = 'all 0.3s';
-                    msg.style.opacity = '0';
-                    msg.style.transform = 'translateY(-20px)';
-                    setTimeout(() => msg.remove(), 300);
-                }, 2500);
-                
-                // Ürünleri filtrele ve göster
-                displayProducts(categoryName);
+                // Apply filters
+                applyFilters();
             });
         });
         
-        // Ana menü linkleri
-        document.querySelectorAll('.nav-item > .nav-link').forEach(link => {
+        // Dropdown links - subcategory filtering
+        document.querySelectorAll('.dropdown a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const categoryName = link.textContent.trim();
-                displayProducts(categoryName);
+                e.stopPropagation();
+                
+                const subcategoryText = link.textContent.trim().toLowerCase();
+                const parentNav = link.closest('.nav-item');
+                const category = parentNav ? parentNav.dataset.category : null;
+                
+                // Uncheck all filters
+                document.querySelectorAll('[id^="cat-"]').forEach(cb => {
+                    cb.checked = false;
+                });
+                
+                // Check category if exists
+                if (category) {
+                    const categoryCheckbox = document.getElementById(`cat-${category}`);
+                    if (categoryCheckbox) {
+                        categoryCheckbox.checked = true;
+                    }
+                }
+                
+                // Filter by subcategory
+                filterBySubcategory(category, subcategoryText);
             });
         });
+        
+        function filterBySubcategory(category, subcategoryText) {
+            let filtered = products;
+            
+            // Filter by category first
+            if (category) {
+                filtered = filtered.filter(p => p.category === category);
+            }
+            
+            // Filter by subcategory name matching
+            const subcategoryMap = {
+                'elbiseler': 'elbise',
+                'kazak': 'kazak',
+                'hırka': 'hırka',
+                'bluz': 'bluz',
+                'gömlek': 'gömlek',
+                't-shirt': 'tshirt',
+                'sweatshirt': 'sweatshirt',
+                'mont & kaban': 'mont',
+                'ceket': 'ceket',
+                'pantolon': 'pantolon',
+                'jean': 'jean',
+                'etek': 'etek',
+                'şort': 'şort',
+                'triko': 'triko',
+                'polo': 'polo',
+                'hoodie': 'hoodie',
+                'yelek': 'yelek',
+                'takım elbise': 'takım',
+                'çanta': 'çanta',
+                'kemer': 'kemer',
+                'şapka': 'şapka',
+                'atkı': 'atkı',
+                'eldiven': 'eldiven',
+                'bere': 'bere',
+                'güneş gözlüğü': 'gözlük',
+                'cüzdan': 'cüzdan',
+                'kolye': 'kolye',
+                'küpe': 'küpe',
+                'bileklik': 'bileklik'
+            };
+            
+            const subcategoryKey = subcategoryMap[subcategoryText];
+            if (subcategoryKey) {
+                filtered = filtered.filter(p => p.subcategory === subcategoryKey);
+            }
+            
+            // Render filtered products
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:60px 20px; color:#999;">Ürün bulunamadı</div>';
+                return;
+            }
+            
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.style.display='none';">
+                    </div>
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-price">₺${product.price}</div>
+                    <button class="add-cart-btn">Sepete Ekle</button>
+                `;
+                
+                // Click on product image/name opens detail modal
+                card.querySelector('.product-image').addEventListener('click', () => {
+                    openProductDetail(product);
+                });
+                
+                card.querySelector('.product-name').addEventListener('click', () => {
+                    openProductDetail(product);
+                });
+                
+                card.querySelector('.add-cart-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openSizeModal(product);
+                });
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        // Sidebar filter functionality
+        document.getElementById('applyFilters').addEventListener('click', applyFilters);
+        
+        // Category checkboxes - trigger filter on change
+        document.querySelectorAll('[id^="cat-"]').forEach(cb => {
+            cb.addEventListener('change', applyFilters);
+        });
+        
+        // Size checkboxes - trigger filter on change
+        document.querySelectorAll('[id^="size-"]').forEach(cb => {
+            cb.addEventListener('change', applyFilters);
+        });
+        
+        function applyFilters() {
+            const checkedCategories = [];
+            document.querySelectorAll('[id^="cat-"]:checked').forEach(cb => {
+                checkedCategories.push(cb.value);
+            });
+            
+            const checkedSizes = [];
+            document.querySelectorAll('[id^="size-"]:checked').forEach(cb => {
+                checkedSizes.push(cb.value);
+            });
+            
+            const minPrice = parseInt(document.getElementById('minPrice').value) || 0;
+            const maxPrice = parseInt(document.getElementById('maxPrice').value) || Infinity;
+            
+            let filtered = products;
+            
+            // Filter by category
+            if (checkedCategories.length > 0) {
+                filtered = filtered.filter(p => checkedCategories.includes(p.category));
+            }
+            
+            // Filter by price
+            filtered = filtered.filter(p => p.price >= minPrice && p.price <= maxPrice);
+            
+            // Render filtered products
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:60px 20px; color:#999;">Ürün bulunamadı</div>';
+                return;
+            }
+            
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.style.display='none';">
+                    </div>
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-price">₺${product.price}</div>
+                    <button class="add-cart-btn">Sepete Ekle</button>
+                `;
+                
+                // Click on product image/name opens detail modal
+                card.querySelector('.product-image').addEventListener('click', () => {
+                    openProductDetail(product);
+                });
+                
+                card.querySelector('.product-name').addEventListener('click', () => {
+                    openProductDetail(product);
+                });
+                
+                card.querySelector('.add-cart-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openSizeModal(product);
+                });
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // Toast notification
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = 'position:fixed;top:20px;right:20px;background:#4BB543;color:white;padding:15px 25px;border-radius:4px;z-index:99999;font-size:13px;box-shadow:0 5px 15px rgba(0,0,0,0.3);';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        // Make functions global
+        window.changeQty = changeQty;
+        window.removeItem = removeItem;
+
+        // Initialize
+        renderProducts();
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c115f2385934592',t:'MTc2ODk0MTQ2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c19cd44e2eb2722',t:'MTc2OTAyOTg2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
