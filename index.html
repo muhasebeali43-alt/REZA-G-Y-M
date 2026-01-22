@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sosyete Pazarı</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Montserrat:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
   <script src="/_sdk/element_sdk.js"></script>
   <script src="/_sdk/data_sdk.js"></script>
   <style>
@@ -21,7 +21,7 @@
         html, body {
             width: 100%;
             height: 100%;
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: #fdfbf7;
             color: #1a1a1a;
         }
@@ -54,11 +54,17 @@
         }
         
         .header-left h1 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 28px;
             font-weight: 700;
             color: #c9a96e;
             letter-spacing: 2px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        
+        .header-left h1:hover {
+            opacity: 0.8;
         }
         
         .header-right {
@@ -85,9 +91,10 @@
         }
         
         .cart-icon {
-            font-size: 24px;
+            font-size: 26px;
             cursor: pointer;
             position: relative;
+            user-select: none;
         }
         
         .cart-badge {
@@ -144,7 +151,8 @@
             z-index: 100;
         }
         
-        .nav-item:hover .dropdown {
+        .nav-item:hover .dropdown,
+        .nav-item.open .dropdown {
             display: block;
         }
         
@@ -185,7 +193,7 @@
         }
         
         .filter-section h3 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 16px;
             margin-bottom: 20px;
             padding-bottom: 12px;
@@ -252,29 +260,51 @@
         
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 100%;
+        }
+        
+        @media (min-width: 900px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 1400px) {
+            .product-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
         
         .product-card {
             background: white;
             padding: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             transition: all 0.3s;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
         }
         
         .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(201, 169, 110, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(201, 169, 110, 0.25);
         }
         
         .product-image {
             width: 100%;
-            height: 300px;
+            height: 280px;
             background: #f4f4f4;
             margin-bottom: 15px;
             overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        @media (min-width: 900px) {
+            .product-image {
+                height: 320px;
+            }
         }
         
         .product-image img {
@@ -290,15 +320,18 @@
         
         .product-name {
             font-size: 14px;
-            font-weight: 700;
+            font-weight: 600;
             margin-bottom: 8px;
+            color: #1a1a1a;
+            line-height: 1.3;
+            min-height: 36px;
         }
         
         .product-price {
             font-size: 18px;
             color: #c9a96e;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         
         .add-cart-btn {
@@ -310,9 +343,10 @@
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             cursor: pointer;
             transition: all 0.3s;
+            margin-top: auto;
         }
         
         .add-cart-btn:hover {
@@ -345,7 +379,7 @@
         }
         
         .cart-header h3 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 24px;
             margin-bottom: 5px;
         }
@@ -467,6 +501,70 @@
             color: #666;
         }
         
+        /* Logo Splash Screen */
+        .logo-splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: splashFadeOut 0.8s ease-in-out 3s forwards;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        
+        @keyframes splashFadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+        
+        .logo-splash-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            animation: logoAppear 1.5s ease-out;
+        }
+        
+        @keyframes logoAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .logo-splash-image {
+            width: 320px;
+            height: 320px;
+            margin: 0 auto;
+            display: block;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
         /* Login Modal */
         .modal-overlay {
             position: fixed;
@@ -500,7 +598,7 @@
         }
         
         .modal-header h2 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 28px;
             margin-bottom: 8px;
             letter-spacing: 2px;
@@ -533,7 +631,7 @@
             padding: 14px;
             border: 1px solid #e8e2d9;
             font-size: 14px;
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
         
         .form-group input:focus {
@@ -631,6 +729,16 @@
             background: rgba(0,0,0,0.9);
         }
         
+        @media (max-width: 768px) {
+            .close-detail {
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+            }
+        }
+        
         .detail-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -638,9 +746,16 @@
             padding: 40px;
         }
         
+        @media (max-width: 768px) {
+            .detail-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+        }
+        
         .detail-images {
-            position: sticky;
-            top: 0;
+            /* Removed sticky positioning to allow normal scrolling */
         }
         
         .main-image {
@@ -650,6 +765,12 @@
             margin-bottom: 15px;
             overflow: hidden;
             cursor: zoom-in;
+        }
+        
+        @media (max-width: 768px) {
+            .main-image {
+                height: 350px;
+            }
         }
         
         .main-image img {
@@ -697,8 +818,14 @@
             object-fit: cover;
         }
         
+        @media (max-width: 768px) {
+            .thumbnail {
+                height: 70px;
+            }
+        }
+        
         .detail-info h2 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 32px;
             margin-bottom: 15px;
             color: #1a1a1a;
@@ -711,13 +838,26 @@
             margin-bottom: 25px;
         }
         
+        @media (max-width: 768px) {
+            .detail-info h2 {
+                font-size: 24px;
+            }
+            
+            .detail-price {
+                font-size: 22px;
+            }
+        }
+        
         .detail-description {
-            font-size: 14px;
-            line-height: 1.8;
-            color: #666;
+            font-size: 15px;
+            line-height: 1.9;
+            color: #1a1a1a;
             margin-bottom: 30px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid #e8e2d9;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #c9a96e;
+            border-radius: 4px;
+            font-weight: 500;
         }
         
         .size-guide-link {
@@ -827,7 +967,7 @@
         }
         
         .reviews-section h3 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 22px;
             margin-bottom: 20px;
         }
@@ -889,7 +1029,7 @@
         }
         
         .size-chart-content h3 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 24px;
             margin-bottom: 25px;
         }
@@ -1004,7 +1144,7 @@
             }
             
             .product-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
             }
             
@@ -1017,55 +1157,62 @@
   <style>@view-transition { navigation: auto; }</style>
   <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
  </head>
- <body class="h-full">
+ <body class="h-full"><!-- Logo Splash Screen -->
+  <div class="logo-splash">
+   <div class="logo-splash-content"><img src="https://i.imgur.com/51pRNeU.png" alt="Sosyete Pazari Logo" class="logo-splash-image" loading="eager" onerror="this.style.display='none';">
+   </div>
+  </div>
   <div class="app-wrapper"><!-- Header -->
    <header class="header">
     <div class="header-left">
      <h1>SOSYETE PAZARI</h1>
     </div>
-    <div class="header-right"><button class="login-btn" id="loginBtn">Giriş Yap</button>
+    <div class="header-right"><button class="login-btn" id="loginBtn">Giris Yap</button>
      <div class="cart-icon" id="cartIcon">
       🛒 <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
      </div>
     </div>
    </header><!-- Navigation -->
    <nav class="nav">
-    <div class="nav-item">
-     Yeni Gelenler
+    <div class="nav-item" id="allProductsNav">
+     Tum Urunler
     </div>
-    <div class="nav-item" data-category="kadın">
-     Kadın 
-     <div class="dropdown"><a href="#">Elbiseler</a> <a href="#">Kazak</a> <a href="#">Hırka</a> <a href="#">Bluz</a> <a href="#">Gömlek</a> <a href="#">T-Shirt</a> <a href="#">Sweatshirt</a> <a href="#">Mont &amp; Kaban</a> <a href="#">Ceket</a> <a href="#">Pantolon</a> <a href="#">Jean</a> <a href="#">Etek</a> <a href="#">Şort</a> <a href="#">Triko</a>
+    <div class="nav-item" data-category="kadin">
+     Kadin 
+     <div class="dropdown"><a href="#">Elbiseler</a> <a href="#">Kazak</a> <a href="#">Hirka</a> <a href="#">Bluz</a> <a href="#">Gomlek</a> <a href="#">T-Shirt</a> <a href="#">Sweatshirt</a> <a href="#">Mont &amp; Kaban</a> <a href="#">Ceket</a> <a href="#">Pantolon</a> <a href="#">Jean</a> <a href="#">Etek</a> <a href="#">Sort</a> <a href="#">Triko</a>
      </div>
     </div>
     <div class="nav-item" data-category="erkek">
      Erkek 
-     <div class="dropdown"><a href="#">Gömlek</a> <a href="#">Kazak</a> <a href="#">Hırka</a> <a href="#">T-Shirt</a> <a href="#">Polo</a> <a href="#">Sweatshirt</a> <a href="#">Hoodie</a> <a href="#">Mont &amp; Kaban</a> <a href="#">Ceket</a> <a href="#">Yelek</a> <a href="#">Pantolon</a> <a href="#">Jean</a> <a href="#">Şort</a> <a href="#">Takım Elbise</a>
+     <div class="dropdown"><a href="#">Gomlek</a> <a href="#">Kazak</a> <a href="#">Hirka</a> <a href="#">T-Shirt</a> <a href="#">Polo</a> <a href="#">Sweatshirt</a> <a href="#">Hoodie</a> <a href="#">Mont &amp; Kaban</a> <a href="#">Ceket</a> <a href="#">Yelek</a> <a href="#">Pantolon</a> <a href="#">Jean</a> <a href="#">Sort</a> <a href="#">Takim Elbise</a>
      </div>
     </div>
     <div class="nav-item" data-category="aksesuar">
      Aksesuarlar 
-     <div class="dropdown"><a href="#">Çanta</a> <a href="#">Kemer</a> <a href="#">Şapka</a> <a href="#">Atkı</a> <a href="#">Eldiven</a> <a href="#">Bere</a> <a href="#">Güne�� Gözlüğü</a> <a href="#">Cüzdan</a> <a href="#">Kolye</a> <a href="#">Küpe</a> <a href="#">Bileklik</a>
+     <div class="dropdown"><a href="#">Canta</a> <a href="#">Kemer</a> <a href="#">Sapka</a> <a href="#">Atki</a> <a href="#">Eldiven</a> <a href="#">Bere</a> <a href="#">Gunes Gozlugu</a> <a href="#">Cuzdan</a> <a href="#">Kolye</a> <a href="#">Kupe</a> <a href="#">Bileklik</a>
      </div>
     </div>
     <div class="nav-item">
-     İndirim
+     Indirim
+    </div>
+    <div class="nav-item" id="supportNav">
+     Destek &amp; Iletisim
     </div>
    </nav><!-- Main Content -->
    <main class="main-content"><!-- Sidebar Filters -->
     <aside class="sidebar"><!-- Category Filter -->
      <div class="filter-section">
       <h3>Kategori</h3>
-      <div class="filter-option"><input type="checkbox" id="cat-kadin" value="kadın"> <label for="cat-kadin">Kadın</label>
+      <div class="filter-option"><input type="checkbox" id="cat-kadin" value="kadin"> <label for="cat-kadin">Kadin <span id="count-kadin" style="color:#999;font-size:11px;"></span></label>
       </div>
-      <div class="filter-option"><input type="checkbox" id="cat-erkek" value="erkek"> <label for="cat-erkek">Erkek</label>
+      <div class="filter-option"><input type="checkbox" id="cat-erkek" value="erkek"> <label for="cat-erkek">Erkek <span id="count-erkek" style="color:#999;font-size:11px;"></span></label>
       </div>
-      <div class="filter-option"><input type="checkbox" id="cat-aksesuar" value="aksesuar"> <label for="cat-aksesuar">Aksesuar</label>
+      <div class="filter-option"><input type="checkbox" id="cat-aksesuar" value="aksesuar"> <label for="cat-aksesuar">Aksesuar <span id="count-aksesuar" style="color:#999;font-size:11px;"></span></label>
       </div>
      </div><!-- Price Filter -->
      <div class="filter-section">
-      <h3>Fiyat Aralığı</h3>
-      <div class="price-inputs"><input type="number" id="minPrice" placeholder="En Düşük"> <input type="number" id="maxPrice" placeholder="En Yüksek">
+      <h3>Fiyat Araligi</h3>
+      <div class="price-inputs"><input type="number" id="minPrice" placeholder="En Dusuk"> <input type="number" id="maxPrice" placeholder="En Yuksek">
       </div><button class="apply-filter-btn" id="applyFilters">Uygula</button>
      </div><!-- Size Filter -->
      <div class="filter-section">
@@ -1089,34 +1236,34 @@
    <div class="cart-drawer" id="cartDrawer">
     <div class="cart-header">
      <h3>Sepetim</h3>
-     <p id="cartCount">0 Ürün</p>
+     <p id="cartCount">0 Urun</p><button class="close-modal" id="closeCart" style="position:absolute;top:15px;right:15px;background:#1a1a1a;border:none;color:white;font-size:24px;width:35px;height:35px;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:50%;">×</button>
     </div>
     <div class="cart-body" id="cartBody"></div>
     <div class="cart-footer">
-     <div class="cart-total"><span>Toplam:</span> <span id="cartTotal">₺0</span>
-     </div><button class="checkout-btn" id="checkoutBtn">Ödemeye Geç</button>
+     <div class="cart-total"><span>Toplam:</span> <span id="cartTotal">0 TL</span>
+     </div><button class="checkout-btn" id="checkoutBtn">Odemeye Gec</button>
     </div>
    </div><!-- Login Modal -->
    <div class="modal-overlay" id="loginModal">
     <div class="login-modal"><button class="close-modal" id="closeModal">×</button>
      <div class="modal-header">
-      <h2>HOŞ GELDİNİZ</h2>
-      <p>Hesabınıza giriş yapın</p>
+      <h2>HOS GELDINIZ</h2>
+      <p>Hesabiniza giris yapin</p>
      </div>
      <div class="modal-body">
       <form id="loginForm">
        <div class="form-group"><label for="email">E-posta</label> <input type="email" id="email" placeholder="ornek@email.com" required>
        </div>
-       <div class="form-group"><label for="password">Şifre</label> <input type="password" id="password" placeholder="���••�����••••" required>
-       </div><button type="submit" class="login-submit">Giriş Yap</button>
+       <div class="form-group"><label for="password">Sifre</label> <input type="password" id="password" placeholder="••••••" required>
+       </div><button type="submit" class="login-submit">Giris Yap</button>
       </form>
      </div>
     </div>
    </div><!-- Size Selection Modal -->
    <div class="size-modal" id="sizeModal">
-    <h3>Beden Seçin</h3>
+    <h3>Beden Secin</h3>
     <div class="size-options" id="sizeOptions"></div>
-    <div class="size-actions"><button class="size-cancel" id="sizeCancel">İptal</button> <button class="size-confirm" id="sizeConfirm">Sepete Ekle</button>
+    <div class="size-actions"><button class="size-cancel" id="sizeCancel">Iptal</button> <button class="size-confirm" id="sizeConfirm">Sepete Ekle</button>
     </div>
    </div><!-- Product Detail Modal -->
    <div class="product-detail-modal" id="productDetailModal">
@@ -1132,19 +1279,19 @@
        <div class="detail-price" id="detailPrice"></div>
        <div class="detail-description" id="detailDescription"></div><a class="size-guide-link" id="sizeGuideLink">📏 Beden Tablosu</a>
        <div class="size-selector">
-        <h4>Beden Seçin</h4>
+        <h4>Beden Secin</h4>
         <div class="size-buttons" id="detailSizeButtons"></div>
        </div><button class="add-to-cart-detail" id="addToCartDetail" disabled>Sepete Ekle</button>
        <div class="product-features">
         <ul>
-         <li>Ücretsiz kargo (500 TL üzeri)</li>
-         <li>30 gün iade garantisi</li>
-         <li>Orijinal ürün garantisi</li>
-         <li>Hızlı teslimat (1-3 iş günü)</li>
+         <li>Ucretsiz kargo (500 TL uzeri)</li>
+         <li>30 gun iade garantisi</li>
+         <li>Orijinal urun garantisi</li>
+         <li>Hizli teslimat (1-3 is gunu)</li>
         </ul>
        </div>
        <div class="reviews-section" id="reviewsSection">
-        <h3>Müşteri Yorumları ⭐</h3>
+        <h3>Musteri Yorumlari ⭐</h3>
         <div id="reviewsList"></div>
        </div>
       </div>
@@ -1158,9 +1305,9 @@
       <thead>
        <tr>
         <th>Beden</th>
-        <th>Göğüs (cm)</th>
+        <th>Gogus (cm)</th>
         <th>Bel (cm)</th>
-        <th>Kalça (cm)</th>
+        <th>Kalca (cm)</th>
        </tr>
       </thead>
       <tbody>
@@ -1203,22 +1350,65 @@
       </tbody>
      </table>
     </div>
+   </div><!-- Support & Contact Modal -->
+   <div class="modal-overlay" id="supportModal">
+    <div class="login-modal" style="max-width: 600px;"><button class="close-modal" id="closeSupportModal">×</button>
+     <div class="modal-header">
+      <h2>DESTEK &amp; ILETISIM</h2>
+      <p>Size nasil yardimci olabiliriz?</p>
+     </div>
+     <div class="modal-body" style="padding: 30px 40px;">
+      <div style="margin-bottom: 30px;">
+       <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 15px; color: #c9a96e;">📞 Iletisim Bilgileri</h3>
+       <div style="font-size: 14px; line-height: 2; color: #666;">
+        <p><strong>Telefon:</strong> 0850 123 45 67</p>
+        <p><strong>E-posta:</strong> destek@sosyetepazari.com</p>
+        <p><strong>WhatsApp:</strong> 0555 123 45 67</p>
+        <p><strong>Calisma Saatleri:</strong> Hafta ici 09:00 - 18:00</p>
+       </div>
+      </div>
+      <div style="margin-bottom: 30px;">
+       <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 15px; color: #c9a96e;">💬 Bize Yazin</h3>
+       <form id="supportForm">
+        <div class="form-group"><label for="supportName">Adiniz Soyadiniz</label> <input type="text" id="supportName" placeholder="Adiniz Soyadiniz" required>
+        </div>
+        <div class="form-group"><label for="supportEmail">E-posta</label> <input type="email" id="supportEmail" placeholder="ornek@email.com" required>
+        </div>
+        <div class="form-group"><label for="supportSubject">Konu</label> <input type="text" id="supportSubject" placeholder="Mesaj konusu" required>
+        </div>
+        <div class="form-group"><label for="supportMessage">Mesajiniz</label> <textarea id="supportMessage" placeholder="Mesajinizi buraya yazin..." required style="width: 100%; min-height: 120px; padding: 14px; border: 1px solid #e8e2d9; font-size: 14px; font-family: 'Inter', sans-serif; resize: vertical;"></textarea>
+        </div><button type="submit" class="login-submit">Mesaj Gonder</button>
+       </form>
+      </div>
+      <div style="background: #f8f8f8; padding: 20px; border-left: 4px solid #c9a96e;">
+       <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 10px;">📦 Sik Sorulan Sorular</h3>
+       <div style="font-size: 13px; line-height: 1.8; color: #666;">
+        <p><strong>• Kargo ne kadar surer?</strong><br>
+          1-3 is gunu icinde teslim edilir.</p>
+        <p><strong>• Iade suresi nedir?</strong><br>
+          30 gun icinde ucretsiz iade yapabilirsiniz.</p>
+        <p><strong>• Odeme secenekleri nelerdir?</strong><br>
+          Kredi karti, havale/EFT ve kapida odeme.</p>
+       </div>
+      </div>
+     </div>
+    </div>
    </div>
   </div>
   <script>
         const defaultConfig = {
-            brand_name: "Sosyete Pazarı",
-            login_title: "HOŞ GELDİNİZ",
-            login_subtitle: "Hesabınıza giriş yapın"
+            brand_name: "Sosyete Pazari",
+            login_title: "HOS GELDINIZ",
+            login_subtitle: "Hesabiniza giris yapin"
         };
 
         async function onConfigChange(config) {
             const brandName = config.brand_name || defaultConfig.brand_name;
             const loginTitle = config.login_title || defaultConfig.login_title;
             const loginSubtitle = config.login_subtitle || defaultConfig.login_subtitle;
-
-            const logoEl = document.querySelector('.header-left h1');
-            if (logoEl) logoEl.textContent = brandName.toUpperCase();
+            
+            const textLogoEl = document.querySelector('.header-left h1');
+            if (textLogoEl) textLogoEl.textContent = brandName.toUpperCase();
             
             const modalTitleEl = document.querySelector('.modal-header h2');
             if (modalTitleEl) modalTitleEl.textContent = loginTitle;
@@ -1252,99 +1442,99 @@
         let selectedSize = '';
 
         const products = [
-            // KADIN ELBİSELER
-            { name: "Çiçek Desenli Elbise", price: 799, image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&h=600&fit=crop", category: "kadın", subcategory: "elbise" },
-            { name: "Saten Gece Elbisesi", price: 1299, image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=500&h=600&fit=crop", category: "kadın", subcategory: "elbise" },
-            { name: "Yazlık Midi Elbise", price: 649, image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500&h=600&fit=crop", category: "kadın", subcategory: "elbise" },
-            { name: "Kokteyl Elbise", price: 999, image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=500&h=600&fit=crop", category: "kadın", subcategory: "elbise" },
+            // KADIN ELBISELER
+            { name: "Cicekli Desenli Elbise", price: 799, image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&h=600&fit=crop", category: "kadin", subcategory: "elbise" },
+            { name: "Saten Gece Elbisesi", price: 1299, image: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=500&h=600&fit=crop", category: "kadin", subcategory: "elbise" },
+            { name: "Yazlik Midi Elbise", price: 649, image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500&h=600&fit=crop", category: "kadin", subcategory: "elbise" },
+            { name: "Kokteyl Elbise", price: 999, image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=500&h=600&fit=crop", category: "kadin", subcategory: "elbise" },
             
             // KADIN KAZAK
-            { name: "Yün Kazak", price: 649, image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&h=600&fit=crop", category: "kadın", subcategory: "kazak" },
-            { name: "V Yaka Triko", price: 479, image: "https://images.unsplash.com/photo-1617019114583-affb34d1b3cd?w=500&h=600&fit=crop", category: "kadın", subcategory: "kazak" },
-            { name: "Bo��azlı Kazak", price: 589, image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=500&h=600&fit=crop", category: "kadın", subcategory: "kazak" },
+            { name: "Yun Kazak", price: 649, image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&h=600&fit=crop", category: "kadin", subcategory: "kazak" },
+            { name: "V Yaka Triko", price: 479, image: "https://images.unsplash.com/photo-1617019114583-affb34d1b3cd?w=500&h=600&fit=crop", category: "kadin", subcategory: "kazak" },
+            { name: "Bogazli Kazak", price: 589, image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=500&h=600&fit=crop", category: "kadin", subcategory: "kazak" },
             
             // KADIN HIRKA
-            { name: "Triko Hırka", price: 589, image: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=500&h=600&fit=crop", category: "kadın", subcategory: "hırka" },
-            { name: "Uzun Hırka", price: 729, image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop", category: "kadın", subcategory: "hırka" },
-            { name: "Düğmeli Hırka", price: 549, image: "https://images.unsplash.com/photo-1620799139834-6b8f844fbe61?w=500&h=600&fit=crop", category: "kadın", subcategory: "hırka" },
+            { name: "Triko Hirka", price: 589, image: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=500&h=600&fit=crop", category: "kadin", subcategory: "hirka" },
+            { name: "Uzun Hirka", price: 729, image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop", category: "kadin", subcategory: "hirka" },
+            { name: "Dugmeli Hirka", price: 549, image: "https://images.unsplash.com/photo-1620799139834-6b8f844fbe61?w=500&h=600&fit=crop", category: "kadin", subcategory: "hirka" },
             
             // KADIN BLUZ
-            { name: "Şifon Bluz", price: 429, image: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=500&h=600&fit=crop", category: "kadın", subcategory: "bluz" },
-            { name: "Fırfırlı Bluz", price: 499, image: "https://images.unsplash.com/photo-1564257577315-dad3fffe7d36?w=500&h=600&fit=crop", category: "kadın", subcategory: "bluz" },
-            { name: "Dantel Detaylı Bluz", price: 549, image: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=500&h=600&fit=crop", category: "kadın", subcategory: "bluz" },
+            { name: "Sifon Bluz", price: 429, image: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=500&h=600&fit=crop", category: "kadin", subcategory: "bluz" },
+            { name: "Firfirli Bluz", price: 499, image: "https://images.unsplash.com/photo-1564257577315-dad3fffe7d36?w=500&h=600&fit=crop", category: "kadin", subcategory: "bluz" },
+            { name: "Dantel Detayli Bluz", price: 549, image: "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=500&h=600&fit=crop", category: "kadin", subcategory: "bluz" },
             
-            // KADIN GÖMLEK
-            { name: "Klasik Beyaz Gömlek", price: 499, image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&h=600&fit=crop", category: "kadın", subcategory: "gömlek" },
-            { name: "��izgili Gömlek", price: 459, image: "https://images.unsplash.com/photo-1624206112431-23fe7d6e93e3?w=500&h=600&fit=crop", category: "kadın", subcategory: "gömlek" },
-            { name: "Oversize Gömlek", price: 529, image: "https://images.unsplash.com/photo-1598522325074-042db73aa4e6?w=500&h=600&fit=crop", category: "kadın", subcategory: "gömlek" },
+            // KADIN GOMLEK
+            { name: "Klasik Beyaz Gomlek", price: 499, image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&h=600&fit=crop", category: "kadin", subcategory: "gomlek" },
+            { name: "Cizgili Gomlek", price: 459, image: "https://images.unsplash.com/photo-1624206112431-23fe7d6e93e3?w=500&h=600&fit=crop", category: "kadin", subcategory: "gomlek" },
+            { name: "Oversize Gomlek", price: 529, image: "https://images.unsplash.com/photo-1598522325074-042db73aa4e6?w=500&h=600&fit=crop", category: "kadin", subcategory: "gomlek" },
             
             // KADIN T-SHIRT
-            { name: "Basic Beyaz T-Shirt", price: 199, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=600&fit=crop", category: "kadın", subcategory: "tshirt" },
-            { name: "V Yaka T-Shirt", price: 229, image: "https://images.unsplash.com/photo-1527719327859-c6ce80353573?w=500&h=600&fit=crop", category: "kadın", subcategory: "tshirt" },
-            { name: "Bisiklet Yaka T-Shirt", price: 219, image: "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=500&h=600&fit=crop", category: "kadın", subcategory: "tshirt" },
+            { name: "Basic Beyaz T-Shirt", price: 199, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=600&fit=crop", category: "kadin", subcategory: "tshirt" },
+            { name: "V Yaka T-Shirt", price: 229, image: "https://images.unsplash.com/photo-1527719327859-c6ce80353573?w=500&h=600&fit=crop", category: "kadin", subcategory: "tshirt" },
+            { name: "Bisiklet Yaka T-Shirt", price: 219, image: "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=500&h=600&fit=crop", category: "kadin", subcategory: "tshirt" },
             
             // KADIN SWEATSHIRT
-            { name: "Kapüşonlu Sweatshirt", price: 449, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500&h=600&fit=crop", category: "kadın", subcategory: "sweatshirt" },
-            { name: "Oversize Sweatshirt", price: 489, image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=500&h=600&fit=crop", category: "kadın", subcategory: "sweatshirt" },
+            { name: "Kapusonlu Sweatshirt", price: 449, image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500&h=600&fit=crop", category: "kadin", subcategory: "sweatshirt" },
+            { name: "Oversize Sweatshirt", price: 489, image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=500&h=600&fit=crop", category: "kadin", subcategory: "sweatshirt" },
             
             // KADIN MONT & KABAN
-            { name: "Yün Kaban", price: 1899, image: "https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?w=500&h=600&fit=crop", category: "kadın", subcategory: "mont" },
-            { name: "Trençkot", price: 1599, image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop", category: "kadın", subcategory: "mont" },
-            { name: "Şişme Mont", price: 899, image: "https://images.unsplash.com/photo-1548126032-079166dfdb04?w=500&h=600&fit=crop", category: "kadın", subcategory: "mont" },
+            { name: "Yun Kaban", price: 1899, image: "https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?w=500&h=600&fit=crop", category: "kadin", subcategory: "mont" },
+            { name: "Trenckot", price: 1599, image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop", category: "kadin", subcategory: "mont" },
+            { name: "Sisme Mont", price: 899, image: "https://images.unsplash.com/photo-1548126032-079166dfdb04?w=500&h=600&fit=crop", category: "kadin", subcategory: "mont" },
             
             // KADIN CEKET
-            { name: "Blazer Ceket", price: 899, image: "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=500&h=600&fit=crop", category: "kadın", subcategory: "ceket" },
-            { name: "Deri Ceket", price: 1499, image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&h=600&fit=crop", category: "kadın", subcategory: "ceket" },
-            { name: "Jean Ceket", price: 599, image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=500&h=600&fit=crop", category: "kadın", subcategory: "ceket" },
+            { name: "Blazer Ceket", price: 899, image: "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=500&h=600&fit=crop", category: "kadin", subcategory: "ceket" },
+            { name: "Deri Ceket", price: 1499, image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&h=600&fit=crop", category: "kadin", subcategory: "ceket" },
+            { name: "Jean Ceket", price: 599, image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=500&h=600&fit=crop", category: "kadin", subcategory: "ceket" },
             
             // KADIN PANTOLON
-            { name: "Düz Kesim Pantolon", price: 549, image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500&h=600&fit=crop", category: "kadın", subcategory: "pantolon" },
-            { name: "Bol Paça Pantolon", price: 629, image: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500&h=600&fit=crop", category: "kadın", subcategory: "pantolon" },
-            { name: "Kumaş Pantolon", price: 499, image: "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=500&h=600&fit=crop", category: "kadın", subcategory: "pantolon" },
+            { name: "Duz Kesim Pantolon", price: 549, image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500&h=600&fit=crop", category: "kadin", subcategory: "pantolon" },
+            { name: "Bol Paca Pantolon", price: 629, image: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500&h=600&fit=crop", category: "kadin", subcategory: "pantolon" },
+            { name: "Kumas Pantolon", price: 499, image: "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=500&h=600&fit=crop", category: "kadin", subcategory: "pantolon" },
             
             // KADIN JEAN
-            { name: "Skinny Jean", price: 449, image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&h=600&fit=crop", category: "kadın", subcategory: "jean" },
-            { name: "Mom Jean", price: 499, image: "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=500&h=600&fit=crop", category: "kadın", subcategory: "jean" },
-            { name: "Boyfriend Jean", price: 529, image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&h=600&fit=crop", category: "kadın", subcategory: "jean" },
+            { name: "Skinny Jean", price: 449, image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&h=600&fit=crop", category: "kadin", subcategory: "jean" },
+            { name: "Mom Jean", price: 499, image: "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=500&h=600&fit=crop", category: "kadin", subcategory: "jean" },
+            { name: "Boyfriend Jean", price: 529, image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&h=600&fit=crop", category: "kadin", subcategory: "jean" },
             
             // KADIN ETEK
-            { name: "Midi Etek", price: 459, image: "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=500&h=600&fit=crop", category: "kadın", subcategory: "etek" },
-            { name: "Pileli Etek", price: 399, image: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=500&h=600&fit=crop", category: "kadın", subcategory: "etek" },
-            { name: "Kalem Etek", price: 429, image: "https://images.unsplash.com/photo-1564257577315-dad3fffe7d36?w=500&h=600&fit=crop", category: "kadın", subcategory: "etek" },
+            { name: "Midi Etek", price: 459, image: "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=500&h=600&fit=crop", category: "kadin", subcategory: "etek" },
+            { name: "Pileli Etek", price: 399, image: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=500&h=600&fit=crop", category: "kadin", subcategory: "etek" },
+            { name: "Kalem Etek", price: 429, image: "https://images.unsplash.com/photo-1564257577315-dad3fffe7d36?w=500&h=600&fit=crop", category: "kadin", subcategory: "etek" },
             
-            // KADIN ŞORT
-            { name: "Pileli Şort", price: 399, image: "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=500&h=600&fit=crop", category: "kadın", subcategory: "şort" },
-            { name: "Jean Şort", price: 329, image: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=500&h=600&fit=crop", category: "kadın", subcategory: "şort" },
-            { name: "Bermuda Şort", price: 379, image: "https://images.unsplash.com/photo-1591371111932-5de29e0d3cc8?w=500&h=600&fit=crop", category: "kadın", subcategory: "şort" },
+            // KADIN SORT
+            { name: "Pileli Sort", price: 399, image: "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=500&h=600&fit=crop", category: "kadin", subcategory: "sort" },
+            { name: "Jean Sort", price: 329, image: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=500&h=600&fit=crop", category: "kadin", subcategory: "sort" },
+            { name: "Bermuda Sort", price: 379, image: "https://images.unsplash.com/photo-1591371111932-5de29e0d3cc8?w=500&h=600&fit=crop", category: "kadin", subcategory: "sort" },
             
-            // KADIN TRİKO
-            { name: "Triko Kazak", price: 529, image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&h=600&fit=crop", category: "kadın", subcategory: "triko" },
-            { name: "Triko Bluz", price: 449, image: "https://images.unsplash.com/photo-1617019114583-affb34d1b3cd?w=500&h=600&fit=crop", category: "kadın", subcategory: "triko" },
+            // KADIN TRIKO
+            { name: "Triko Kazak", price: 529, image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&h=600&fit=crop", category: "kadin", subcategory: "triko" },
+            { name: "Triko Bluz", price: 449, image: "https://images.unsplash.com/photo-1617019114583-affb34d1b3cd?w=500&h=600&fit=crop", category: "kadin", subcategory: "triko" },
             
-            // ERKEK GÖMLEK
-            { name: "Ekose Gömlek", price: 529, image: "https://images.unsplash.com/photo-1603252110971-b8a57087be18?w=500&h=600&fit=crop", category: "erkek", subcategory: "gömlek" },
-            { name: "Denim Gömlek", price: 489, image: "https://images.unsplash.com/photo-1598032895397-b9b5d6a3c451?w=500&h=600&fit=crop", category: "erkek", subcategory: "gömlek" },
-            { name: "Oxford Gömlek", price: 599, image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&h=600&fit=crop", category: "erkek", subcategory: "gömlek" },
-            { name: "Klasik Beyaz Gömlek", price: 549, image: "https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=500&h=600&fit=crop", category: "erkek", subcategory: "gömlek" },
+            // ERKEK GOMLEK
+            { name: "Ekose Gomlek", price: 529, image: "https://images.unsplash.com/photo-1603252110971-b8a57087be18?w=500&h=600&fit=crop", category: "erkek", subcategory: "gomlek" },
+            { name: "Denim Gomlek", price: 489, image: "https://images.unsplash.com/photo-1598032895397-b9b5d6a3c451?w=500&h=600&fit=crop", category: "erkek", subcategory: "gomlek" },
+            { name: "Oxford Gomlek", price: 599, image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&h=600&fit=crop", category: "erkek", subcategory: "gomlek" },
+            { name: "Klasik Beyaz Gomlek", price: 549, image: "https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=500&h=600&fit=crop", category: "erkek", subcategory: "gomlek" },
             
             // ERKEK KAZAK
             { name: "V Yaka Kazak", price: 569, image: "https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=500&h=600&fit=crop", category: "erkek", subcategory: "kazak" },
-            { name: "Bo��azlı Kazak", price: 649, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&h=600&fit=crop", category: "erkek", subcategory: "kazak" },
+            { name: "Bogazli Kazak", price: 649, image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&h=600&fit=crop", category: "erkek", subcategory: "kazak" },
             { name: "Yuvarlak Yaka Kazak", price: 589, image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&h=600&fit=crop", category: "erkek", subcategory: "kazak" },
             
             // ERKEK HIRKA
-            { name: "D��ğmeli Hırka", price: 629, image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop", category: "erkek", subcategory: "hırka" },
-            { name: "Fermuarlı Hırka", price: 679, image: "https://images.unsplash.com/photo-1620799139834-6b8f844fbe61?w=500&h=600&fit=crop", category: "erkek", subcategory: "hırka" },
-            { name: "Şal Yaka Hırka", price: 699, image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500&h=600&fit=crop", category: "erkek", subcategory: "hırka" },
+            { name: "Dugmeli Hirka", price: 629, image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop", category: "erkek", subcategory: "hirka" },
+            { name: "Fermuarli Hirka", price: 679, image: "https://images.unsplash.com/photo-1620799139834-6b8f844fbe61?w=500&h=600&fit=crop", category: "erkek", subcategory: "hirka" },
+            { name: "Sal Yaka Hirka", price: 699, image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500&h=600&fit=crop", category: "erkek", subcategory: "hirka" },
             
             // ERKEK T-SHIRT
             { name: "Basic T-Shirt", price: 199, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=600&fit=crop", category: "erkek", subcategory: "tshirt" },
             { name: "V Yaka T-Shirt", price: 229, image: "https://images.unsplash.com/photo-1527719327859-c6ce80353573?w=500&h=600&fit=crop", category: "erkek", subcategory: "tshirt" },
-            { name: "Baskılı T-Shirt", price: 249, image: "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=500&h=600&fit=crop", category: "erkek", subcategory: "tshirt" },
+            { name: "Baskili T-Shirt", price: 249, image: "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=500&h=600&fit=crop", category: "erkek", subcategory: "tshirt" },
             
             // ERKEK POLO
             { name: "Polo T-Shirt", price: 349, image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&h=600&fit=crop", category: "erkek", subcategory: "polo" },
-            { name: "Çizgili Polo", price: 379, image: "https://images.unsplash.com/photo-1594938328870-f3f77d4cee1d?w=500&h=600&fit=crop", category: "erkek", subcategory: "polo" },
+            { name: "Cizgili Polo", price: 379, image: "https://images.unsplash.com/photo-1594938328870-f3f77d4cee1d?w=500&h=600&fit=crop", category: "erkek", subcategory: "polo" },
             { name: "Slim Fit Polo", price: 399, image: "https://images.unsplash.com/photo-1625944234631-4f2d720672c1?w=500&h=600&fit=crop", category: "erkek", subcategory: "polo" },
             
             // ERKEK SWEATSHIRT
@@ -1352,85 +1542,85 @@
             { name: "Oversize Sweatshirt", price: 479, image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=500&h=600&fit=crop", category: "erkek", subcategory: "sweatshirt" },
             
             // ERKEK HOODIE
-            { name: "Kapüşonlu Sweatshirt", price: 479, image: "https://images.unsplash.com/photo-1621976498727-9e5d56476276?w=500&h=600&fit=crop", category: "erkek", subcategory: "hoodie" },
-            { name: "Fermuarlı Hoodie", price: 529, image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&h=600&fit=crop", category: "erkek", subcategory: "hoodie" },
+            { name: "Kapusonlu Sweatshirt", price: 479, image: "https://images.unsplash.com/photo-1621976498727-9e5d56476276?w=500&h=600&fit=crop", category: "erkek", subcategory: "hoodie" },
+            { name: "Fermuarli Hoodie", price: 529, image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&h=600&fit=crop", category: "erkek", subcategory: "hoodie" },
             
             // ERKEK MONT & KABAN
-            { name: "Yün Kaban", price: 1799, image: "https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?w=500&h=600&fit=crop", category: "erkek", subcategory: "mont" },
-            { name: "Şişme Mont", price: 999, image: "https://images.unsplash.com/photo-1548126032-079166dfdb04?w=500&h=600&fit=crop", category: "erkek", subcategory: "mont" },
-            { name: "Trençkot", price: 1699, image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop", category: "erkek", subcategory: "mont" },
+            { name: "Yun Kaban", price: 1799, image: "https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?w=500&h=600&fit=crop", category: "erkek", subcategory: "mont" },
+            { name: "Sisme Mont", price: 999, image: "https://images.unsplash.com/photo-1548126032-079166dfdb04?w=500&h=600&fit=crop", category: "erkek", subcategory: "mont" },
+            { name: "Trenckot", price: 1699, image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop", category: "erkek", subcategory: "mont" },
             
             // ERKEK CEKET
             { name: "Deri Spor Ceket", price: 1899, image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&h=600&fit=crop", category: "erkek", subcategory: "ceket" },
             { name: "Bomber Ceket", price: 899, image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=600&fit=crop", category: "erkek", subcategory: "ceket" },
-            { name: "Süet Ceket", price: 1299, image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=500&h=600&fit=crop", category: "erkek", subcategory: "ceket" },
+            { name: "Suet Ceket", price: 1299, image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=500&h=600&fit=crop", category: "erkek", subcategory: "ceket" },
             
             // ERKEK YELEK
             { name: "Yelek", price: 549, image: "https://images.unsplash.com/photo-1594938328870-f3f77d4cee1d?w=500&h=600&fit=crop", category: "erkek", subcategory: "yelek" },
-            { name: "Şişme Yelek", price: 699, image: "https://images.unsplash.com/photo-1548126032-079166dfdb04?w=500&h=600&fit=crop", category: "erkek", subcategory: "yelek" },
+            { name: "Sisme Yelek", price: 699, image: "https://images.unsplash.com/photo-1548126032-079166dfdb04?w=500&h=600&fit=crop", category: "erkek", subcategory: "yelek" },
             
             // ERKEK PANTOLON
             { name: "Chino Pantolon", price: 679, image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=500&h=600&fit=crop", category: "erkek", subcategory: "pantolon" },
             { name: "Keten Pantolon", price: 599, image: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500&h=600&fit=crop", category: "erkek", subcategory: "pantolon" },
-            { name: "Kumaş Pantolon", price: 629, image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500&h=600&fit=crop", category: "erkek", subcategory: "pantolon" },
+            { name: "Kumas Pantolon", price: 629, image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500&h=600&fit=crop", category: "erkek", subcategory: "pantolon" },
             
             // ERKEK JEAN
             { name: "Slim Fit Kot Pantolon", price: 599, image: "https://images.unsplash.com/photo-1542272454315-7f6d8d5b0aac?w=500&h=600&fit=crop", category: "erkek", subcategory: "jean" },
             { name: "Straight Fit Jean", price: 549, image: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&h=600&fit=crop", category: "erkek", subcategory: "jean" },
             { name: "Regular Fit Jean", price: 529, image: "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=500&h=600&fit=crop", category: "erkek", subcategory: "jean" },
             
-            // ERKEK ŞORT
-            { name: "Spor Şort", price: 329, image: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=500&h=600&fit=crop", category: "erkek", subcategory: "şort" },
-            { name: "Bermuda Şort", price: 379, image: "https://images.unsplash.com/photo-1591371111932-5de29e0d3cc8?w=500&h=600&fit=crop", category: "erkek", subcategory: "şort" },
-            { name: "Jean Şort", price: 399, image: "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=500&h=600&fit=crop", category: "erkek", subcategory: "şort" },
+            // ERKEK SORT
+            { name: "Spor Sort", price: 329, image: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=500&h=600&fit=crop", category: "erkek", subcategory: "sort" },
+            { name: "Bermuda Sort", price: 379, image: "https://images.unsplash.com/photo-1591371111932-5de29e0d3cc8?w=500&h=600&fit=crop", category: "erkek", subcategory: "sort" },
+            { name: "Jean Sort", price: 399, image: "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=500&h=600&fit=crop", category: "erkek", subcategory: "sort" },
             
-            // ERKEK TAKIM ELBİSE
-            { name: "Klasik Takım Elbise", price: 2499, image: "https://images.unsplash.com/photo-1594938328870-f3f77d4cee1d?w=500&h=600&fit=crop", category: "erkek", subcategory: "takım" },
-            { name: "Slim Fit Tak����m", price: 2699, image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500&h=600&fit=crop", category: "erkek", subcategory: "takım" },
+            // ERKEK TAKIM ELBISE
+            { name: "Klasik Takim Elbise", price: 2499, image: "https://images.unsplash.com/photo-1594938328870-f3f77d4cee1d?w=500&h=600&fit=crop", category: "erkek", subcategory: "takim" },
+            { name: "Slim Fit Takim", price: 2699, image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500&h=600&fit=crop", category: "erkek", subcategory: "takim" },
             
-            // AKSESUAR ÇANTA
-            { name: "Deri Çanta", price: 899, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "çanta" },
-            { name: "Omuz Çantası", price: 749, image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "çanta" },
-            { name: "El Çantası", price: 649, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "çanta" },
+            // AKSESUAR CANTA
+            { name: "Deri Canta", price: 899, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "canta" },
+            { name: "Omuz Cantasi", price: 749, image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "canta" },
+            { name: "El Cantasi", price: 649, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "canta" },
             
             // AKSESUAR KEMER
             { name: "Deri Kemer", price: 279, image: "https://images.unsplash.com/photo-1624222247344-70d8e3f20b7c?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "kemer" },
-            { name: "Tokalı Kemer", price: 329, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "kemer" },
+            { name: "Tokali Kemer", price: 329, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "kemer" },
             
-            // AKSESUAR ŞAPKA
-            { name: "Fötr Şapka", price: 399, image: "https://images.unsplash.com/photo-1529958030586-3aae4ca485ff?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "şapka" },
-            { name: "Kasket", price: 299, image: "https://images.unsplash.com/photo-1521369909029-2afed882baee?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "şapka" },
+            // AKSESUAR SAPKA
+            { name: "Fotr Sapka", price: 399, image: "https://images.unsplash.com/photo-1529958030586-3aae4ca485ff?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "sapka" },
+            { name: "Kasket", price: 299, image: "https://images.unsplash.com/photo-1521369909029-2afed882baee?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "sapka" },
             
             // AKSESUAR ATKI
-            { name: "Yün Atkı", price: 399, image: "https://images.unsplash.com/photo-1601925260692-f74c1cee7fdb?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "atkı" },
-            { name: "Kaşmir Atkı", price: 549, image: "https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "atkı" },
+            { name: "Yun Atki", price: 399, image: "https://images.unsplash.com/photo-1601925260692-f74c1cee7fdb?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "atki" },
+            { name: "Kasmir Atki", price: 549, image: "https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "atki" },
             
-            // AKSESUAR ELDİVEN
+            // AKSESUAR ELDIVEN
             { name: "Deri Eldiven", price: 449, image: "https://images.unsplash.com/photo-1576022113402-1f6ad16f7b15?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "eldiven" },
-            { name: "Yün Eldiven", price: 299, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "eldiven" },
+            { name: "Yun Eldiven", price: 299, image: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "eldiven" },
             
             // AKSESUAR BERE
             { name: "Bere", price: 199, image: "https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "bere" },
             { name: "Ponponlu Bere", price: 249, image: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "bere" },
             
-            // AKSESUAR GÜNE�� GÖZLÜĞÜ
-            { name: "Güneş Gözlüğü", price: 329, image: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "gözlük" },
-            { name: "Aviator Gözlük", price: 399, image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "gözlük" },
+            // AKSESUAR GUNES GOZLUGU
+            { name: "Gunes Gozlugu", price: 329, image: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "gozluk" },
+            { name: "Aviator Gozluk", price: 399, image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "gozluk" },
             
-            // AKSESUAR CÜZDAN
-            { name: "Deri Cüzdan", price: 349, image: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "cüzdan" },
-            { name: "Kartlık", price: 249, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "cüzdan" },
+            // AKSESUAR CUZDAN
+            { name: "Deri Cuzdan", price: 349, image: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "cuzdan" },
+            { name: "Kartlik", price: 249, image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "cuzdan" },
             
             // AKSESUAR KOLYE
-            { name: "Gümüş Kolye", price: 599, image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "kolye" },
-            { name: "Altın Kolye", price: 1299, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "kolye" },
+            { name: "Gumus Kolye", price: 599, image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "kolye" },
+            { name: "Altin Kolye", price: 1299, image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "kolye" },
             
-            // AKSESUAR KÜPE
-            { name: "İnci Küpe", price: 479, image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "küpe" },
-            { name: "Halka Küpe", price: 399, image: "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "küpe" },
+            // AKSESUAR KUPE
+            { name: "Inci Kupe", price: 479, image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "kupe" },
+            { name: "Halka Kupe", price: 399, image: "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "kupe" },
             
-            // AKSESUAR BİLEKLİK
-            { name: "Gümüş Bileklik", price: 449, image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "bileklik" },
+            // AKSESUAR BILEKLIK
+            { name: "Gumus Bileklik", price: 449, image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "bileklik" },
             { name: "Deri Bileklik", price: 299, image: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=500&h=600&fit=crop", category: "aksesuar", subcategory: "bileklik" }
         ];
 
@@ -1458,7 +1648,7 @@
                         <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.style.display='none';">
                     </div>
                     <div class="product-name">${product.name}</div>
-                    <div class="product-price">₺${product.price}</div>
+                    <div class="product-price">${product.price} TL</div>
                     <button class="add-cart-btn">Sepete Ekle</button>
                 `;
                 
@@ -1487,8 +1677,12 @@
             
             // Set product info
             document.getElementById('detailName').textContent = product.name;
-            document.getElementById('detailPrice').textContent = `₺${product.price}`;
-            document.getElementById('detailDescription').textContent = `${product.name} yüksek kalite standartlarında üretilmiştir. Modern tasarımı ve şık görünümü ile gardırobunuzun vazgeçilmezi olacak. Her mevsim rahatlıkla kullanabileceğiniz kaliteli kumaşı sayesinde uzun ömürlü bir üründür.`;
+            document.getElementById('detailPrice').textContent = `${product.price} TL`;
+            
+            // Set detailed description
+            const descriptionEl = document.getElementById('detailDescription');
+            descriptionEl.textContent = `${product.name} yuksek kalite standartlarinda uretilmistir. Modern tasarimi ve sik gorunumu ile gardrobunuzun vazgecilmezi olacak. Her mevsim rahatlikla kullanabileceginiz kaliteli kumasi sayesinde uzun omurlu bir urundir. Premium kumas teknolojisi ile uretilen bu urun, gunluk kullanimda maksimum konfor saglar.`;
+            descriptionEl.style.display = 'block';
             
             // Generate multiple product images (simulated)
             const imageVariations = [
@@ -1512,16 +1706,22 @@
                 thumb.className = 'thumbnail' + (index === 0 ? ' active' : '');
                 thumb.innerHTML = `<img src="${imgSrc}" alt="${product.name} ${index + 1}" loading="lazy" onerror="this.parentElement.style.opacity='0.5';">`;
                 
-                thumb.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    mainImg.src = imgSrc;
-                    mainImg.style.display = 'block';
-                    document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-                    thumb.classList.add('active');
-                });
-                
                 thumbnailContainer.appendChild(thumb);
             });
+            
+            // Add click handlers AFTER zoom functionality is set up
+            setTimeout(() => {
+                document.querySelectorAll('.thumbnail').forEach((thumb, index) => {
+                    thumb.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const updatedMainImg = document.getElementById('mainImageImg');
+                        updatedMainImg.src = imageVariations[index];
+                        updatedMainImg.style.display = 'block';
+                        document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                        thumb.classList.add('active');
+                    });
+                });
+            }, 50);
             
             // Zoom functionality - remove old listener first
             const mainImage = document.getElementById('mainImage');
@@ -1570,9 +1770,9 @@
             // Sample reviews
             const reviewsList = document.getElementById('reviewsList');
             const sampleReviews = [
-                { author: 'Ayşe K.', rating: 5, text: 'Harika bir ürün! Kumaşı çok kaliteli ve bedeni tam oturdu.' },
-                { author: 'Mehmet Y.', rating: 4, text: 'Ürün açıklamasına uygun geldi. Rengi çok güzel.' },
-                { author: 'Zeynep A.', rating: 5, text: 'Çok beğendim, tavsiye ederim. Hızlı kargo için teşekkürler!' }
+                { author: 'Ayse K.', rating: 5, text: 'Harika bir urun! Kumasi cok kaliteli ve bedeni tam oturdu.' },
+                { author: 'Mehmet Y.', rating: 4, text: 'Urun aciklamasina uygun geldi. Rengi cok guzel.' },
+                { author: 'Zeynep A.', rating: 5, text: 'Cok begendim, tavsiye ederim. Hizli kargo icin tesekkurler!' }
             ];
             
             reviewsList.innerHTML = '';
@@ -1650,7 +1850,7 @@
 
         document.getElementById('sizeConfirm').addEventListener('click', () => {
             if (!selectedSize) {
-                showToast('Lütfen bir beden seçin!');
+                showToast('Lutfen bir beden secin!');
                 return;
             }
             
@@ -1687,10 +1887,10 @@
             const total = document.getElementById('cartTotal');
             
             if (cart.length === 0) {
-                body.innerHTML = '<div class="cart-empty">����️<br><br>Sepetiniz boş</div>';
+                body.innerHTML = '<div class="cart-empty">🛒<br><br>Sepetiniz bos</div>';
                 badge.style.display = 'none';
-                count.textContent = '0 Ürün';
-                total.textContent = '₺0';
+                count.textContent = '0 Urun';
+                total.textContent = '0 TL';
                 return;
             }
             
@@ -1710,7 +1910,7 @@
                     </div>
                     <div class="cart-item-info">
                         <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-price">₺${item.price} x ${item.quantity}</div>
+                        <div class="cart-item-price">${item.price} TL x ${item.quantity}</div>
                         <div class="cart-qty-controls">
                             <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
                             <span>${item.quantity}</span>
@@ -1724,8 +1924,8 @@
             
             badge.textContent = totalItems;
             badge.style.display = 'block';
-            count.textContent = `${totalItems} Ürün`;
-            total.textContent = `₺${totalPrice}`;
+            count.textContent = `${totalItems} Urun`;
+            total.textContent = `${totalPrice} TL`;
         }
 
         function changeQty(index, change) {
@@ -1746,16 +1946,20 @@
             document.getElementById('cartDrawer').classList.toggle('active');
         });
 
+        document.getElementById('closeCart').addEventListener('click', () => {
+            document.getElementById('cartDrawer').classList.remove('active');
+        });
+
         // Checkout
         document.getElementById('checkoutBtn').addEventListener('click', () => {
             if (!currentUser) {
-                showToast('Lütfen ��nce giriş yapın!');
+                showToast('Lutfen once giris yapin!');
                 return;
             }
             
             if (cart.length === 0) return;
             
-            showToast('Sipariş ba��arıyla tamamlandı! ��');
+            showToast('Siparis basariyla tamamlandi! 🎉');
             cart = [];
             updateCart();
             document.getElementById('cartDrawer').classList.remove('active');
@@ -1782,60 +1986,108 @@
             currentUser = { email };
             document.getElementById('loginBtn').textContent = email.split('@')[0];
             document.getElementById('loginModal').classList.remove('active');
-            showToast('Giriş başarılı! Ho�� geldiniz.');
+            showToast('Giris basarili! Hos geldiniz.');
         });
 
-        // Category filter - Navigation menu (only trigger on direct nav-item click, not dropdown)
+        // Category filter - Navigation menu with mobile support
         document.querySelectorAll('.nav-item[data-category]').forEach(item => {
+            let clickCount = 0;
+            let clickTimer = null;
+            
             item.addEventListener('click', (e) => {
                 // Don't trigger if clicking on dropdown links
                 if (e.target.tagName === 'A') return;
                 
                 const category = item.dataset.category;
+                const isOpen = item.classList.contains('open');
                 
-                // Uncheck all sidebar category filters first
-                document.querySelectorAll('[id^="cat-"]').forEach(cb => {
-                    cb.checked = false;
-                });
-                
-                // Check the corresponding sidebar category
-                const categoryCheckbox = document.getElementById(`cat-${category}`);
-                if (categoryCheckbox) {
-                    categoryCheckbox.checked = true;
-                }
-                
-                // Apply filters
-                applyFilters();
-            });
-        });
-        
-        // Dropdown links - subcategory filtering
-        document.querySelectorAll('.dropdown a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const subcategoryText = link.textContent.trim().toLowerCase();
-                const parentNav = link.closest('.nav-item');
-                const category = parentNav ? parentNav.dataset.category : null;
-                
-                // Uncheck all filters
-                document.querySelectorAll('[id^="cat-"]').forEach(cb => {
-                    cb.checked = false;
-                });
-                
-                // Check category if exists
-                if (category) {
+                // On mobile, use toggle behavior
+                if (window.innerWidth <= 768) {
+                    if (!isOpen) {
+                        // Close all other dropdowns
+                        document.querySelectorAll('.nav-item').forEach(navItem => {
+                            if (navItem !== item) navItem.classList.remove('open');
+                        });
+                        // Open this dropdown
+                        item.classList.add('open');
+                    } else {
+                        // Already open, so filter and close
+                        item.classList.remove('open');
+                        
+                        // Uncheck all sidebar category filters
+                        document.querySelectorAll('[id^="cat-"]').forEach(cb => {
+                            cb.checked = false;
+                        });
+                        
+                        // Check the corresponding sidebar category
+                        const categoryCheckbox = document.getElementById(`cat-${category}`);
+                        if (categoryCheckbox) {
+                            categoryCheckbox.checked = true;
+                        }
+                        
+                        // Apply filters
+                        applyFilters();
+                    }
+                } else {
+                    // Desktop: immediate filter on click
+                    // Close all dropdowns
+                    document.querySelectorAll('.nav-item').forEach(navItem => {
+                        navItem.classList.remove('open');
+                    });
+                    
+                    // Uncheck all sidebar category filters
+                    document.querySelectorAll('[id^="cat-"]').forEach(cb => {
+                        cb.checked = false;
+                    });
+                    
+                    // Check the corresponding sidebar category
                     const categoryCheckbox = document.getElementById(`cat-${category}`);
                     if (categoryCheckbox) {
                         categoryCheckbox.checked = true;
                     }
+                    
+                    // Apply filters
+                    applyFilters();
                 }
-                
-                // Filter by subcategory
-                filterBySubcategory(category, subcategoryText);
             });
         });
+        
+        // Dropdown links - subcategory filtering
+        function setupDropdownLinks() {
+            document.querySelectorAll('.dropdown a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const subcategoryText = link.textContent.trim().toLowerCase();
+                    const parentNav = link.closest('.nav-item');
+                    const category = parentNav ? parentNav.dataset.category : null;
+                    
+                    // CRITICAL: Close ALL dropdowns immediately
+                    document.querySelectorAll('.nav-item').forEach(navItem => {
+                        navItem.classList.remove('open');
+                    });
+                    
+                    // Uncheck all filters
+                    document.querySelectorAll('[id^="cat-"]').forEach(cb => {
+                        cb.checked = false;
+                    });
+                    
+                    // Check category if exists
+                    if (category) {
+                        const categoryCheckbox = document.getElementById(`cat-${category}`);
+                        if (categoryCheckbox) {
+                            categoryCheckbox.checked = true;
+                        }
+                    }
+                    
+                    // Filter by subcategory
+                    filterBySubcategory(category, subcategoryText);
+                });
+            });
+        }
+        
+        setupDropdownLinks();
         
         function filterBySubcategory(category, subcategoryText) {
             let filtered = products;
@@ -1849,9 +2101,9 @@
             const subcategoryMap = {
                 'elbiseler': 'elbise',
                 'kazak': 'kazak',
-                'hırka': 'hırka',
+                'hirka': 'hirka',
                 'bluz': 'bluz',
-                'gömlek': 'gömlek',
+                'gomlek': 'gomlek',
                 't-shirt': 'tshirt',
                 'sweatshirt': 'sweatshirt',
                 'mont & kaban': 'mont',
@@ -1859,22 +2111,22 @@
                 'pantolon': 'pantolon',
                 'jean': 'jean',
                 'etek': 'etek',
-                'şort': 'şort',
+                'sort': 'sort',
                 'triko': 'triko',
                 'polo': 'polo',
                 'hoodie': 'hoodie',
                 'yelek': 'yelek',
-                'takım elbise': 'takım',
-                'çanta': 'çanta',
+                'takim elbise': 'takim',
+                'canta': 'canta',
                 'kemer': 'kemer',
-                'şapka': 'şapka',
-                'atkı': 'atkı',
+                'sapka': 'sapka',
+                'atki': 'atki',
                 'eldiven': 'eldiven',
                 'bere': 'bere',
-                'güneş gözlüğü': 'gözlük',
-                'cüzdan': 'cüzdan',
+                'gunes gozlugu': 'gozluk',
+                'cuzdan': 'cuzdan',
                 'kolye': 'kolye',
-                'küpe': 'küpe',
+                'kupe': 'kupe',
                 'bileklik': 'bileklik'
             };
             
@@ -1888,7 +2140,7 @@
             grid.innerHTML = '';
             
             if (filtered.length === 0) {
-                grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:60px 20px; color:#999;">Ürün bulunamadı</div>';
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:60px 20px; color:#999;">Urun bulunamadi</div>';
                 return;
             }
             
@@ -1900,7 +2152,7 @@
                         <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.style.display='none';">
                     </div>
                     <div class="product-name">${product.name}</div>
-                    <div class="product-price">₺${product.price}</div>
+                    <div class="product-price">${product.price} TL</div>
                     <button class="add-cart-btn">Sepete Ekle</button>
                 `;
                 
@@ -1964,7 +2216,7 @@
             grid.innerHTML = '';
             
             if (filtered.length === 0) {
-                grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:60px 20px; color:#999;">Ürün bulunamadı</div>';
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:60px 20px; color:#999;">Urun bulunamadi</div>';
                 return;
             }
             
@@ -1976,7 +2228,7 @@
                         <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.style.display='none';">
                     </div>
                     <div class="product-name">${product.name}</div>
-                    <div class="product-price">₺${product.price}</div>
+                    <div class="product-price">${product.price} TL</div>
                     <button class="add-cart-btn">Sepete Ekle</button>
                 `;
                 
@@ -2011,8 +2263,111 @@
         window.changeQty = changeQty;
         window.removeItem = removeItem;
 
+        // Logo click - return to homepage
+        const logoClickHandler = () => {
+            // Clear all filters
+            document.querySelectorAll('[id^="cat-"]').forEach(cb => {
+                cb.checked = false;
+            });
+            document.querySelectorAll('[id^="size-"]').forEach(cb => {
+                cb.checked = false;
+            });
+            document.getElementById('minPrice').value = '';
+            document.getElementById('maxPrice').value = '';
+            
+            // Render all products
+            renderProducts();
+            
+            // Close any open modals
+            document.getElementById('cartDrawer').classList.remove('active');
+            document.getElementById('productDetailModal').classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            showToast('Ana sayfaya dondunuz');
+        };
+        
+        // Attach click handler to text logo
+        const headerText = document.querySelector('.header-left h1');
+        if (headerText) headerText.addEventListener('click', logoClickHandler);
+
+        // "Tum Urunler" button click
+        document.getElementById('allProductsNav').addEventListener('click', () => {
+            // Clear all filters
+            document.querySelectorAll('[id^="cat-"]').forEach(cb => {
+                cb.checked = false;
+            });
+            document.querySelectorAll('[id^="size-"]').forEach(cb => {
+                cb.checked = false;
+            });
+            document.getElementById('minPrice').value = '';
+            document.getElementById('maxPrice').value = '';
+            
+            // Render all products
+            renderProducts();
+            
+            // Scroll to products area
+            document.querySelector('.main-content').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Update category counts
+        function updateCategoryCounts() {
+            const kadinCount = products.filter(p => p.category === 'kadin').length;
+            const erkekCount = products.filter(p => p.category === 'erkek').length;
+            const aksesuarCount = products.filter(p => p.category === 'aksesuar').length;
+            
+            document.getElementById('count-kadin').textContent = `(${kadinCount})`;
+            document.getElementById('count-erkek').textContent = `(${erkekCount})`;
+            document.getElementById('count-aksesuar').textContent = `(${aksesuarCount})`;
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-item')) {
+                document.querySelectorAll('.nav-item').forEach(navItem => {
+                    navItem.classList.remove('open');
+                });
+            }
+        });
+
+        // Support & Contact Modal
+        document.getElementById('supportNav').addEventListener('click', () => {
+            document.getElementById('supportModal').classList.add('active');
+        });
+
+        document.getElementById('closeSupportModal').addEventListener('click', () => {
+            document.getElementById('supportModal').classList.remove('active');
+        });
+
+        document.getElementById('supportModal').addEventListener('click', (e) => {
+            if (e.target.id === 'supportModal') {
+                document.getElementById('supportModal').classList.remove('active');
+            }
+        });
+
+        document.getElementById('supportForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('supportName').value;
+            const email = document.getElementById('supportEmail').value;
+            const subject = document.getElementById('supportSubject').value;
+            const message = document.getElementById('supportMessage').value;
+            
+            // Simulate form submission
+            showToast('Mesajiniz basariyla gonderildi! En kisa surede size donus yapacagiz.');
+            
+            // Reset form
+            document.getElementById('supportForm').reset();
+            
+            // Close modal
+            setTimeout(() => {
+                document.getElementById('supportModal').classList.remove('active');
+            }, 1500);
+        });
+
         // Initialize
+        updateCategoryCounts();
         renderProducts();
     </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c19d0f2551d2722',t:'MTc2OTAzMDAxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c1da3c47552d61a',t:'MTc2OTA3MDEwNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
